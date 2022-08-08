@@ -7,7 +7,6 @@ const LoginPage: NextPage = () => {
   const [state, setState] = useState({
     email: "",
     password: "",
-    repeatPassword: "",
   });
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
