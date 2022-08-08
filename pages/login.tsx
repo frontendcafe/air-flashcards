@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
-import FormField from "../modules/Home/components/FormField";
-import Form from "../modules/Home/Form";
+import FormField from "../modules/Auth/components/FormField";
+import Form from "../modules/Auth/Form";
 
 const LoginPage: NextPage = () => {
   const [state, setState] = useState({

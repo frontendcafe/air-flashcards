@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { signUp } from "../firebase/auth";
-import FormField from "../modules/Home/components/FormField";
-import Form from "../modules/Home/Form";
+import FormField from "../modules/Auth/components/FormField";
+import Form from "../modules/Auth/Form";
 
 const Register: React.FC = () => {
   const [state, setState] = useState({
