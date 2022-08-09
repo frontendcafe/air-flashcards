@@ -30,6 +30,10 @@ Podrás encontrar esto también en el archivo `.env.example`. Para encontrar los
 # Como nombrar los pull requests
 [Rama a mergear] [Tipo] [Pequeña descripcion]
 
-Tipo: El proposito del pull request, pueden ser: [FIX], [FEATURE], [DOCS], [RELEASE]
-Rama a mergear: La rama a la que se le hace el pull request (Usualmente seria main, ya que los cambios se enviarian a esa rama)
-Pequeña descripcion: Una pequeña descripcion general de los cambios
+- Tipo: El proposito del pull request, pueden ser: [FIX], [FEATURE], [DOCS], [RELEASE]
+- Rama a mergear: La rama a la que se le hace el pull request (Usualmente seria main, ya que los cambios se enviarian a esa rama)
+- Pequeña descripcion: Una pequeña descripcion general de los cambios
+
+Ejemplo:
+- [MAIN][FIX] Change primary color
+- [MAIN][FEATURE] Add Log out button
