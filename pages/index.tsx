@@ -1,7 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import { signUp } from "../firebase/auth";
 
 const Home: NextPage = () => {
+
   return (
     <div>
       <Head>
@@ -10,7 +13,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Welcome to Flashcards!</h1>
+      <div>
+        <h1>Welcome to Flashcards!</h1>
+      </div>
     </div>
   );
 };
