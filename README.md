@@ -16,9 +16,15 @@
 ```
 src/ 
 └───modules/
+│   └───firebase/
+|	└───auth.tsx
+|	└───firebase-utils.ts
+|	└───firebase-types.ts
+|	└───...
 │   └───Home/
 |	└───components/
 |	|	└───HomeForm.tsx
+|	|	└───homeForm.module.css
 |	└───HomeView.tsx
 |	└───home-hooks.ts
 |	└───home.module.css
@@ -67,4 +73,11 @@ Componentes de react, pueden ser especificados en `shared/components/` o `module
 Funciones o clases, pueden ser especificados en `shared/` o `modules/<module-name>/`
 
 ## *\*.module.css* archivo
-Archivo css para especificar los estilos del modulo
+Archivo css para especificar los estilos del componente o modulo
+
+## ¿Como se si lo que estoy haciendo va en un modulo aparte o en shared
+?Una manera fácil de saberlo si tu código se comporta como un módulo, ver si tiene funciones o características que se llaman entre sí para cumplir un propósito, por ejemplo, él module de firebase no es un módulo que tenga una vista, pero una lógica que necesita tener una capa de abstracción para que los otros módulos puedan acceder a sus funcionalidades fácilmente.
+En shared principalmente deberían ir componentes, funciones, constantes etc. Que se comportan a nivel de la aplicación y se necesiten en varios módulos a la vez.
+
+Lo ideal si tienes una funcion o componente que veas que se requiera en otro módulo es que muevas esa función a shared, ya que no deberíamos tener imports entre módulos, osea que el módulo de Home no importe nada del Modulo de Login  
+
