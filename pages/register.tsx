@@ -1,45 +1,45 @@
-import React, { ChangeEventHandler, FormEventHandler, useState } from "react"
+import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 
-import { signUp } from "@/firebase/auth"
-import FormField from "@/modules/Auth/components/FormField"
-import Form from "@/modules/Auth/Form"
+import { signUp } from "@/firebase/auth";
+import FormField from "@/modules/Auth/components/FormField";
+import Form from "@/modules/Auth/Form";
 
 const Register: React.FC = () => {
   const [state, setState] = useState({
     email: "",
     password: "",
     repeatPassword: "",
-  })
+  });
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const { name, value } = event.target
-    setState({ ...state, [name]: value })
-  }
+    const { name, value } = event.target;
+    setState({ ...state, [name]: value });
+  };
 
   const handleSubmitRegister: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { email, password, repeatPassword } = state
+    const { email, password, repeatPassword } = state;
 
     if (!password || !repeatPassword || !email) {
-      window.alert("Please fill all fields")
-      return
+      window.alert("Please fill all fields");
+      return;
     }
 
     if (password !== repeatPassword) {
-      window.alert("Passwords do not match")
-      return
+      window.alert("Passwords do not match");
+      return;
     }
 
-    const user = await signUp(email, password)
+    const user = await signUp(email, password);
 
     if (user) {
-      window.alert("User created")
-      console.log(user)
+      window.alert("User created");
+      console.log(user);
     } else {
-      window.alert("User not created")
+      window.alert("User not created");
     }
-  }
+  };
 
   return (
     <Form title="Registrate" onSubmit={handleSubmitRegister} submitLabel="Registrate">
@@ -54,7 +54,7 @@ const Register: React.FC = () => {
         onChange={handleChange}
       />
     </Form>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

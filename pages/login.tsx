@@ -1,23 +1,23 @@
-import React, { ChangeEventHandler, FormEventHandler, useState } from "react"
-import { NextPage } from "next"
+import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
+import { NextPage } from "next";
 
-import FormField from "@/modules/Auth/components/FormField"
-import Form from "@/modules/Auth/Form"
+import FormField from "@/modules/Auth/components/FormField";
+import Form from "@/modules/Auth/Form";
 
 const LoginPage: NextPage = () => {
   const [state, setState] = useState({
     email: "",
     password: "",
-  })
+  });
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const { name, value } = event.target
-    setState({ ...state, [name]: value })
-  }
+    const { name, value } = event.target;
+    setState({ ...state, [name]: value });
+  };
 
   const handleSubmitLogin = () => {
-    return "a"
-  }
+    return "a";
+  };
 
   return (
     <Form title="Iniciar Sesión" onSubmit={handleSubmitLogin} submitLabel="Iniciar Sesión">
@@ -25,7 +25,7 @@ const LoginPage: NextPage = () => {
 
       <FormField name="password" label="Contraseña" type="password" onChange={handleChange} />
     </Form>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
