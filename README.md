@@ -86,6 +86,8 @@ En shared principalmente deberían ir componentes, funciones, constantes etc. Qu
 
 Lo ideal si tienes una funcion o componente que veas que se requiera en otro módulo es que muevas esa función a shared, ya que no deberíamos tener imports entre módulos, osea que el módulo de Home no importe nada del Modulo de Login  
 
+---
+
 # **Variables de ambiente**
 
 Crea un archivo `.env` en el root del proyecto, y agrega los siguientes valores para poder conectarte a Firebase:
