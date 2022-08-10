@@ -1,18 +1,13 @@
-import React, { FormEventHandler, ReactNode } from "react";
+import React, { FormEventHandler, ReactNode } from "react"
 
 interface FormProps {
-  title?: string;
-  onSubmit: FormEventHandler<HTMLFormElement>;
-  children?: ReactNode;
-  submitLabel: string;
+  title?: string
+  onSubmit: FormEventHandler<HTMLFormElement>
+  children?: ReactNode
+  submitLabel: string
 }
 
-const Form: React.FC<FormProps> = ({
-  title,
-  onSubmit,
-  children,
-  submitLabel,
-}) => {
+const Form: React.FC<FormProps> = ({ title, onSubmit, children, submitLabel }) => {
   return (
     <div>
       {title && <h1>{title}</h1>}
@@ -23,7 +18,7 @@ const Form: React.FC<FormProps> = ({
         <button type="submit">{submitLabel}</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form
