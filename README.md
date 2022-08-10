@@ -137,15 +137,15 @@ Más info sobre [Conventional Commits](https://www.conventionalcommits.org/en/v1
 
 Puedes crear el Pull Request tanto cuando empieces a codear como al terminar, aunque te recomendamos hacerlo al inicio para poder ir viendo cómo vas avanzando y hacerte comentarios que puedan ahorrarte tiempo. Si lo haces de esta manera, no olvides poner al inicio del nombre del PR [WIP] (Work In Progress), para indicar que aún no está listo para ser revisado. Luego, nómbralo siguiendo la siguiente convención:
 
-[Rama a mergear] [Tipo] [Pequeña descripcion]
+`[Rama a mergear] [Tipo] [Pequeña descripcion]`
 
 - Tipo: El proposito del pull request, pueden ser: [FIX], [FEATURE], [DOCS], [RELEASE], [WIP]
 - Rama a mergear: La rama a la que se le hace el pull request (Usualmente seria main, ya que los cambios se enviarian a esa rama)
 - Pequeña descripcion: Una pequeña descripcion general de los cambios
 
 Ejemplo:
-- [MAIN][FIX] Change primary color
-- [MAIN][FEATURE] Add Log out button
+- `[MAIN][FIX] Change primary color`
+- `[MAIN][FEATURE] Add Log out button`
 
 Responde y debate con tus compañeros las consultas que hagan sobre tu código, y está atento para revisar también los que suben los otros participantes para dar tu feedback. Es PR es el momento en el que chequeamos que lo que llega a `main` es correcto y hubo personas que validaron esos cambios. Es un momento de enorme aprendizaje así que te recomendamos aprovecharlo.
 Haz los cambios que hayan considerado necesarios en los comentarios, y luego espera que te lo aprueben al menos dos personas para finalmente, mergear. La idea es que los PR no se traben mucho tiempo para evitar [Merge Conflicts](https://css-tricks.com/merge-conflicts-what-they-are-and-how-to-deal-with-them/).
