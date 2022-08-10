@@ -124,9 +124,9 @@ Deberás pararte en tu branch main, habiendo pulleado los últimos cambios de es
 - `Descripcion corta`: Una descripcion corta sobre de que va a ser la rama
 
 Ejemplo:
-`main-fix/39-page-loadings`
-`main-feature/2-add-firebase-module`
-`main-test/49-date-picker-tests`    
+- `main-fix/39-page-loadings`
+- `main-feature/2-add-firebase-module`
+- `main-test/49-date-picker-tests`    
 
 ### **3) A medida que avances, haz commits**
 
