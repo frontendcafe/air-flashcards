@@ -115,7 +115,18 @@ Este es el punto de partida de cualquier tarea. Ingresa al [board del proyecto](
 
 ### **2) Creá una branch**
 
-Deberás pararte en tu branch main, habiendo pulleado los últimos cambios de esa rama, y desde allí, crear una nueva siguiendo la siguiente convención: **TODO**
+Deberás pararte en tu branch main, habiendo pulleado los últimos cambios de esa rama, y desde allí, crear una nueva siguiendo la siguiente convención:
+`(Rama-padre)-(Tipo)/(Numero de la issue)-(Descripcion corta)`
+
+- `Rama-padre`: La rama que originó la rama que estas creando.  
+- `Tipo `: El propocito de la rama, pueden ser: `fix`, `feature`, `docs`, `tests`, `release`
+- `Numero de la issue`: Numero de la issue.    
+- `Descripcion corta`: Una descripcion corta sobre de que va a ser la rama
+
+Ejemplo:
+`main-fix/39-page-loadings`
+`main-feature/2-add-firebase-module`
+`main-test/49-date-picker-tests`    
 
 ### **3) A medida que avances, haz commits**
 
@@ -139,7 +150,7 @@ Puedes crear el Pull Request tanto cuando empieces a codear como al terminar, au
 
 `[Rama a mergear] [Tipo] [Pequeña descripcion]`
 
-- Tipo: El proposito del pull request, pueden ser: [FIX], [FEATURE], [DOCS], [RELEASE], [WIP]
+- Tipo: El proposito del pull request, pueden ser: [FIX], [FEATURE], [DOCS], [RELEASE], [TESTS], [WIP]
 - Rama a mergear: La rama a la que se le hace el pull request (Usualmente seria main, ya que los cambios se enviarian a esa rama)
 - Pequeña descripcion: Una pequeña descripcion general de los cambios
 
