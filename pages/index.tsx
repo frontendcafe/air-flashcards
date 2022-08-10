@@ -1,11 +1,10 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
-import { signUp } from "../firebase/auth";
+import { ChangeEventHandler, FormEventHandler, useState } from "react"
+import type { NextPage } from "next"
+import Head from "next/head"
 
-const Home: NextPage = () => {
+import { signUp } from "../firebase/auth"
 
-  return (
+const Home: NextPage = () => (
     <div>
       <Head>
         <title>Flashcards</title>
@@ -17,7 +16,6 @@ const Home: NextPage = () => {
         <h1>Welcome to Flashcards!</h1>
       </div>
     </div>
-  );
-};
+  )
 
-export default Home;
+export default Home
