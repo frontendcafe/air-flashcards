@@ -2,7 +2,7 @@
 [Description]
 
 ### Issue number
-#[ISSUE_NUMBER]
+- #ISSUE_NUMBER
 
 ### Screenshots
 [Upload an image/video about the functionallity that you're adding]
