@@ -1,7 +1,8 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
-import { signUp } from "../firebase/auth";
-import FormField from "../modules/Auth/components/FormField";
-import Form from "../modules/Auth/Form";
+
+import { signUp } from "@/firebase/auth";
+import FormField from "@/modules/Auth/components/FormField";
+import Form from "@/modules/Auth/Form";
 
 const Register: React.FC = () => {
   const [state, setState] = useState({
@@ -41,24 +42,10 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Form
-      title="Registrate"
-      onSubmit={handleSubmitRegister}
-      submitLabel="Registrate"
-    >
-      <FormField
-        name="email"
-        label="Email"
-        type="email"
-        onChange={handleChange}
-      />
+    <Form title="Registrate" onSubmit={handleSubmitRegister} submitLabel="Registrate">
+      <FormField name="email" label="Email" type="email" onChange={handleChange} />
 
-      <FormField
-        name="password"
-        label="Contraseña"
-        type="password"
-        onChange={handleChange}
-      />
+      <FormField name="password" label="Contraseña" type="password" onChange={handleChange} />
 
       <FormField
         name="repeatPassword"
