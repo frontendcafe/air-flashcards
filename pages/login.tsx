@@ -1,7 +1,8 @@
-import { NextPage } from "next";
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
-import FormField from "../modules/Auth/components/FormField";
-import Form from "../modules/Auth/Form";
+import { NextPage } from "next";
+
+import FormField from "@/modules/Auth/components/FormField";
+import Form from "@/modules/Auth/Form";
 
 const LoginPage: NextPage = () => {
   const [state, setState] = useState({
@@ -14,27 +15,15 @@ const LoginPage: NextPage = () => {
     setState({ ...state, [name]: value });
   };
 
-  const handleSubmitLogin = () => {};
+  const handleSubmitLogin = () => {
+    return "a";
+  };
 
   return (
-    <Form
-      title="Iniciar Sesión"
-      onSubmit={handleSubmitLogin}
-      submitLabel="Iniciar Sesión"
-    >
-      <FormField
-        name="email"
-        label="Email"
-        type="email"
-        onChange={handleChange}
-      />
+    <Form title="Iniciar Sesión" onSubmit={handleSubmitLogin} submitLabel="Iniciar Sesión">
+      <FormField name="email" label="Email" type="email" onChange={handleChange} />
 
-      <FormField
-        name="password"
-        label="Contraseña"
-        type="password"
-        onChange={handleChange}
-      />
+      <FormField name="password" label="Contraseña" type="password" onChange={handleChange} />
     </Form>
   );
 };

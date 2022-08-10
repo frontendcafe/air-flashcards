@@ -12,10 +12,79 @@
 - [Handbook CMYK](https://servicedsgnclub.notion.site/servicedsgnclub/Handbook-CMYK-5-05e7d829e637488e92bda596d2ae365d)
 - [Documentos y herramientas propuestas](https://hifrontendcafe.notion.site/Documentos-tiles-0f06b1283c2443e3a8edec08eaf2c8fc)
 - [CMYK - Starter propuesto](https://github.com/rolivencia/cmyk-5-starter)
+- [Estructura de carpetas](https://github.com/frontendcafe/air-flashcards/edit/main-feature/6-add-folder-structure-doc/README.md#estructura-de-carpetas)
 - [Variables de ambiente](https://github.com/frontendcafe/air-flashcards/edit/main-feature/6-add-folder-structure-doc/README.md#Variables-de-ambiente)
 - [Contribuir al proyecto](https://github.com/frontendcafe/air-flashcards/edit/main-feature/6-add-folder-structure-doc/README.md#Contribuir-al-proyecto)
 
 ---
+# **Estructura de carpetas**
+```
+src/ 
+└───modules/
+│   └───firebase/
+|	└───auth.tsx
+|	└───firebase-utils.ts
+|	└───firebase-types.ts
+|	└───...
+│   └───Home/
+|	└───components/
+|	|	└───HomeForm.tsx
+|	|	└───homeForm.module.css
+|	└───HomeView.tsx
+|	└───home-hooks.ts
+|	└───home.module.css
+|	└───home-utils.ts
+|	└───home-types.ts
+|	└───...
+│   └───collections/
+|	└───CollectionDetailView.tsx
+|	└───CollectionUpdateView.tsx
+|	└───CollectionCreateView.tsx
+|	└───Collection-utils.ts
+|	└───...
+│   └───another-module/
+|	└───components/
+|	└───...
+|	└───AnotherView.ts
+|	└───another-store.ts
+|	└───...
+│   └───shared/
+|	└───components/
+|	|	└───buttons/
+|	|	└───text/
+|	|	└───forms/
+|	└───SomeComponent.ts
+|	└───AnotherUnclassifiedComponent.ts
+|	└───assets/
+|	|	└───images/
+|	|	|	└───logo.png
+|	|	|	└───background_main.jpg
+|	|	|	└───...
+ ```
+
+## *assets* carpeta
+Carpeta que contienen archivos de imagenes como: png, svg, jpg, etc
+
+## *modules* carpeta
+Carpeta principal para especificar modules
+
+## *shared* carpeta
+Carpeta para utilidades y components que se deberian compartir atraves de modulos
+
+## *components* carpeta
+Componentes de react, pueden ser especificados en `shared/components/` o `modules/<module-name>/components/`
+
+## *\*-utils* archivo
+Funciones o clases, pueden ser especificados en `shared/` o `modules/<module-name>/`
+
+## *\*.module.css* archivo
+Archivo css para especificar los estilos del componente o modulo
+
+## ¿Cómo sé si lo que estoy haciendo va en un módulo aparte o en shared?
+Una manera fácil de saber si tu código se comporta como un módulo, es ver si tiene funciones o características que se llaman entre sí para cumplir un propósito. Por ejemplo, el module de Firebase no es un módulo que tenga una vista, pero sí tiene una lógica que necesita tener una capa de abstracción para que los otros módulos puedan acceder a sus funcionalidades fácilmente.
+En shared principalmente deberían ir componentes, funciones, constantes etc. Que se comportan a nivel de la aplicación y se necesiten en varios módulos a la vez.
+
+Lo ideal si tienes una funcion o componente que veas que se requiera en otro módulo es que muevas esa función a shared, ya que no deberíamos tener imports entre módulos, osea que el módulo de Home no importe nada del Modulo de Login  
 
 # **Variables de ambiente**
 
@@ -62,7 +131,7 @@ Por ejemplo: `feat(RegisterForm): add prop submitLabel to show in submit button`
 Puedes incluso ser más específico aclarando exactamente dónde se encuentra el directorio y archivo que modificaste, pero eso dejaría tu commit muy largo, y la idea es que sean algo fácil de leer y entender.
 Más info sobre [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
 
-### 4) Creá un Pull Request
+### **4) Creá un Pull Request**
 
 Puedes crear el Pull Request tanto cuando empieces a codear como al terminar, aunque te recomendamos hacerlo al inicio para poder ir viendo cómo vas avanzando y hacerte comentarios que puedan ahorrarte tiempo. Si lo haces de esta manera, no olvides poner al inicio del nombre del PR [WIP] (Work In Progress), para indicar que aún no está listo para ser revisado. Luego, nómbralo siguiendo la siguiente convención: **TODO**.
 Responde y debate con tus compañeros las consultas que hagan sobre tu código, y está atento para revisar también los que suben los otros participantes para dar tu feedback. Es PR es el momento en el que chequeamos que lo que llega a `main` es correcto y hubo personas que validaron esos cambios. Es un momento de enorme aprendizaje así que te recomendamos aprovecharlo.
