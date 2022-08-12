@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 
-import { signUp } from "@/firebase/auth";
+import { signUp } from "firebase/authFile";
 import FormField from "@/modules/Auth/components/FormField";
 import Form from "@/modules/Auth/Form";
 
