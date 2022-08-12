@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { NextPage } from "next";
-
+import { logIn } from "@/firebase/auth";
 import FormField from "@/modules/Auth/components/FormField";
 import Form from "@/modules/Auth/Form";
 
@@ -15,8 +15,23 @@ const LoginPage: NextPage = () => {
     setState({ ...state, [name]: value });
   };
 
-  const handleSubmitLogin = () => {
-    return "a";
+  const handleSubmitLogin: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
+    const {email, password } = state;
+
+    if (!password || !email) {
+      window.alert("Please fill all fields");
+      return;
+    }
+    
+    const user = await logIn(email, password);
+    if (user) {
+      window.alert("User logged");
+      console.log(user);
+    } else {
+      window.alert("Unable to login");
+    }
   };
 
   return (
