@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import type { StorageError } from "firebase/storage";
 
 import { uploadToImagesFolder } from "@/firebase/utils/storage";
 
 import styles from "./StoragePage.module.scss";
 
 const StoragePage = () => {
-  const [imgUrl, setImgUrl] = useState(null);
+  const [imgUrl, setImgUrl] = useState("");
   const [progresspercent, setProgresspercent] = useState(0);
-  const [uploadError, setUploadError] = useState(null);
+  const [uploadError, setUploadError] = useState<StorageError>();
   const [localTempImgUrl, setLocalTempImgUrl] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,13 +19,13 @@ const StoragePage = () => {
 
     uploadToImagesFolder({
       file,
-      onProgress: (percent: any) => {
+      onProgress: (percent: number) => {
         setProgresspercent(percent);
       },
-      onCompleted: (downloadUrl: any) => {
+      onCompleted: (downloadUrl: string) => {
         setImgUrl(downloadUrl);
       },
-      onError: (err: any) => {
+      onError: (err: StorageError) => {
         setUploadError(err);
       },
     });
@@ -42,10 +43,10 @@ const StoragePage = () => {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         {uploadError && (
-          <div>
+          <>
             <h2>ERROR!</h2>
             {uploadError}
-          </div>
+          </>
         )}
         <div>
           <form onSubmit={handleSubmit}>

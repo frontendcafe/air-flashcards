@@ -1,4 +1,10 @@
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  StorageError,
+  uploadBytesResumable,
+  UploadTaskSnapshot,
+} from "firebase/storage";
 
 import { storage } from "@/firebase";
 
@@ -9,16 +15,16 @@ export const uploadToImagesFolder = ({
   onError,
 }: {
   file: File;
-  onProgress: (progress: any) => void;
-  onCompleted: (downloadURL: any) => void;
-  onError: (error: any) => void;
+  onProgress: (progress: number) => void;
+  onCompleted: (downloadURL: string) => void;
+  onError: (error: StorageError) => void;
 }) => {
   const storageRef = ref(storage, `images/${file.name}`);
   const uploadTask = uploadBytesResumable(storageRef, file);
 
   uploadTask.on(
     "state_changed",
-    (snapshot: any) => {
+    (snapshot: UploadTaskSnapshot) => {
       const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
       onProgress(progress);
     },
