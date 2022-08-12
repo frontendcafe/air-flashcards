@@ -1,0 +1,45 @@
+.wrapper {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #121212;
+  color: #fff;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .previewWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid purple;
+    border-radius: 15px;
+    padding: 15px;
+    gap: 15px;
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #fff;
+      border-radius: 15px;
+      padding: 15px;
+      gap: 15px;
+    }
+    .previewImage {
+      width: 350px;
+      height: 100%;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+  }
+}
