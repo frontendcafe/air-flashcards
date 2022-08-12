@@ -7,12 +7,7 @@ interface FormProps {
   submitLabel: string;
 }
 
-const Form: React.FC<FormProps> = ({
-  title,
-  onSubmit,
-  children,
-  submitLabel,
-}) => {
+const Form: React.FC<FormProps> = ({ title, onSubmit, children, submitLabel }) => {
   return (
     <div>
       {title && <h1>{title}</h1>}

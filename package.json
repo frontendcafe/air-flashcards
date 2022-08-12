@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format:check": "prettier --check **/*.{ts,tsx}",
+    "format:fix": "prettier --write **/*.{ts,tsx}"
   },
   "dependencies": {
     "firebase": "^9.9.2",
