@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 
-import "@/modules/Auth/firebase";
+import "@/firebaseConfig";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />;
