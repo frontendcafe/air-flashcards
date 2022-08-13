@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import type { StorageError } from "firebase/storage";
 
-import { uploadToImagesFolder } from "@/firebase/utils/storage";
+import { uploadToImagesFolder } from "@/modules/Storage/utils/storage";
 
-import styles from "./StoragePage.module.scss";
+import styles from "./StoragePage.module.css";
 
 const StoragePage = () => {
   const [imgUrl, setImgUrl] = useState("");

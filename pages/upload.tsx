@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
-import { StoragePage } from "@/modules/StorageSpike";
+import { StoragePage } from "@/modules/Storage";
 
 const UploadPage: NextPage = () => {
   return <StoragePage />;
