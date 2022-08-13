@@ -4,7 +4,7 @@ import { logIn } from "@/firebase/auth";
 import FormField from "@/modules/Auth/components/FormField";
 import Form from "@/modules/Auth/Form";
 
-const LoginPage: NextPage = () => {
+const LoginPage: NextPage | any = () => {
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -23,7 +23,7 @@ const LoginPage: NextPage = () => {
     if (!password || !email) {
       window.alert("Please fill all fields");
       return;
-    }
+    }    
     
     const user = await logIn(email, password);
     if (user) {
@@ -42,5 +42,7 @@ const LoginPage: NextPage = () => {
     </Form>
   );
 };
+
+LoginPage.redirectIfAuthenticated = true
 
 export default LoginPage;
