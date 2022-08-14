@@ -1,0 +1,30 @@
+name: Pull request checks
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+jobs:
+  build:
+    name: Run lint, and tests
+
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Use Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Prettier format
+        run: npm run format:fix
