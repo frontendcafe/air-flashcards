@@ -1,14 +1,15 @@
-import { getDocs, collection, getDoc, doc } from "firebase/firestore";
 import { NextApiHandler } from "next";
-import db from '@/modules/Firestore';
+import { collection, doc,getDoc, getDocs } from "firebase/firestore";
+
 import { Card, CardData } from "@/modules/Cards/models";
+import db from '@/modules/Firestore';
 
 const allowedMethods = ['GET'];
 
 const getCollectionCards = async (collectionId: string) => {
   const collectionExists = await (await getDoc(doc(db, "collections", collectionId))).exists();
   if (!collectionExists) {
-    throw new Error("Collection not exists")
+    throw new Error("Collection not exists");
   }
 
   const cardsSnapshot  = await getDocs(collection(db, `collections/${collectionId}/cards`));
@@ -25,7 +26,7 @@ const getCollectionCards = async (collectionId: string) => {
   });
 
   return cards;
-}
+};
 
 const collectionCardsHandler: NextApiHandler = async (request, response) => {
   if (!allowedMethods.includes(request.method|| '')) {
@@ -38,10 +39,10 @@ const collectionCardsHandler: NextApiHandler = async (request, response) => {
 
   try {
     const cards = await getCollectionCards(collectionId);
-    response.json(cards);
+    return response.json(cards);
   } catch (error: any) {
-    response.status(404).send(error.message);
+    return response.status(404).send(error.message);
   }
-}
+};
 
 export default collectionCardsHandler;
