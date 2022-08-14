@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "next/core-web-vitals", "airbnb", "prettier"],
+  "extends": ["plugin:react/recommended", "next/core-web-vitals", "airbnb", "prettier", "next"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
