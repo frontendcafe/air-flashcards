@@ -4,7 +4,7 @@ import Head from "next/head";
 
 import { signUp } from "@/firebase/auth";
 
-const Home: NextPage | any = () => {
+const Home: NextPage & {requiresAuthentication: boolean} = () => {
   return (
     <div>
       <Head>

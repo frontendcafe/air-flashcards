@@ -5,7 +5,7 @@ import FormField from "@/modules/Auth/components/FormField";
 import Form from "@/modules/Auth/Form";
 import { NextPage } from "next";
 
-const Register: NextPage | any = () => {
+const Register: NextPage & {redirectIfAuthenticated: boolean} = () => {
 
   const [state, setState] = useState({
     email: "",

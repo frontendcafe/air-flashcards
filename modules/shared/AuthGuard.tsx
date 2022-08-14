@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react"
+import React, { ReactElement, ReactNode, useEffect, useState } from "react"
 import { getAuth } from "@firebase/auth"
 import Router from "next/router"
 
+interface AuthGuardProps {
+   children: JSX.Element;
+   redirectUrl: string;
+   authenticationType: string; 
+}
+
 const auth = getAuth()
 
-export const AuthGuard = ({ children, redirectUrl, authenticationType }: any) => {
+export const AuthGuard = ({ children, redirectUrl, authenticationType }: AuthGuardProps): JSX.Element | null => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [isAuthenticated, setIsAuthenticated] = useState(false)

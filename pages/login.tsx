@@ -4,7 +4,8 @@ import { logIn } from "@/firebase/auth";
 import FormField from "@/modules/Auth/components/FormField";
 import Form from "@/modules/Auth/Form";
 
-const LoginPage: NextPage | any = () => {
+const LoginPage: NextPage & {redirectIfAuthenticated: boolean} = () => {
+  
   const [state, setState] = useState({
     email: "",
     password: "",

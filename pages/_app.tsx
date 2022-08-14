@@ -1,12 +1,16 @@
-import type { AppProps } from "next/app";
-
 import "@/firebase";
-import { AuthGuard } from "@/components/AuthGuard";
+import { AuthGuard } from "@/modules/shared/AuthGuard";
+import { NextComponentType, NextPageContext } from "next";
 
-const MyApp = ({ Component, pageProps }: AppProps | any) => {
+type AppProps = {
+  pageProps: any
+  Component: NextComponentType<NextPageContext, any, {}> & { redirectIfAuthenticated: boolean, requiresAuthentication: boolean }
+}
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
   
-    let redirectUrl = null
-    let authenticationType = null    
+    let redirectUrl = ""
+    let authenticationType = "noAuthentication"
 
     if (Component.redirectIfAuthenticated) {
       redirectUrl = "/"
