@@ -1,21 +1,19 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Router from "next/router";
 
-import { getAuth } from "@firebase/auth";
+import { auth } from "@/firebaseConfig";
 
 interface AuthGuardProps {
-  children: JSX.Element;
+  children: React.ReactNode;
   redirectUrl: string;
   authenticationType: string;
 }
 
-const auth = getAuth();
-
-export const AuthGuard = ({
+export const AuthGuard: React.FC<AuthGuardProps> = ({
   children,
   redirectUrl,
   authenticationType,
-}: AuthGuardProps): JSX.Element | null => {
+}: AuthGuardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -34,11 +32,12 @@ export const AuthGuard = ({
     return null;
   }
 
-  if (!isAuthenticated && authenticationType == "requiresAuthentication") {
+  if (!isAuthenticated && authenticationType === "requiresAuthentication") {
     Router.push(redirectUrl);
-  } else if (isAuthenticated && authenticationType == "redirectIfAuthenticated") {
+  } else if (isAuthenticated && authenticationType === "redirectIfAuthenticated") {
     Router.push(redirectUrl);
   }
 
-  return children;
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return <>{children}</>;
 };
