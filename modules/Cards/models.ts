@@ -1,7 +1,17 @@
+type CardSide = "image" | "text";
+
 export interface CardData {
-  name: string;
+  createdAt: string;
+  sideA: {
+    type: CardSide;
+    value: string;
+  };
+  sideB: {
+    type: CardSide;
+    value: string;
+  };
 }
 
-export interface Card extends CardData{
+export interface Card extends CardData {
   id: string;
 }
