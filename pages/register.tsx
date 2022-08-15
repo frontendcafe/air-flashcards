@@ -3,8 +3,10 @@ import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { signUp } from "@/modules/Auth/firebase/auth";
 import FormField from "@/modules/Auth/components/FormField";
 import Form from "@/modules/Auth/Form";
+import { NextPage } from "next";
 
-const Register: React.FC = () => {
+const Register: NextPage & {redirectIfAuthenticated: boolean} = () => {
+
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -56,5 +58,7 @@ const Register: React.FC = () => {
     </Form>
   );
 };
+
+Register.redirectIfAuthenticated = true
 
 export default Register;
