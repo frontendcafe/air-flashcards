@@ -1,11 +1,11 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { NextPage } from "next";
-import { logIn } from "@/modules/Auth/firebase/auth";
+
 import FormField from "@/modules/Auth/components/FormField";
+import { logIn } from "@/modules/Auth/firebase/auth";
 import Form from "@/modules/Auth/Form";
 
-const LoginPage: NextPage & {redirectIfAuthenticated: boolean} = () => {
-  
+const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -19,18 +19,22 @@ const LoginPage: NextPage & {redirectIfAuthenticated: boolean} = () => {
   const handleSubmitLogin: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    const {email, password } = state;
+    const { email, password } = state;
 
     if (!password || !email) {
+      // eslint-disable-next-line no-alert
       window.alert("Please fill all fields");
       return;
-    }    
-    
+    }
+
     const user = await logIn(email, password);
     if (user) {
+      // eslint-disable-next-line no-alert
       window.alert("User logged");
+      // eslint-disable-next-line no-console
       console.log(user);
     } else {
+      // eslint-disable-next-line no-alert
       window.alert("Unable to login");
     }
   };
@@ -44,6 +48,6 @@ const LoginPage: NextPage & {redirectIfAuthenticated: boolean} = () => {
   );
 };
 
-LoginPage.redirectIfAuthenticated = true
+LoginPage.redirectIfAuthenticated = true;
 
 export default LoginPage;
