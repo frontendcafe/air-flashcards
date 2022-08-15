@@ -1,40 +1,44 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from "react"
-import { getAuth } from "@firebase/auth"
-import Router from "next/router"
+import React, { ReactElement, ReactNode, useEffect, useState } from "react";
+import Router from "next/router";
+
+import { getAuth } from "@firebase/auth";
 
 interface AuthGuardProps {
-   children: JSX.Element;
-   redirectUrl: string;
-   authenticationType: string; 
+  children: JSX.Element;
+  redirectUrl: string;
+  authenticationType: string;
 }
 
-const auth = getAuth()
+const auth = getAuth();
 
-export const AuthGuard = ({ children, redirectUrl, authenticationType }: AuthGuardProps): JSX.Element | null => {
+export const AuthGuard = ({
+  children,
+  redirectUrl,
+  authenticationType,
+}: AuthGuardProps): JSX.Element | null => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    const [isLoading, setIsLoading] = useState(true)
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoading(false);
+      setIsAuthenticated(!!user);
+    });
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setIsLoading(false)
-            setIsAuthenticated(!!user)
-        })
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
-        return () => {      
-            unsubscribe()
-        }
-    } , [])
+  if (isLoading) {
+    return null;
+  }
 
-    if (isLoading) {    
-        return null
-    }
-    
-    if (!isAuthenticated && authenticationType == "requiresAuthentication") {
-        Router.push(redirectUrl)
-    } else if (isAuthenticated && authenticationType == "redirectIfAuthenticated") {
-        Router.push(redirectUrl)        
-    }
+  if (!isAuthenticated && authenticationType == "requiresAuthentication") {
+    Router.push(redirectUrl);
+  } else if (isAuthenticated && authenticationType == "redirectIfAuthenticated") {
+    Router.push(redirectUrl);
+  }
 
-    return children
-}
+  return children;
+};
