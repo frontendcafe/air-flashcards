@@ -6,7 +6,7 @@ import {
   UploadTaskSnapshot,
 } from "firebase/storage";
 
-import { storage } from "@/firebase";
+import { storage } from "@/firebaseConfig";
 
 interface Props {
   file: File;

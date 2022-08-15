@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { NextPage } from "next";
-import { logIn } from "@/firebase/auth";
+import { logIn } from "@/modules/Auth/firebase/auth";
 import FormField from "@/modules/Auth/components/FormField";
 import Form from "@/modules/Auth/Form";
 

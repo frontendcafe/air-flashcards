@@ -2,7 +2,7 @@ import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { signUp } from "@/firebase/auth";
+import { signUp } from "@/modules/Auth/firebase/auth";
 
 const Home: NextPage & {requiresAuthentication: boolean} = () => {
   return (
