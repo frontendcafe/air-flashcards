@@ -1,40 +1,43 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from "react"
-import { getAuth } from "@firebase/auth"
-import Router from "next/router"
+import React, { useEffect, useState } from "react";
+import Router from "next/router";
+
+import { auth } from "@/firebaseConfig";
 
 interface AuthGuardProps {
-   children: JSX.Element;
-   redirectUrl: string;
-   authenticationType: string; 
+  children: React.ReactNode;
+  redirectUrl: string;
+  authenticationType: string;
 }
 
-const auth = getAuth()
+export const AuthGuard: React.FC<AuthGuardProps> = ({
+  children,
+  redirectUrl,
+  authenticationType,
+}: AuthGuardProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-export const AuthGuard = ({ children, redirectUrl, authenticationType }: AuthGuardProps): JSX.Element | null => {
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoading(false);
+      setIsAuthenticated(!!user);
+    });
 
-    const [isLoading, setIsLoading] = useState(true)
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setIsLoading(false)
-            setIsAuthenticated(!!user)
-        })
+  if (isLoading) {
+    return null;
+  }
 
-        return () => {      
-            unsubscribe()
-        }
-    } , [])
+  if (!isAuthenticated && authenticationType === "requiresAuthentication") {
+    Router.push(redirectUrl);
+  } else if (isAuthenticated && authenticationType === "redirectIfAuthenticated") {
+    Router.push(redirectUrl);
+  }
 
-    if (isLoading) {    
-        return null
-    }
-    
-    if (!isAuthenticated && authenticationType == "requiresAuthentication") {
-        Router.push(redirectUrl)
-    } else if (isAuthenticated && authenticationType == "redirectIfAuthenticated") {
-        Router.push(redirectUrl)        
-    }
-
-    return children
-}
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return <>{children}</>;
+};

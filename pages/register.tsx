@@ -1,12 +1,11 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
-
-import { signUp } from "@/modules/Auth/firebase/auth";
-import FormField from "@/modules/Auth/components/FormField";
-import Form from "@/modules/Auth/Form";
 import { NextPage } from "next";
 
-const Register: NextPage & {redirectIfAuthenticated: boolean} = () => {
+import FormField from "@/modules/Auth/components/FormField";
+import { signUp } from "@/modules/Auth/firebase/auth";
+import Form from "@/modules/Auth/Form";
 
+const Register: NextPage & { redirectIfAuthenticated: boolean } = () => {
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -24,11 +23,13 @@ const Register: NextPage & {redirectIfAuthenticated: boolean} = () => {
     const { email, password, repeatPassword } = state;
 
     if (!password || !repeatPassword || !email) {
+      // eslint-disable-next-line no-alert
       window.alert("Please fill all fields");
       return;
     }
 
     if (password !== repeatPassword) {
+      // eslint-disable-next-line no-alert
       window.alert("Passwords do not match");
       return;
     }
@@ -36,9 +37,12 @@ const Register: NextPage & {redirectIfAuthenticated: boolean} = () => {
     const user = await signUp(email, password);
 
     if (user) {
+      // eslint-disable-next-line no-alert
       window.alert("User created");
+      // eslint-disable-next-line no-console
       console.log(user);
     } else {
+      // eslint-disable-next-line no-alert
       window.alert("User not created");
     }
   };
@@ -59,6 +63,6 @@ const Register: NextPage & {redirectIfAuthenticated: boolean} = () => {
   );
 };
 
-Register.redirectIfAuthenticated = true
+Register.redirectIfAuthenticated = true;
 
 export default Register;
