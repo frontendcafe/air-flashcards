@@ -1,10 +1,7 @@
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { signUp } from "@/firebase/auth";
-
-const Home: NextPage = () => {
+const Home: NextPage & { requiresAuthentication: boolean } = () => {
   return (
     <div>
       <Head>
@@ -19,5 +16,7 @@ const Home: NextPage = () => {
     </div>
   );
 };
+
+Home.requiresAuthentication = true;
 
 export default Home;

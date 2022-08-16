@@ -1,10 +1,11 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
+import { NextPage } from "next";
 
-import { signUp } from "@/firebase/auth";
 import FormField from "@/modules/Auth/components/FormField";
+import { signUp } from "@/modules/Auth/firebase/auth";
 import Form from "@/modules/Auth/Form";
 
-const Register: React.FC = () => {
+const Register: NextPage & { redirectIfAuthenticated: boolean } = () => {
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -22,11 +23,13 @@ const Register: React.FC = () => {
     const { email, password, repeatPassword } = state;
 
     if (!password || !repeatPassword || !email) {
+      // eslint-disable-next-line no-alert
       window.alert("Please fill all fields");
       return;
     }
 
     if (password !== repeatPassword) {
+      // eslint-disable-next-line no-alert
       window.alert("Passwords do not match");
       return;
     }
@@ -34,9 +37,12 @@ const Register: React.FC = () => {
     const user = await signUp(email, password);
 
     if (user) {
+      // eslint-disable-next-line no-alert
       window.alert("User created");
+      // eslint-disable-next-line no-console
       console.log(user);
     } else {
+      // eslint-disable-next-line no-alert
       window.alert("User not created");
     }
   };
@@ -56,5 +62,7 @@ const Register: React.FC = () => {
     </Form>
   );
 };
+
+Register.redirectIfAuthenticated = true;
 
 export default Register;
