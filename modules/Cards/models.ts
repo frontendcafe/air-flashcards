@@ -1,15 +1,15 @@
-type CardSide = "image" | "text";
+export type CardeSideType = "text" | "image";
+
+interface CardSide {
+  type: CardeSideType;
+  value: string;
+}
 
 export interface CardData {
+  name: string;
   createdAt: string;
-  sideA: {
-    type: CardSide;
-    value: string;
-  };
-  sideB: {
-    type: CardSide;
-    value: string;
-  };
+  sideA: CardSide;
+  sideB: CardSide;
 }
 
 export interface Card extends CardData {
