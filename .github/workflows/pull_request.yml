@@ -23,8 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
+      - name: Linter checks
         run: npm run lint
 
-      - name: Prettier format
-        run: npm run format:fix
+      - name: Prettier checks
+        run: npm run format:check
