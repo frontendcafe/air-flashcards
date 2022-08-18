@@ -7,7 +7,7 @@ import db from "@/modules/Firestore";
 const allowedMethods = ["GET", "PATCH"];
 
 const getCardDetails = async (collectionId: string, cardId: string) => {
-  const cardSnapshot = await await getDoc(doc(db, `collections/${collectionId}/cards/${cardId}`));
+  const cardSnapshot = await getDoc(doc(db, `collections/${collectionId}/cards/${cardId}`));
   const cardExist = cardSnapshot.exists();
   if (!cardExist) {
     throw new Error("Card not exists");
