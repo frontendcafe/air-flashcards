@@ -2,9 +2,9 @@ import { NextApiHandler } from "next";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { ValidationError } from "yup";
 
-import { ClientError, ResponseContent } from "@/modules/Api/models";
+import { ClientError, MethodHandler, ResContent } from "@/modules/Api/models";
 import { createDoc } from "@/modules/Api/Services/FireStore";
-import { checkAllowedMethods } from "@/modules/Api/utils";
+import { allowedMethods } from "@/modules/Api/utils";
 import { Card, CardData } from "@/modules/Cards/models";
 import { cardDataSchema } from "@/modules/Cards/schema";
 import db from "@/modules/Firestore";
@@ -52,16 +52,13 @@ const createCard: NextApiHandler<Card> = async (request, response) => {
   return response.json(newCard);
 };
 
-const collectionCardsHandler: NextApiHandler<ResponseContent<Card>> = async (request, response) => {
+const collectionCardsHandler: NextApiHandler<ResContent<Card>> = async (request, response) => {
   try {
-    checkAllowedMethods(["GET", "POST"], request.method);
-
-    const methodHandler = {
+    const methodHandler: MethodHandler<ResContent<Card>> = {
       GET: getCards,
       POST: createCard,
     };
-    const method = request.method as keyof typeof methodHandler;
-    await methodHandler[method](request, response);
+    await allowedMethods(methodHandler, request, response);
   } catch (error) {
     let code = 500;
     if (error instanceof ValidationError) code = 400;
