@@ -1,3 +1,5 @@
+import { NextApiHandler } from "next";
+
 export class ClientError extends Error {
   constructor(message: string, public code: number) {
     super(message);
@@ -6,6 +8,12 @@ export class ClientError extends Error {
   }
 }
 
-export type Method = "GET" | "PUT" | "POST" | "PATCH" | "DELETE";
+export interface MethodHandler<T> {
+  POST?: NextApiHandler<T>;
+  PUT?: NextApiHandler<T>;
+  PATCH?: NextApiHandler<T>;
+  DELETE?: NextApiHandler<T>;
+  GET?: NextApiHandler<T>;
+}
 
-export type ResponseContent<T> = T | T[] | string;
+export type ResContent<T> = T | T[] | string;
