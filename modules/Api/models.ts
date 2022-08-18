@@ -7,3 +7,5 @@ export class ClientError extends Error {
 }
 
 export type Method = "GET" | "PUT" | "POST" | "PATCH" | "DELETE";
+
+export type ResponseContent<T> = T | T[] | string;
