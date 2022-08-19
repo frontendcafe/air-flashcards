@@ -2,17 +2,9 @@ import { NextApiHandler } from "next";
 import { collection, getDocs } from "firebase/firestore";
 
 import { Collection, CollectionFirebaseData } from "@/modules/Collections/models";
-import db from '@/modules/Firestore';
+import db from "@/modules/Firestore";
 
-const allowedMethods = ['GET'];
-
-/* getCollections possible future params:
-  options?: {
-    include?: {
-      cards?: boolean;
-    };
-}
-*/
+const allowedMethods = ["GET"];
 
 export const getCollections = async () => {
   const collectionsSnapshot = await getDocs(collection(db, "collections"));
@@ -32,8 +24,8 @@ export const getCollections = async () => {
 };
 
 const collectionsHandler: NextApiHandler = async (request, response) => {
-  if (!allowedMethods.includes(request.method|| '')) {
-    return response.status(405).send('Method not supported');
+  if (!allowedMethods.includes(request.method || "")) {
+    return response.status(405).send("Method not supported");
   }
 
   const collections = await getCollections();

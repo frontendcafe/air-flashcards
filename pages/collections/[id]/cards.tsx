@@ -1,5 +1,5 @@
-import React from 'react';
-import { GetServerSideProps } from 'next';
+import React from "react";
+import { GetServerSideProps } from "next";
 
 import { Card } from "@/modules/Cards/models";
 
@@ -10,7 +10,9 @@ interface CardsProps {
 const Cards = ({ cards }: CardsProps) => {
   return cards.length ? (
     <div>
-      {cards.map(({ name }) => { return <p key={name}>{name}</p>; })}
+      {cards.map(({ name }) => {
+        return <p key={name}>{name}</p>;
+      })}
     </div>
   ) : (
     <p>La coleccion no tiene tarjetas!</p>
@@ -18,7 +20,9 @@ const Cards = ({ cards }: CardsProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps<CardsProps> = async ({ params }) => {
-  const cardsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/collections/${params?.id}/cards`);
+  const cardsResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/collections/${params?.id}/cards`
+  );
 
   if (cardsResponse.status === 404) {
     return { notFound: true };
@@ -28,8 +32,8 @@ export const getServerSideProps: GetServerSideProps<CardsProps> = async ({ param
 
   return {
     props: {
-      cards
-    }
+      cards,
+    },
   };
 };
 
