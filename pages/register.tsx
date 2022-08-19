@@ -2,10 +2,12 @@ import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { NextPage } from "next";
 
 import FormField from "@/modules/Auth/components/FormField";
+import { useAuth } from "@/modules/Auth/context/AuthProvider";
 import { signUp } from "@/modules/Auth/firebase/auth";
 import Form from "@/modules/Auth/Form";
 
 const Register: NextPage & { redirectIfAuthenticated: boolean } = () => {
+  const { setUser } = useAuth();
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -39,8 +41,7 @@ const Register: NextPage & { redirectIfAuthenticated: boolean } = () => {
     if (user) {
       // eslint-disable-next-line no-alert
       window.alert("User created");
-      // eslint-disable-next-line no-console
-      console.log(user);
+      setUser(user);
     } else {
       // eslint-disable-next-line no-alert
       window.alert("User not created");
