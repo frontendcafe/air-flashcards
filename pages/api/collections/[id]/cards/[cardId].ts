@@ -1,13 +1,13 @@
 import { NextApiHandler } from "next";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { Card, CardData } from "@/modules/Cards/models";
 import db from "@/modules/Firestore";
 
-const allowedMethods = ["GET"];
+const allowedMethods = ["GET", "PATCH"];
 
 const getCardDetails = async (collectionId: string, cardId: string) => {
-  const cardSnapshot = await await getDoc(doc(db, `collections/${collectionId}/cards/${cardId}`));
+  const cardSnapshot = await getDoc(doc(db, `collections/${collectionId}/cards/${cardId}`));
   const cardExist = cardSnapshot.exists();
   if (!cardExist) {
     throw new Error("Card not exists");
@@ -23,7 +23,12 @@ const getCardDetails = async (collectionId: string, cardId: string) => {
   return card;
 };
 
-const CardDetailHandler: NextApiHandler = async (request, response) => {
+const updateCard = async (collectionId: string, cardId: string, update: Partial<CardData>) => {
+  const cardRef = doc(db, `collections/${collectionId}/cards/${cardId}`);
+  await updateDoc(cardRef, update);
+};
+
+const CardByIdHandler: NextApiHandler = async (request, response) => {
   if (!allowedMethods.includes(request.method || "")) {
     return response.status(405).send("Method not supported");
   }
@@ -38,11 +43,21 @@ const CardDetailHandler: NextApiHandler = async (request, response) => {
   }
 
   try {
-    const card = await getCardDetails(collectionId, cardId);
-    return response.json(card);
+    let card: Card;
+    switch (request.method) {
+      case "GET":
+        card = await getCardDetails(collectionId, cardId);
+        return response.json(card);
+
+      case "PATCH":
+        await updateCard(collectionId, cardId, request.body);
+        return response.json({ message: "card updated successfully" });
+      default:
+        return new Error("unhandled method");
+    }
   } catch (error: any) {
     return response.status(404).send(error.message);
   }
 };
 
-export default CardDetailHandler;
+export default CardByIdHandler;
