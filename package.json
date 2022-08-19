@@ -12,9 +12,9 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "npm run format:fix",
-      "npm run lint"
+    "*.{ts,tsx}": [
+      "npm run lint",
+      "npm run format:fix"
     ]
   },
   "dependencies": {
