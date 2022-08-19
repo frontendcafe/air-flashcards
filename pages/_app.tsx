@@ -1,5 +1,6 @@
 import { NextComponentType, NextPageContext } from "next";
 
+import { AuthProvider } from "@/modules/Auth/context/AuthProvider";
 import { AuthGuard } from "@/modules/shared/AuthGuard";
 
 import "@/firebaseConfig";
@@ -25,9 +26,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   }
 
   return (
-    <AuthGuard redirectUrl={redirectUrl} authenticationType={authenticationType}>
-      <Component {...pageProps} />
-    </AuthGuard>
+    <AuthProvider>
+      <AuthGuard redirectUrl={redirectUrl} authenticationType={authenticationType}>
+        <Component {...pageProps} />
+      </AuthGuard>
+    </AuthProvider>
   );
 };
 
