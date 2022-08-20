@@ -23,6 +23,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Typescript checks
+        run: npx tsc --noEmit
+
       - name: Linter checks
         run: npm run lint
 
