@@ -1,10 +1,10 @@
 import { NextApiHandler } from "next";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { Card, CardData } from "@/modules/Cards/models";
 import db from "@/modules/Firestore";
 
-const allowedMethods = ["GET", "PATCH"];
+const allowedMethods = ["GET", "PATCH", "DELETE"];
 
 const getCardDetails = async (collectionId: string, cardId: string) => {
   const cardSnapshot = await getDoc(doc(db, `collections/${collectionId}/cards/${cardId}`));
@@ -28,6 +28,11 @@ const updateCard = async (collectionId: string, cardId: string, update: Partial<
   await updateDoc(cardRef, update);
 };
 
+const deleteCard = async (collectionId: string, cardId: string) => {
+  const cardRef = doc(db, `collections/${collectionId}/cards/${cardId}`);
+  await deleteDoc(cardRef);
+};
+
 const CardByIdHandler: NextApiHandler = async (request, response) => {
   if (!allowedMethods.includes(request.method || "")) {
     return response.status(405).send("Method not supported");
@@ -35,11 +40,11 @@ const CardByIdHandler: NextApiHandler = async (request, response) => {
   const { id: collectionId, cardId } = request.query;
 
   if (!collectionId || Array.isArray(collectionId)) {
-    return response.status(400).send("collectionI must be an string");
+    return response.status(400).send("CollectionID must be an string");
   }
 
   if (!cardId || Array.isArray(cardId)) {
-    return response.status(400).send("cardId must be an string");
+    return response.status(400).send("CardID must be an string");
   }
 
   try {
@@ -51,9 +56,14 @@ const CardByIdHandler: NextApiHandler = async (request, response) => {
 
       case "PATCH":
         await updateCard(collectionId, cardId, request.body);
-        return response.json({ message: "card updated successfully" });
+        return response.json({ message: "Card updated successfully" });
+
+      case "DELETE":
+        await deleteCard(collectionId, cardId);
+        return response.json({ message: "Card deleted successfully" });
+
       default:
-        return new Error("unhandled method");
+        return new Error("Unhandled method");
     }
   } catch (error: any) {
     return response.status(404).send(error.message);
