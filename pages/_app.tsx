@@ -4,6 +4,7 @@ import { AuthGuard } from "@/modules/shared/AuthGuard";
 import { theme } from "@/modules/shared/theme";
 import { ChakraProvider } from "@chakra-ui/react";
 
+import "@fontsource/work-sans";
 import "@/firebaseConfig";
 
 type AppProps = {
