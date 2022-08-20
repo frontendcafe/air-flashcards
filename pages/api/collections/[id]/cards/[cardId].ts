@@ -40,11 +40,11 @@ const CardByIdHandler: NextApiHandler = async (request, response) => {
   const { id: collectionId, cardId } = request.query;
 
   if (!collectionId || Array.isArray(collectionId)) {
-    return response.status(400).send("collectionI must be an string");
+    return response.status(400).send("CollectionID must be an string");
   }
 
   if (!cardId || Array.isArray(cardId)) {
-    return response.status(400).send("cardId must be an string");
+    return response.status(400).send("CardID must be an string");
   }
 
   try {
@@ -56,14 +56,14 @@ const CardByIdHandler: NextApiHandler = async (request, response) => {
 
       case "PATCH":
         await updateCard(collectionId, cardId, request.body);
-        return response.json({ message: "card updated successfully" });
+        return response.json({ message: "Card updated successfully" });
 
       case "DELETE":
         await deleteCard(collectionId, cardId);
-        return response.json({ message: "card deleted successfully" });
+        return response.json({ message: "Card deleted successfully" });
 
       default:
-        return new Error("unhandled method");
+        return new Error("Unhandled method");
     }
   } catch (error: any) {
     return response.status(404).send(error.message);
