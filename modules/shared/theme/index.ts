@@ -1,7 +1,8 @@
 import { extendTheme, Theme } from "@chakra-ui/react";
 
-type CustomColors = Partial<Theme["colors"]> & {
+interface CustomColors extends Partial<Omit<Theme["colors"], 'gray'>> {
   primary: Record<number, string>;
+  gray: Record<number, string>;
   status: {
     error: string;
     success: string;
@@ -14,6 +15,14 @@ const colors: CustomColors = {
     100: "#1867FF",
     200: "#0E52D7",
     300: "#0D378D",
+  },
+  gray: {
+    50: '#CFD4DC',
+    100: '#A7B0C0',
+    200: '#768298',
+    300: '#425372',
+    400: '#1E3359',
+    500: '#18253D',
   },
   status: {
     error: "#E53E3E",
@@ -42,6 +51,15 @@ const components: Theme["components"] = {
       primary: {
         backgroundColor: "primary.100",
         color: "white",
+        _hover: {
+          backgroundColor: "primary.200",
+        },
+        _focus: {
+          backgroundColor: "primary.300"
+        },
+        _disabled: {
+          backgroundColor: "primary.50"
+        }
       },
     },
     defaultProps: {
@@ -51,4 +69,10 @@ const components: Theme["components"] = {
   },
 };
 
-export const theme = extendTheme({ colors, components });
+const fonts: Theme["fonts"] = {
+  heading: `'"Work Sans", sans-serif`,
+  body: `"Work Sans", sans-serif`,
+  mono: `"Work Sans", sans-serif`
+};
+
+export const theme = extendTheme({ colors, components, fonts });
