@@ -1,6 +1,8 @@
 import { NextComponentType, NextPageContext } from "next";
 
 import { AuthGuard } from "@/modules/shared/AuthGuard";
+import { theme } from "@/modules/shared/theme";
+import { ChakraProvider } from "@chakra-ui/react";
 
 import "@/firebaseConfig";
 
@@ -25,9 +27,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   }
 
   return (
-    <AuthGuard redirectUrl={redirectUrl} authenticationType={authenticationType}>
-      <Component {...pageProps} />
-    </AuthGuard>
+    <ChakraProvider theme={theme}>
+      <AuthGuard redirectUrl={redirectUrl} authenticationType={authenticationType}>
+        <Component {...pageProps} />
+      </AuthGuard>
+    </ChakraProvider>
   );
 };
 
