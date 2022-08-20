@@ -11,12 +11,6 @@
     "format:fix": "prettier --write **/*.{ts,tsx}",
     "prepare": "husky install"
   },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "npm run lint",
-      "npm run format:fix"
-    ]
-  },
   "dependencies": {
     "firebase": "^9.9.2",
     "next": "12.2.4",
