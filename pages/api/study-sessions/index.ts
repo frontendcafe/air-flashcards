@@ -4,9 +4,7 @@ import { createStudySession,deleteStudySession } from "@/modules/StudySession/se
 const allowedMethods = ["GET", "PATCH", "DELETE","POST"];
 
 const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
-  if (!allowedMethods.includes(request.method || "")) {
-    return response.status(405).send("Method not supported");
-  }
+
   const { collectionId, mode, date, cardsAmount,StudySessionId } = request.body;
 
   if (!collectionId || Array.isArray(collectionId)) {
@@ -40,7 +38,7 @@ const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
         return response.json({ message: "Study Session deleted successfully" });
 
       default:
-        return new Error("Unhandled method");
+        return response.status(405).send("Method not supported");
     }
     
 
