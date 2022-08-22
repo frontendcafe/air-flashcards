@@ -1,11 +1,6 @@
 import { extendTheme, Theme } from "@chakra-ui/react";
 
-interface CustomColors extends Partial<
-  Omit<
-    Theme["colors"],
-    'gray'
-  >
-> {
+interface CustomColors extends Partial<Omit<Theme["colors"], "gray">> {
   primary: Record<number, string>;
   gray: Record<number, string>;
   disabled: Record<string, string>;
@@ -13,7 +8,7 @@ interface CustomColors extends Partial<
     error: string;
     success: string;
   };
-};
+}
 
 const colors: CustomColors = {
   primary: {
@@ -23,15 +18,15 @@ const colors: CustomColors = {
     300: "#0D378D",
   },
   gray: {
-    50: '#CFD4DC',
-    100: '#A7B0C0',
-    200: '#768298',
-    300: '#425372',
-    400: '#1E3359',
-    500: '#18253D',
+    50: "#CFD4DC",
+    100: "#A7B0C0",
+    200: "#768298",
+    300: "#425372",
+    400: "#1E3359",
+    500: "#18253D",
   },
   disabled: {
-    'primary': '#8CB3FF'
+    primary: "#8CB3FF",
   },
   status: {
     error: "#E53E3E",
@@ -64,7 +59,7 @@ const components: Theme["components"] = {
           backgroundColor: "primary.200",
         },
         _focus: {
-          backgroundColor: "primary.300"
+          backgroundColor: "primary.300",
         },
         _disabled: {
           backgroundColor: "disabled.primary !important",
@@ -81,12 +76,12 @@ const components: Theme["components"] = {
 const fonts: Theme["fonts"] = {
   heading: `"Work sans", sans-serif`,
   body: `"Work sans", sans-serif`,
-  mono: `"Work sans", sans-serif`
+  mono: `"Work sans", sans-serif`,
 };
 
 const config: Theme["config"] = {
-  initialColorMode: 'light',
-  cssVarPrefix: 'air-flashcards',
+  initialColorMode: "light",
+  cssVarPrefix: "air-flashcards",
   useSystemColorMode: false,
 };
 
