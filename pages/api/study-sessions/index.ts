@@ -1,4 +1,5 @@
 import { NextApiHandler } from "next";
+
 import { createStudySession } from "@/modules/StudySession/services";
 
 const allowedMethods = ["POST"];
@@ -26,10 +27,10 @@ const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
   }
   try {
     const studySession = await createStudySession({
-      mode: mode,
-      date: date,
-      cardsAmount: cardsAmount,
-      collectionId: collectionId,
+      mode,
+      date,
+      cardsAmount,
+      collectionId,
     });
     return response.json(studySession);
   } catch (error: any) {
