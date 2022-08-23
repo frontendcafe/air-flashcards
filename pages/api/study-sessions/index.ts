@@ -26,10 +26,10 @@ const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
     switch (request.method) {
       case "POST":
         const studySession = await createStudySession({
-        mode: mode,
-        date: date,
-        cardsAmount: cardsAmount,
-        collectionId: collectionId,
+          mode: mode,
+          date: date,
+          cardsAmount: cardsAmount,
+          collectionId: collectionId,
       });
       return response.json(studySession);
 
