@@ -1,13 +1,13 @@
 import { NextApiHandler } from "next";
-import { doc, getDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { Card, CardData } from "@/modules/Cards/models";
 import db from "@/modules/Firestore";
 
-const allowedMethods = ["GET"];
+const allowedMethods = ["GET", "PATCH", "DELETE"];
 
 const getCardDetails = async (collectionId: string, cardId: string) => {
-  const cardSnapshot = await await getDoc(doc(db, `collections/${collectionId}/cards/${cardId}`));
+  const cardSnapshot = await getDoc(doc(db, `collections/${collectionId}/cards/${cardId}`));
   const cardExist = cardSnapshot.exists();
   if (!cardExist) {
     throw new Error("Card not exists");
@@ -23,26 +23,51 @@ const getCardDetails = async (collectionId: string, cardId: string) => {
   return card;
 };
 
-const CardDetailHandler: NextApiHandler = async (request, response) => {
+const updateCard = async (collectionId: string, cardId: string, update: Partial<CardData>) => {
+  const cardRef = doc(db, `collections/${collectionId}/cards/${cardId}`);
+  await updateDoc(cardRef, update);
+};
+
+const deleteCard = async (collectionId: string, cardId: string) => {
+  const cardRef = doc(db, `collections/${collectionId}/cards/${cardId}`);
+  await deleteDoc(cardRef);
+};
+
+const CardByIdHandler: NextApiHandler = async (request, response) => {
   if (!allowedMethods.includes(request.method || "")) {
     return response.status(405).send("Method not supported");
   }
   const { id: collectionId, cardId } = request.query;
 
   if (!collectionId || Array.isArray(collectionId)) {
-    return response.status(400).send("collectionI must be an string");
+    return response.status(400).send("CollectionID must be an string");
   }
 
   if (!cardId || Array.isArray(cardId)) {
-    return response.status(400).send("cardId must be an string");
+    return response.status(400).send("CardID must be an string");
   }
 
   try {
-    const card = await getCardDetails(collectionId, cardId);
-    return response.json(card);
+    let card: Card;
+    switch (request.method) {
+      case "GET":
+        card = await getCardDetails(collectionId, cardId);
+        return response.json(card);
+
+      case "PATCH":
+        await updateCard(collectionId, cardId, request.body);
+        return response.json({ message: "Card updated successfully" });
+
+      case "DELETE":
+        await deleteCard(collectionId, cardId);
+        return response.json({ message: "Card deleted successfully" });
+
+      default:
+        return new Error("Unhandled method");
+    }
   } catch (error: any) {
     return response.status(404).send(error.message);
   }
 };
 
-export default CardDetailHandler;
+export default CardByIdHandler;

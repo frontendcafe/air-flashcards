@@ -1,5 +1,7 @@
 import React, { FormEventHandler, ReactNode } from "react";
 
+import { Button } from "@chakra-ui/react";
+
 interface FormProps {
   title?: string;
   onSubmit: FormEventHandler<HTMLFormElement>;
@@ -9,13 +11,12 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = ({ title, onSubmit, children, submitLabel }) => {
   return (
-    <div>
+    <div style={{ maxWidth: 400, padding: 20 }}>
       {title && <h1>{title}</h1>}
 
       <form onSubmit={onSubmit}>
         {children}
-
-        <button type="submit">{submitLabel}</button>
+        <Button type="submit">{submitLabel}</Button>
       </form>
     </div>
   );
