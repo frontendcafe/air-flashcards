@@ -40,7 +40,7 @@ const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
         //dejar error cuando sesion no existe, responder 404 error
 
       default:
-        return response.status(405).send("Method not allowed");
+        return new Error("Unhandled method");
     }
     
 
