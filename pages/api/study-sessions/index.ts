@@ -9,11 +9,11 @@ const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
   }
   const { collectionId, mode, date, cardsAmount } = request.body;
 
-  if (!collectionId || Array.isArray(collectionId)) {
+  if (!collectionId && Array.isArray(collectionId)) {
     return response.status(400).send("collectionId must be an string");
   }
 
-  if (mode !== "normal" || mode !== "jeopardy" || mode !== "combined") {
+  if (mode !== "normal" && mode !== "jeopardy" && mode !== "combined") {
     return response.status(400).send("Mode must be normal, jeopardy or combined.");
   }
 
@@ -33,7 +33,9 @@ const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
     });
     return response.json(studySession);
   } catch (error: any) {
-    return response.status(404).send(error.message);
+    console.log(error);
+
+    return response.status(500).send(error.message);
   }
 };
 
