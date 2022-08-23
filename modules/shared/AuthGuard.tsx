@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Router from "next/router";
 
 import { auth } from "@/firebaseConfig";
+import { useAuth } from "@/modules/Auth/context/AuthProvider";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -16,9 +17,13 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
 }: AuthGuardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { setUser } = useAuth();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      }
       setIsLoading(false);
       setIsAuthenticated(!!user);
     });
@@ -26,7 +31,9 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [setUser]);
+
+  // check if token is expired or not, and set it to cookies
 
   if (isLoading) {
     return null;

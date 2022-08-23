@@ -16,7 +16,7 @@ const Form: React.FC<FormProps> = ({ title, onSubmit, children, submitLabel }) =
 
       <form onSubmit={onSubmit}>
         {children}
-        <Button>{submitLabel}</Button>
+        <Button type="submit">{submitLabel}</Button>
       </form>
     </div>
   );
