@@ -1,17 +1,11 @@
-// eslint-disable-next-line import/no-unresolved
-// import { applicationDefault, initializeApp } from "firebase-admin/app";
+import admin, { ServiceAccount } from "firebase-admin";
 
-// export const app = initializeApp({
-//   credential: applicationDefault(),
-// });
-
-const admin = require("firebase-admin");
-const serviceAccount = require("privateKey.json");
+import serviceAccount from "@/privateKey.json";
 
 export const verifyIdToken = (token: string) => {
   if (!admin.apps.length) {
     admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
+      credential: admin.credential.cert(serviceAccount as ServiceAccount),
     });
   }
   return admin
