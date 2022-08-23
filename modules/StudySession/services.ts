@@ -17,6 +17,9 @@ export const createStudySession = async (data: CreateStudySessionData) => {
 };
 
 export const deleteStudySession = async(collectionId: string, StudySessionId: string)=>{
-  const StudySessionRef = doc(db,`collections/${collectionId}/studySessions/${StudySessionId}`);
-  await deleteDoc(StudySessionRef);
+  const studySessionRef = doc(db,`collections/${collectionId}/studySessions/${StudySessionId}`);
+  //TODO: detectar que sucede cuando hay ID que no existe 
+  // throw new error 
+  console.log(studySessionRef.converter);
+  await deleteDoc(studySessionRef);
 };
