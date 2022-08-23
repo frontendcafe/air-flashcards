@@ -1,4 +1,5 @@
 import { NextApiHandler } from "next";
+
 import { createStudySession,deleteStudySession } from "@/modules/StudySession/services";
 
 const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
@@ -23,21 +24,22 @@ const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
   }
  }
   try {
+    let studySession;
     switch (request.method) {
       case "POST":
-        const studySession = await createStudySession({
-          mode: mode,
-          date: date,
-          cardsAmount: cardsAmount,
-          collectionId: collectionId,
-      });
+        studySession = await createStudySession({
+          mode,
+          date,
+          cardsAmount,
+          collectionId,
+        });
       return response.json(studySession);
 
       case "DELETE":
         await deleteStudySession(collectionId, StudySessionId);
         return response.json({ message: "Study Session deleted successfully" });
-        //TODO
-        //dejar error cuando sesion no existe, responder 404 error
+        // TODO
+        // dejar error cuando sesion no existe, responder 404 error
 
       default:
         return response.status(405).send("Method not allowed");
