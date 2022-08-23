@@ -1,5 +1,5 @@
 import admin, { ServiceAccount } from "firebase-admin";
-
+// @ts-expect-error: This files in into .gitignore
 import serviceAccount from "@/privateKey.json";
 
 export const verifyIdToken = (token: string) => {

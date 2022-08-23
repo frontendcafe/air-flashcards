@@ -1,7 +1,6 @@
 import { CreateStudySessionData, StudySessionData } from "./models";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
-import db from "@/air-flashcards/modules/Firestore";
-import { stringLength } from "@firebase/util";
+import db from "@/modules/Firestore";
 
 const STUDY_SESSIONS_COLLECTION = "collections/LBz0PhXuEiPEyIy6JloU/studySessions";
 
