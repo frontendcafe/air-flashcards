@@ -11,13 +11,15 @@ const getCollectionById: NextApiHandler = async (request, response) => {
   const { query } = request;
   const collectionRef = doc(db, `collections/${query.id}`);
   const collectionSnap = await getDoc(collectionRef);
+  if (!collectionSnap.exists())
+    return response.status(400).json({ message: "element doesn't exist" });
 
   const collectionData = collectionSnap.data();
   collectionData!.id = collectionSnap.id;
 
   if (query.cards) {
-    const coardRef = collection(db, `collections/${query.id}/cards`);
-    const cardsDocs = await getDocs(coardRef);
+    const cardsRef = collection(db, `collections/${query.id}/cards`);
+    const cardsDocs = await getDocs(cardsRef);
     const cardsData = cardsDocs.docs.map((cradDoc) => {
       const result = cradDoc.data();
       result.id = cradDoc.id;
