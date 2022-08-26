@@ -1,5 +1,5 @@
 import { CreateStudySessionData, StudySessionData } from "./models";
-import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
 import db from "@/modules/Firestore";
 
 const STUDY_SESSIONS_COLLECTION = "collections/LBz0PhXuEiPEyIy6JloU/studySessions";
@@ -28,4 +28,11 @@ export const updateStudySession = async (data: UpdateStudySession) => {
     cardsAmount: data.cardsAmount,
   });
   console.log("actualizado", sessionRef.id);
+};
+
+export const deleteStudySession = async (collectionId: string, StudySessionId: string) => {
+  const studySessionRef = doc(db, `collections/${collectionId}/studySessions/${StudySessionId}`);
+  // TODO: detectar que sucede cuando hay ID que no existe
+  // throw new error
+  await deleteDoc(studySessionRef);
 };
