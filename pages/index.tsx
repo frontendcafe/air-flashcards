@@ -3,6 +3,7 @@ import Head from "next/head";
 import nookies from "nookies";
 
 import { verifyIdToken } from "@/firebaseAdminConfig";
+import LogoutButton from "@/modules/Auth/components/LogoutButton";
 
 const Home: NextPage & { requiresAuthentication: boolean } = () => {
   return (
@@ -16,6 +17,7 @@ const Home: NextPage & { requiresAuthentication: boolean } = () => {
       <div>
         <h1>Welcome to Flashcards!</h1>
       </div>
+      <LogoutButton />
     </div>
   );
 };
