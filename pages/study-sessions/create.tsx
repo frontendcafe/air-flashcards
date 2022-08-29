@@ -4,7 +4,7 @@ import { CreateStudySessionData, StudySessionMode as Mode } from "@/modules/Stud
 import { formSchema } from "@/modules/StudySession/schemas";
 import useFormWithYup from "@/modules/utils/useFormWithYup";
 
-const Form: React.FC = () => {
+const CreateStudySession: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -72,4 +72,4 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
+export default CreateStudySession;

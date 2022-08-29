@@ -1,8 +1,28 @@
-import { CreateStudySessionData, StudySessionData } from "./models";
-import { collection, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import {
+  CreateStudySessionData,
+  StudySession,
+  StudySessionData,
+  StudySessionResult,
+} from "./models";
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc } from "firebase/firestore";
 import db from "@/modules/Firestore";
 
 const STUDY_SESSIONS_COLLECTION = "collections/LBz0PhXuEiPEyIy6JloU/studySessions";
+
+export const getStudySessionData = async (collectionId: string, StudySessionId: string) => {
+  const studySessionRef = doc(db, `collections/${collectionId}/studySessions/${StudySessionId}`);
+  const result = await getDoc(studySessionRef);
+  const StudySessionsExist = result.exists();
+  if (!StudySessionsExist) {
+    throw new Error("Study Session doesn't exists");
+  }
+  const StudySessionData = result.data() as StudySessionResult;
+  const session: StudySessionResult = {
+    ...StudySessionData,
+  };
+  console.log(session);
+  return session;
+};
 
 export const createStudySession = async (data: CreateStudySessionData) => {
   const docRef = await addDoc(collection(db, STUDY_SESSIONS_COLLECTION), {
