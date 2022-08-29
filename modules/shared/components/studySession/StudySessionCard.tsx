@@ -1,21 +1,13 @@
 import {
   Box,
-  Container,
   Flex,
-  Spacer,
   Text,
   Button,
-  MenuButton,
-  Menu,
-  MenuList,
-  MenuItem,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
@@ -78,26 +70,43 @@ function StudySessionCard({
           </Flex>
           <Flex display="flex" h="100%" direction="column" justify="space-between">
             <Box onClick={onOpen}>
-              <Trash />
+              <Trash color="#0D378D" height={24} width={24} />
             </Box>
             <Box fontWeight="600">{percentage}%</Box>
           </Flex>
         </Flex>
       </Box>
-      {/* <Button onClick={() => deleteFunction(id)}></Button> */}
-      {/* <Button onClick={onOpen}></Button> */}
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody></ModalBody>
+          <ModalHeader display="flex" justifyContent="center" textAlign="center">
+            <Box
+              bg="red.500"
+              p={15}
+              borderRadius="100%"
+              width="60px"
+              height="60px"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Trash color="#fff" height={24} width={24} />
+            </Box>
+          </ModalHeader>
 
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
+          <ModalHeader textAlign="center">¿Deseas borrar esta sesión?</ModalHeader>
+
+          <ModalFooter justifyContent="center">
+            <Button
+              variant="primary"
+              width="50%"
+              onClick={() => {
+                deleteFunction(id), onClose();
+              }}
+            >
+              Aceptar
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -106,3 +115,4 @@ function StudySessionCard({
 }
 
 export default StudySessionCard;
+
