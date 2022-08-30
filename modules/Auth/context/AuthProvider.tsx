@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-import type { User, UserCredential } from "firebase/auth";
+import { sendPasswordResetEmail, User, UserCredential } from "firebase/auth";
 import nookies from "nookies";
 
 import { auth } from "@/firebaseConfig";
@@ -11,11 +11,13 @@ interface AuthProviderProps {
 interface AuthContextType {
   user: User | UserCredential | null;
   setUser: (user: User | UserCredential | null) => void;
+  forgotPassword: (email: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   setUser: () => {},
+  forgotPassword: async () => {},
 });
 
 const refreshTokenMinutes = 10 * 60 * 1000;
@@ -53,11 +55,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     };
   }, []);
 
-  const value = useMemo(() => {
-    return { user, setUser };
+  const forgotPassword = (email: string) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
+  const contextValue = useMemo(() => {
+    return { user, setUser, forgotPassword };
   }, [user]);
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
