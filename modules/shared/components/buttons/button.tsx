@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { background, Button as CharkraButton } from "@chakra-ui/react";
 
 interface ButtonProps {
@@ -6,9 +6,18 @@ interface ButtonProps {
   light?: boolean;
   outline?: boolean;
   disabled?: boolean;
+  onClick?: MouseEventHandler;
+  children: React.ReactNode;
 }
 
-export default function Button({ size = "md", light, outline, disabled }: ButtonProps) {
+export default function Button({
+  size = "md",
+  light,
+  outline,
+  disabled,
+  onClick,
+  children,
+}: ButtonProps) {
   let props = {};
 
   if (light) {
@@ -66,8 +75,8 @@ export default function Button({ size = "md", light, outline, disabled }: Button
   }[size];
 
   return (
-    <CharkraButton size={size} disabled={disabled} style={sizeProps} {...props}>
-      Button
+    <CharkraButton onClick={onClick} size={size} disabled={disabled} style={sizeProps} {...props}>
+      {children}
     </CharkraButton>
   );
 }

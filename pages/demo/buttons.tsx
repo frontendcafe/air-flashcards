@@ -12,45 +12,174 @@ const ButtonsDemo: NextPage = () => {
         <Stack gap={2}>
           <p style={{ borderBottom: "1px solid #eee" }}>Normal</p>
           <Stack gap={2} direction="row">
-            <Button size="sm" />
-            <Button size="md" />
-            <Button size="lg" />
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              size="sm"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              size="md"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              size="lg"
+            >
+              Button
+            </Button>
           </Stack>
         </Stack>
 
         <Stack gap={2}>
           <p style={{ borderBottom: "1px solid #eee" }}>Light</p>
           <Stack gap={2} direction="row">
-            <Button light size="sm" />
-            <Button light size="md" />
-            <Button light size="lg" />
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              size="sm"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              size="md"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              size="lg"
+            >
+              Button
+            </Button>
           </Stack>
         </Stack>
 
         <Stack gap={2}>
           <p style={{ borderBottom: "1px solid #eee" }}>Light Outlined</p>
           <Stack gap={2} direction="row">
-            <Button light outline size="sm" />
-            <Button light outline size="md" />
-            <Button light outline size="lg" />
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              outline
+              size="sm"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              outline
+              size="md"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              outline
+              size="lg"
+            >
+              Button
+            </Button>
           </Stack>
         </Stack>
 
         <Stack gap={2}>
           <p style={{ borderBottom: "1px solid #eee" }}>Light Disabled</p>
           <Stack gap={2} direction="row">
-            <Button light disabled outline={false} size="sm" />
-            <Button light disabled outline={false} size="md" />
-            <Button light disabled outline={false} size="lg" />
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              disabled
+              size="sm"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              disabled
+              size="md"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              disabled
+              size="lg"
+            >
+              Button
+            </Button>
           </Stack>
         </Stack>
 
         <Stack gap={2}>
           <p style={{ borderBottom: "1px solid #eee" }}>Light Outlined Disabled</p>
           <Stack gap={2} direction="row">
-            <Button light disabled outline size="sm" />
-            <Button light disabled outline size="md" />
-            <Button light disabled outline size="lg" />
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              disabled
+              outline
+              size="sm"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              disabled
+              outline
+              size="md"
+            >
+              Button
+            </Button>
+            <Button
+              onClick={() => {
+                alert("Click");
+              }}
+              light
+              disabled
+              outline
+              size="lg"
+            >
+              Button
+            </Button>
           </Stack>
         </Stack>
       </Stack>
