@@ -4,6 +4,7 @@ import nookies from "nookies";
 
 import { verifyIdToken } from "@/firebaseAdminConfig";
 import LogoutButton from "@/modules/Auth/components/LogoutButton";
+import Menu from "@/modules/shared/components/Menu/Menu";
 
 const Home: NextPage & { requiresAuthentication: boolean } = () => {
   return (
@@ -15,6 +16,7 @@ const Home: NextPage & { requiresAuthentication: boolean } = () => {
       </Head>
 
       <div>
+        <Menu />
         <h1>Welcome to Flashcards!</h1>
       </div>
       <LogoutButton />
