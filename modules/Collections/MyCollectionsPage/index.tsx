@@ -8,7 +8,7 @@ import { Collection } from "../models";
 
 import NoCollections from "./NoCollections";
 
-const imputColor = "#CBD5E0";
+const inputColor = "#CBD5E0";
 
 const MyCollectionsPage = () => {
   const [userCollection, setUserCollections] = useState<Collection>();
@@ -23,13 +23,13 @@ const MyCollectionsPage = () => {
       </Heading>
       <InputGroup mb={12}>
         <InputLeftElement pointerEvents="none">
-          <AiOutlineSearch color={imputColor} size={25} />
+          <AiOutlineSearch color={inputColor} size={25} />
         </InputLeftElement>
         <Input
           type="search"
           placeholder="Buscar"
-          borderColor={imputColor}
-          _placeholder={{ color: imputColor }}
+          borderColor={inputColor}
+          _placeholder={{ color: inputColor }}
         />
       </InputGroup>
       {!userCollection && <NoCollections />}
