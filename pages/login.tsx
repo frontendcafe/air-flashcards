@@ -1,10 +1,12 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { NextPage } from "next";
+import Link from "next/link";
 
 import FormField from "@/modules/Auth/components/FormField";
 import { useAuth } from "@/modules/Auth/context/AuthProvider";
 import { logIn } from "@/modules/Auth/firebase/auth";
 import Form from "@/modules/Auth/Form";
+import { Button } from "@chakra-ui/react";
 
 const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
   const { setUser } = useAuth();
@@ -44,8 +46,12 @@ const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
   return (
     <Form title="Iniciar Sesión" onSubmit={handleSubmitLogin} submitLabel="Iniciar Sesión">
       <FormField name="email" label="Email" type="email" onChange={handleChange} />
-
       <FormField name="password" label="Contraseña" type="password" onChange={handleChange} />
+      <Link href="/forget-password">
+        <Button variant="link" colorScheme="blue" size="sm">
+          Forgot password?
+        </Button>
+      </Link>
     </Form>
   );
 };
