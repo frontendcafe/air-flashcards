@@ -1,12 +1,10 @@
 import React from "react";
-import FlashLogo from "../../assets/images/flash-logo.svg";
-
 interface LogoProps {
   height: number;
   width: number;
 }
 
-const Logo = ({ height, width }: LogoProps): JSX.Element => {
+const Logo = ({ height, width }: LogoProps) => {
   return (
     <svg width="66" height="81" viewBox="0 0 66 81" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
