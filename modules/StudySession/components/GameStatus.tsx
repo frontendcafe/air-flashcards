@@ -16,7 +16,7 @@ const ResultBox: React.FC<ResultBoxProps> = ({ amount, type }) => {
   const bgColor = type === "correct" ? "status.success" : "status.error";
   const label = `${amount} ${type === "correct" ? "Correctas" : "Incorrectas"}`;
   return (
-    <Box bg={bgColor} px={3} py={2} borderRadius="md">
+    <Box bgColor={bgColor} px={3} py={2} borderRadius="md">
       <Text>{label}</Text>
     </Box>
   );
