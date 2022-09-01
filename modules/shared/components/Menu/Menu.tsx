@@ -29,7 +29,7 @@ export default function Menu() {
       <>
         <Flex justify="space-between" p={5}>
           <Box>
-            <MenuLogo fill={"white"} width={18} height={23} borderColor="#1867FF" borderWidth={7} />
+            <MenuLogo fill={"white"} width={18} height={23} borderColor="primary.100" borderWidth={7} />
           </Box>
           <Box onClick={onOpen} cursor="pointer">
             <Hamburguer />
