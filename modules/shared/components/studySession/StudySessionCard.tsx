@@ -115,4 +115,3 @@ function StudySessionCard({
 }
 
 export default StudySessionCard;
-
