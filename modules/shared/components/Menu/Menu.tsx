@@ -26,7 +26,6 @@ export default function Menu() {
 
   return (
     <>
-      <>
         <Flex justify="space-between" p={5}>
           <Box>
             <MenuLogo fill={"white"} width={18} height={23} borderColor="primary.100" borderWidth={7} />
