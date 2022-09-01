@@ -65,6 +65,16 @@ const components: Theme["components"] = {
           backgroundColor: "disabled.primary !important",
         },
       },
+      secondary: {
+        backgroundColor: "gray.50",
+        color: "#0D378D",
+        _hover: {
+          backgroundColor: "gray.100",
+        },
+        _focus: {
+          backgroundColor: "gray.200",
+        },
+      },
     },
     defaultProps: {
       variant: "primary",
