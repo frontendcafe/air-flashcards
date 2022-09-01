@@ -1,6 +1,5 @@
 import React from "react";
 
-/* eslint-disable import/no-extraneous-dependencies */
 import { Snowflake } from "@chakra-icons/tabler-icons";
 import { Box, Input, InputGroup, InputLeftElement, Stack, Textarea } from "@chakra-ui/react";
 
