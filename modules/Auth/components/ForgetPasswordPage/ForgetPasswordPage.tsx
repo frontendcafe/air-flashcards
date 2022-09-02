@@ -2,16 +2,17 @@
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { TbMail } from "react-icons/tb";
 
 import { useAuth } from "@/modules/Auth/context/AuthProvider";
 import Form from "@/modules/Auth/Form";
-import { EmailIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Icon,
   Input,
   InputGroup,
   InputLeftElement,
@@ -72,7 +73,9 @@ const ForgetPasswordPage = () => {
         <FormControl isInvalid={isError}>
           <FormLabel>Email</FormLabel>
           <InputGroup>
-            <InputLeftElement children={<EmailIcon pointerEvents="none" color="gray.100" />} />
+            <InputLeftElement
+              children={<Icon as={TbMail} pointerEvents="none" color="gray.100" />}
+            />
             <Input
               type="email"
               placeholder="Ingresa tu mail"
