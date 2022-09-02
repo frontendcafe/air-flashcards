@@ -1,21 +1,36 @@
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { AiOutlineSearch } from "react-icons/ai";
 
 import { useAuth } from "@/modules/Auth/context/AuthProvider";
-import { Button, Flex, Heading, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Spinner,
+} from "@chakra-ui/react";
 
-import { Collection } from "../models";
+import useUserCollections from "../hooks/useUserCollections";
 
+import CollectionsList from "./colletionList/CollectionsList";
 import NoCollections from "./NoCollections";
 
 const inputColor = "#CBD5E0";
 
 const MyCollectionsPage = () => {
-  const [userCollection, setUserCollections] = useState<Collection>();
-  const user = useAuth();
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  const {
+    user: { uid },
+  } = useAuth() as any;
+
+  const { userCollections, isLoading } = useUserCollections(uid);
+  const router = useRouter();
+
+  function handleClick() {
+    router.push("/collections/create");
+  }
+
   return (
     <Flex justifyContent="center" alignItems="center" flexDirection="column" mx={6}>
       <Heading mb={10} mt="5" fontSize="18px">
@@ -32,8 +47,18 @@ const MyCollectionsPage = () => {
           _placeholder={{ color: inputColor }}
         />
       </InputGroup>
-      {!userCollection && <NoCollections />}
-      <Button mt={6} width="100%" colorScheme="messenger">
+      {(!userCollections || userCollections.length === 0) && !isLoading && <NoCollections />}
+      {userCollections && !isLoading && <CollectionsList collections={userCollections} />}
+      {isLoading && <Spinner color="#A7B0C0" size="xl" />}
+
+      <Button
+        mt={6}
+        width="100%"
+        colorScheme="messenger"
+        onClick={() => {
+          handleClick();
+        }}
+      >
         Crear Colección
       </Button>
     </Flex>
