@@ -10,6 +10,5 @@ export default async function getCollectionStudySessions(collectionId: string) {
     result.id = studySessionDoc.id;
     return result;
   });
-  //   console.log(studySessions);
   return studySessions;
 }
