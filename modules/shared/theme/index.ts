@@ -3,6 +3,7 @@ import { extendTheme, Theme } from "@chakra-ui/react";
 interface CustomColors extends Partial<Omit<Theme["colors"], "gray">> {
   primary: Record<number, string>;
   gray: Record<number, string>;
+  label: Record<number, string>;
   disabled: Record<string, string>;
   status: {
     error: string;
@@ -31,6 +32,9 @@ const colors: CustomColors = {
   status: {
     error: "#E53E3E",
     success: "#3FB63D",
+  },
+  label: {
+    50: "18253D",
   },
 };
 
@@ -65,10 +69,29 @@ const components: Theme["components"] = {
           backgroundColor: "disabled.primary !important",
         },
       },
+      secondary: {
+        backgroundColor: "gray.50",
+        color: "#0D378D",
+        _hover: {
+          backgroundColor: "gray.100",
+        },
+        _focus: {
+          backgroundColor: "gray.200",
+        },
+      },
     },
     defaultProps: {
       variant: "primary",
       size: "md",
+    },
+  },
+
+  Text: {
+    variants: {
+      label: {
+        color: "label",
+        fontWeight: 600,
+      },
     },
   },
 };
