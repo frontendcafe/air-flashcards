@@ -34,7 +34,7 @@ const colors: CustomColors = {
     success: "#3FB63D",
   },
   label: {
-    50: "18253D",
+    50: "#18253D",
   },
 };
 
@@ -89,8 +89,9 @@ const components: Theme["components"] = {
   Text: {
     variants: {
       label: {
-        color: "label",
+        color: "label.50",
         fontWeight: 600,
+        fontSize: "18px",
       },
     },
   },
