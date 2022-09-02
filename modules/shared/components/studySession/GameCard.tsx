@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import icon from "@/public/favicon.ico";
 
 interface CardSide {
   image?: string;
@@ -13,13 +11,6 @@ interface GameCardPops {
   sideA: CardSide;
   sideB: CardSide;
 }
-
-const rotateFront = {
-  transform: "perspective(500px) rotateY(180deg)",
-};
-const rotateBack = {
-  transform: "perspective(500px) rotateY(360deg)",
-};
 
 export const GameCard: React.FC<GameCardPops> = ({ sideA, sideB }) => {
   const [flip, setFlip] = useState(false);
