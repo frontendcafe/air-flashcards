@@ -1,19 +1,34 @@
+/* eslint-disable react/no-children-prop */
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { TbMail } from "react-icons/tb";
 
-import FormField from "@/modules/Auth/components/FormField";
 import { useAuth } from "@/modules/Auth/context/AuthProvider";
 import Form from "@/modules/Auth/Form";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Text,
+} from "@chakra-ui/react";
 
 const ForgetPasswordPage = () => {
   const [email, setEmail] = useState("");
   const router = useRouter();
   const { forgotPassword } = useAuth();
+  const [isError, setIsError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   // handlers
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setIsError(false);
     setEmail(event.target.value);
   };
 
@@ -21,8 +36,8 @@ const ForgetPasswordPage = () => {
     e.preventDefault();
 
     if (!email) {
-      // eslint-disable-next-line no-alert
-      return window.alert("Please fill all fields");
+      setErrorMsg("Email inválido.");
+      return setIsError(true);
     }
 
     return forgotPassword(email)
@@ -34,19 +49,13 @@ const ForgetPasswordPage = () => {
         return router.push("/login");
       })
       .catch((err) => {
-        // eslint-disable-next-line no-alert
-        return window.alert(err);
+        setIsError(true);
+        return setErrorMsg(err?.message ?? "Algo salio mal");
       });
   };
 
   return (
-    <Flex
-      marginTop="141px"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      gap="25px"
-    >
+    <Flex marginTop="141px" flexDirection="column" alignItems="center" justifyContent="center">
       <Box marginBottom="92px">
         <Image
           // loader={myLoader}
@@ -56,10 +65,28 @@ const ForgetPasswordPage = () => {
           height={75}
         />
       </Box>
-      <Text>Recuperar Contraseña</Text>
+      <Text fontWeight={600} fontSize="20px">
+        Recuperar Contraseña
+      </Text>
       <Text>Podemos ayudarte, escribe la dirección de correo asociada a tu cuenta.</Text>
       <Form title="" onSubmit={handleSubmit} submitLabel="Enviar">
-        <FormField name="email" label="Email" type="email" onChange={handleChange} />
+        <FormControl isInvalid={isError}>
+          <FormLabel>Email</FormLabel>
+          <InputGroup>
+            <InputLeftElement
+              children={<Icon as={TbMail} pointerEvents="none" color="gray.100" />}
+            />
+            <Input
+              type="email"
+              placeholder="Ingresa tu mail"
+              aria-label="email"
+              onChange={handleChange}
+              _placeholder={{ color: "gray.100" }}
+            />
+          </InputGroup>
+
+          {isError && <FormErrorMessage>{errorMsg}</FormErrorMessage>}
+        </FormControl>
       </Form>
     </Flex>
   );

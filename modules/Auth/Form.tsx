@@ -1,6 +1,6 @@
 import React, { FormEventHandler, ReactNode } from "react";
 
-import { Button } from "@chakra-ui/react";
+import { Button, Stack } from "@chakra-ui/react";
 
 interface FormProps {
   title?: string;
@@ -15,8 +15,10 @@ const Form: React.FC<FormProps> = ({ title, onSubmit, children, submitLabel }) =
       {title && <h1>{title}</h1>}
 
       <form onSubmit={onSubmit}>
-        {children}
-        <Button type="submit">{submitLabel}</Button>
+        <Stack spacing={3}>
+          {children}
+          <Button type="submit">{submitLabel}</Button>
+        </Stack>
       </form>
     </div>
   );
