@@ -1,19 +1,19 @@
 import React from "react";
 
 import { Snowflake } from "@chakra-icons/tabler-icons";
-import { Box, Input, InputGroup, InputLeftElement, Stack, Textarea } from "@chakra-ui/react";
+import { Box, Input, InputGroup, InputLeftElement, Stack, Text, Textarea } from "@chakra-ui/react";
 
 interface TextFiedProps {
   label: string;
   placeholder: string;
-  variant: string;
+  variant?: string;
   textarea?: boolean;
   iconName?: string;
 }
 
 interface InputFieldProps {
   placeholder: string;
-  variant: string;
+  variant?: string;
   iconName?: string;
 }
 
@@ -47,13 +47,11 @@ const TextField: React.FC<TextFiedProps> = ({
   iconName,
 }) => {
   return (
-    <Stack>
-      <label
-        htmlFor="textfield"
-        style={{ color: "#111827", fontSize: "18px", fontFamily: "Work Sans" }}
-      >
+    <Stack py={3}>
+      <Text variant="label" as="label">
         {label}
-      </label>
+      </Text>
+
       {textarea === true ? (
         <Textarea placeholder={placeholder} variant={variant} resize="none" />
       ) : (
