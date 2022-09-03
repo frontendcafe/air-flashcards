@@ -1,6 +1,11 @@
 import { NextApiHandler } from "next";
 
-import { createStudySession, deleteStudySession } from "@/modules/StudySession/services";
+import { StudySessionResult } from "@/modules/StudySession/models";
+import {
+  createStudySession,
+  deleteStudySession,
+  getStudySessionData,
+} from "@/modules/StudySession/services";
 
 const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
   const { collectionId, mode, date, cardsAmount, StudySessionId } = request.body;
@@ -24,7 +29,12 @@ const StudySessionDetailHandler: NextApiHandler = async (request, response) => {
   }
   try {
     let studySession;
+    let GetStudySession: StudySessionResult;
     switch (request.method) {
+      case "GET":
+        GetStudySession = await getStudySessionData(collectionId, StudySessionId);
+        return response.json(GetStudySession);
+
       case "POST":
         studySession = await createStudySession({
           mode,
