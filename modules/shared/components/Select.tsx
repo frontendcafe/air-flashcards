@@ -1,17 +1,17 @@
 import React from "react";
 
-import { Select } from "@chakra-ui/react";
+import { Select, SelectProps } from "@chakra-ui/react";
 
-interface Category {
+interface Props extends SelectProps {
   option: string[];
   label: string;
 }
 
-const ComponentSelect = ({ label, option }: Category) => {
+const ComponentSelect = ({ label, option, ...props }: Props) => {
   return (
     <>
       <label htmlFor={label}>{label}</label>
-      <Select placeholder="Select option">
+      <Select {...props} placeholder="Select option">
         {option.map((item) => {
           return (
             <option key={item} value={item}>
