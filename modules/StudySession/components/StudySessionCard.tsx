@@ -1,18 +1,20 @@
+import React from "react";
+import { useRouter } from "next/router";
+
 import {
   Box,
-  Flex,
-  Text,
   Button,
+  Flex,
   Modal,
-  ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
-import Trash from "../Icons/Trash";
-import { useRouter } from "next/router";
+
+import Trash from "../../shared/components/Icons/Trash";
 
 interface StudySessionCardProps {
   id: string;
@@ -23,14 +25,14 @@ interface StudySessionCardProps {
   deleteFunction: (id: string) => void;
 }
 
-function StudySessionCard({
+const StudySessionCard = ({
   id,
   name,
   cardsAmount,
   collection,
   percentage,
   deleteFunction,
-}: StudySessionCardProps) {
+}: StudySessionCardProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
 
@@ -54,7 +56,9 @@ function StudySessionCard({
           <Flex
             direction="column"
             justify="space-between"
-            onClick={() => router.push(`/StudySession/${id}`)}
+            onClick={() => {
+              return router.push(`/StudySession/${id}`);
+            }}
           >
             <Box>
               <Text fontWeight="400">{name}</Text>
@@ -112,6 +116,6 @@ function StudySessionCard({
       </Modal>
     </>
   );
-}
+};
 
 export default StudySessionCard;
