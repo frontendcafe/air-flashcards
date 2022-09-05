@@ -55,6 +55,7 @@ const CreateStudySession: React.FC = () => {
 
   const [collections, setCollections] = useState<Collection[]>([]);
   const [selectedCollectionCardAmount, setSelectedCollectionCardAmount] = useState<number>(1);
+  const selectedCollectionId = watch("collectionId");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,8 +66,6 @@ const CreateStudySession: React.FC = () => {
 
     fetchData();
   }, []);
-
-  const selectedCollectionId = watch("collectionId");
 
   useEffect(() => {
     const fetchData = async () => {
