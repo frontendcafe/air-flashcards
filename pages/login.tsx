@@ -1,14 +1,18 @@
-import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { NextPage } from "next";
 import Link from "next/link";
+import { TbLock, TbMail } from "react-icons/tb";
 
-import FormField from "@/modules/Auth/components/FormField";
+import AuthFormLayout from "@/modules/Auth/components/AuthFormLayout";
+import CustomFormControl from "@/modules/Auth/components/CustomFormControl";
 import { useAuth } from "@/modules/Auth/context/AuthProvider";
 import { logIn } from "@/modules/Auth/firebase/auth";
 import Form from "@/modules/Auth/Form";
 import { Button } from "@chakra-ui/react";
 
 const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
+  const [isError, setIsError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const { setUser } = useAuth();
   const [state, setState] = useState({
     email: "",
@@ -17,6 +21,7 @@ const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name, value } = event.target;
+    setIsError(false);
     setState({ ...state, [name]: value });
   };
 
@@ -26,33 +31,61 @@ const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
     const { email, password } = state;
 
     if (!password || !email) {
-      // eslint-disable-next-line no-alert
-      window.alert("Please fill all fields");
-      return;
+      setErrorMsg("LLena todos los campos.");
+      return setIsError(true);
     }
 
     const user = await logIn(email, password);
     if (user) {
-      // eslint-disable-next-line no-alert
-      window.alert("User logged");
-      setUser(user);
-    } else {
-      // eslint-disable-next-line no-alert
-      window.alert("Unable to login");
-      setUser(null);
+      return setUser(user);
     }
+
+    setIsError(true);
+    setErrorMsg("Email o contraseña incorrectos.");
+    return setUser(null);
   };
 
   return (
-    <Form title="Iniciar Sesión" onSubmit={handleSubmitLogin} submitLabel="Iniciar Sesión">
-      <FormField name="email" label="Email" type="email" onChange={handleChange} />
-      <FormField name="password" label="Contraseña" type="password" onChange={handleChange} />
-      <Link href="/forget-password">
-        <Button variant="link" colorScheme="blue" size="sm">
-          Forgot password?
-        </Button>
-      </Link>
-    </Form>
+    <AuthFormLayout title="Ingresar">
+      <Form title="" onSubmit={handleSubmitLogin} submitLabel="Iniciar Sesión">
+        {/* EMAIL */}
+        <CustomFormControl
+          label="Email"
+          type="email"
+          name="email"
+          LeftIcon={TbMail}
+          placeholder="Ingresa tu mail"
+          isError={isError}
+          ariaLabel="email"
+          onChange={handleChange}
+          errorMsg={errorMsg}
+        />
+
+        {/* PASSWORD */}
+        <CustomFormControl
+          label="Contraseña"
+          type="password"
+          name="password"
+          LeftIcon={TbLock}
+          placeholder="Ingresa tu contraseña"
+          isError={isError}
+          ariaLabel="password"
+          onChange={handleChange}
+          errorMsg={errorMsg}
+        />
+
+        <Link href="/forget-password">
+          <Button variant="link" colorScheme="blue" size="sm">
+            ¿Olvidastes tu contraseña?
+          </Button>
+        </Link>
+        <Link href="/register">
+          <Button variant="link" colorScheme="blue" size="sm">
+            ¿Eres Nuevo, Crea tu Cuenta?
+          </Button>
+        </Link>
+      </Form>
+    </AuthFormLayout>
   );
 };
 
