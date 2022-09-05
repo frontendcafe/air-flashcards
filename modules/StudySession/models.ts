@@ -26,3 +26,9 @@ export interface StudySession extends StudySessionData {
   id: string;
   results: StudySessionResult[];
 }
+
+export interface CreateStudySessionData extends Omit<StudySessionData, "completed"> {
+  collectionId: string;
+}
+
+export type FormStudySessionData = Omit<CreateStudySessionData, "date">;

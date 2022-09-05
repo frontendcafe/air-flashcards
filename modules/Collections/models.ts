@@ -1,6 +1,10 @@
 export interface CollectionFirebaseData {
-  name: string;
+  title: string;
+  category: string;
+  description: string;
+  tags?: string[];
   userId: string;
+  createdAt: string;
 }
 
 export interface Collection extends CollectionFirebaseData {
