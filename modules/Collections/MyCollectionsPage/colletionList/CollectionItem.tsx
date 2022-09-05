@@ -15,11 +15,25 @@ const CollectionItem: FC<IcollectionItem> = ({ collection }) => {
       <Flex justifyContent="space-between">
         <Box>
           <Heading size="xs" mb={2} fontWeight="700">
-            {collection.name}
+            {collection.title}
           </Heading>
-          <Tag mb={2} backgroundColor="#CFD3DC80" color="#1867FF" borderRadius="10px" px={2}>
-            Add Tags
-          </Tag>
+          {collection.tags &&
+            collection.tags.length > 0 &&
+            collection.tags.map((tag) => {
+              return (
+                <Tag
+                  key={tag}
+                  mb={2}
+                  mr={1}
+                  backgroundColor="#CFD3DC80"
+                  color="#1867FF"
+                  borderRadius="10px"
+                  px={2}
+                >
+                  {tag}
+                </Tag>
+              );
+            })}
           <Text fontSize="xs" color="#768998">
             {collection.cards.length} tarjetas
           </Text>
