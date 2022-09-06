@@ -57,7 +57,7 @@ const CreateStudySession: React.FC = () => {
   // };
 
   const [collections, setCollections] = useState<Collection[]>([]);
-  const [selectedCollectionCardAmount, setSelectedCollectionCardAmount] = useState<number>(1);
+  const [selectedCollectionCardAmount, setSelectedCollectionCardAmount] = useState<number>(0);
   const selectedCollectionId = watch("collectionId");
 
   useEffect(() => {
@@ -110,12 +110,14 @@ const CreateStudySession: React.FC = () => {
               })}
             </Select>
           </FormField>
-          <SliderInput
-            label="Cantidad de tarjetas"
-            {...register("cardsAmount")}
-            max={selectedCollectionCardAmount}
-            min={1}
-          />
+          {selectedCollectionCardAmount && (
+            <SliderInput
+              label="Cantidad de tarjetas"
+              {...register("cardsAmount")}
+              max={selectedCollectionCardAmount}
+              min={1}
+            />
+          )}
 
           <FormField label="Modo" error={errors.mode?.message || ""}>
             <Select placeholder="Ingresa el modo" {...register("mode")}>
@@ -127,7 +129,9 @@ const CreateStudySession: React.FC = () => {
         </Stack>
 
         {/** TODO (NTH): should be disabled if some field is not completed */}
-        <Button type="submit">Comenzar sesión</Button>
+        <Button type="submit" disabled={!selectedCollectionCardAmount}>
+          Comenzar sesión
+        </Button>
       </Stack>
     </Container>
   );
