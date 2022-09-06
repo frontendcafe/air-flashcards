@@ -7,7 +7,7 @@ const NoCollections = () => {
     <Flex flexDir="column">
       <Image src="/images/cuate.svg" width={160} height={160} alt="ilustración" />
       <Text mt={6} color="#A7B0C0">
-        Aun no tienes coleccionse
+        Aun no tienes colecciones
       </Text>
     </Flex>
   );
