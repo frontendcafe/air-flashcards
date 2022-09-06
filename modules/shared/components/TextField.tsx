@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Snowflake } from "@chakra-icons/tabler-icons";
+import * as icons from "@chakra-icons/tabler-icons";
 import { Box, Input, InputGroup, InputLeftElement, Stack, Text, Textarea } from "@chakra-ui/react";
 
 interface TextFiedProps {
@@ -18,18 +18,19 @@ interface InputFieldProps {
 }
 
 const InputField: React.FC<InputFieldProps> = ({ placeholder, variant, iconName }) => {
+  // chakra-icons package not type export * correctly
+  // @ts-ignore
+  const Icon = iconName && icons[iconName];
+
   return (
     <Box>
       {iconName ? (
         <InputGroup>
-          <InputLeftElement
-            pointerEvents="none"
-            // eslint-disable-next-line react/no-children-prop
-            children={
-              // TODO: entrada dinámica de Iconos tomando como parámetro iconName
-              <Snowflake fill="none" w={7} h={7} stroke="gray.200" strokeLinecap="square" />
-            }
-          />
+          {Icon && (
+            <InputLeftElement pointerEvents="none">
+              <Icon fill="none" w={7} h={7} stroke="gray.200" strokeLinecap="square" />
+            </InputLeftElement>
+          )}
           <Input placeholder={placeholder} variant={variant} />
         </InputGroup>
       ) : (
