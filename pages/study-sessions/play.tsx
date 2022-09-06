@@ -92,7 +92,7 @@ const PlayStudySession: React.FC = () => {
   };
 
   useEffect(() => {
-    if (router.isReady) {
+    if (!cards.length) {
       const fetchData = async () => {
         setIsLoading(true);
 
@@ -112,7 +112,7 @@ const PlayStudySession: React.FC = () => {
 
       fetchData();
     }
-  }, [collectionId, cardsAmount, router.isReady]);
+  }, [collectionId, cardsAmount, cards]);
 
   const sideA = parseToGameCardSide(
     mode === StudySessionMode.JEOPARDY ? currentCard?.sideB : currentCard?.sideA
