@@ -11,7 +11,7 @@ interface IcollectionItem {
 
 const CollectionItem: FC<IcollectionItem> = ({ collection }) => {
   return (
-    <Box border="solid 1px #A7B0C0" borderRadius="15px" width="100%" p={3}>
+    <Box border="solid 1px #A7B0C0" borderRadius="15px" width="100%" p={3} m={4}>
       <Flex justifyContent="space-between">
         <Box>
           <Heading size="xs" mb={2} fontWeight="700">
