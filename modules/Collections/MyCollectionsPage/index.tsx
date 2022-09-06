@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { AiOutlineSearch } from "react-icons/ai";
 
-import { useAuth } from "@/modules/Auth/context/AuthProvider";
 import {
   Button,
   Flex,
@@ -20,11 +19,7 @@ import NoCollections from "./NoCollections";
 const inputColor = "#CBD5E0";
 
 const MyCollectionsPage = () => {
-  const {
-    user: { uid },
-  } = useAuth() as any;
-
-  const { userCollections, isLoading } = useUserCollections(uid);
+  const { userCollections, isLoading } = useUserCollections();
   const router = useRouter();
 
   function handleClick() {
@@ -36,7 +31,7 @@ const MyCollectionsPage = () => {
       <Heading mb={10} mt="5" fontSize="18px">
         Mis colecciones
       </Heading>
-      <InputGroup mb={12}>
+      <InputGroup mb={4}>
         <InputLeftElement pointerEvents="none">
           <AiOutlineSearch color={inputColor} size={25} />
         </InputLeftElement>
