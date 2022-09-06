@@ -32,7 +32,7 @@ const Register: NextPage & { redirectIfAuthenticated: boolean } = () => {
     const { email, password, repeatPassword } = state;
 
     if (!password || !repeatPassword || !email) {
-      setErrorMsg("LLena todos los campos.");
+      setErrorMsg("Llena todos los campos.");
       return setIsError(true);
     }
 
