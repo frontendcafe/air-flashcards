@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import { Collection } from "@/modules/Collections/models";
 import { SliderInput } from "@/modules/shared/components/SliderInput";
@@ -36,6 +37,8 @@ const CreateStudySession: React.FC = () => {
     formState: { errors },
     watch,
   } = useFormWithYup<FormStudySessionData>(formSchema);
+
+  const router = useRouter();
 
   // const onSubmit = async (data: CreateStudySessionData) => {
   //   try {
@@ -82,8 +85,13 @@ const CreateStudySession: React.FC = () => {
   }, [selectedCollectionId]);
 
   const onSubmit = (data: FormStudySessionData) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+    const redirectUrl = `/study-sessions/play?${new URLSearchParams({
+      collectionId: data.collectionId,
+      mode: data.mode,
+      cardsAmount: data.cardsAmount.toString(),
+    })}`;
+
+    router.push(redirectUrl);
   };
 
   return (
@@ -118,7 +126,7 @@ const CreateStudySession: React.FC = () => {
           </FormField>
         </Stack>
 
-        {/** TODO: should be disabled if some field is not completed */}
+        {/** TODO (NTH): should be disabled if some field is not completed */}
         <Button type="submit">Comenzar sesión</Button>
       </Stack>
     </Container>
