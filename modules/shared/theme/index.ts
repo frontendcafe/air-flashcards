@@ -85,4 +85,10 @@ const config: Theme["config"] = {
   useSystemColorMode: false,
 };
 
-export const theme = extendTheme({ colors, components, fonts, config });
+const breakpoints = {
+  mobile: "360px",
+  tablet: "834px",
+  desktop: "1440px",
+};
+
+export const theme = extendTheme({ colors, components, fonts, config, breakpoints });
