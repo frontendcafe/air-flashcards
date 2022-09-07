@@ -9,7 +9,7 @@ import { Collection, CollectionFirebaseData } from "@/modules/Collections/models
 import { createCollectionSchema } from "@/modules/Collections/schema";
 import db from "@/modules/Firestore";
 
-const COLLECTION_PATH = 'collections';
+const COLLECTION_PATH = "collections";
 
 export const getCollections: NextApiHandler<Collection[]> = async (request, response) => {
   const collectionsSnapshot = await getDocs(collection(db, COLLECTION_PATH));
