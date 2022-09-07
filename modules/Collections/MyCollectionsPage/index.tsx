@@ -31,7 +31,7 @@ const MyCollectionsPage = () => {
 
   return (
     <Flex justifyContent="center" alignItems="center" flexDirection="column" mx={6}>
-      <Heading mb={10} mt="5" fontSize="18px">
+      <Heading mb={10} fontSize="18px">
         Mis colecciones
       </Heading>
       <InputGroup mb={4}>
