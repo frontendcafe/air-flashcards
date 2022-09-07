@@ -39,6 +39,18 @@ const colors: CustomColors = {
 };
 
 const components: Theme["components"] = {
+  Text: {
+    variants: {
+      menu: {
+        textAlign: "center",
+        color: "white",
+        fontWeight: 500,
+        fontSize: "1.5rem",
+        marginTop: "45px",
+      },
+    },
+  },
+
   Button: {
     baseStyle: {
       height: "auto",
