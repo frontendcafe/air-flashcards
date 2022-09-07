@@ -43,7 +43,8 @@ export const GameCard: React.FC<GameCardPops> = ({ sideA, sideB, flipped, onClic
           style={{
             backfaceVisibility: "hidden",
           }}
-          animate={{ rotateY: flipped ? [0, 360] : [360, 0] }}
+          initial={{ rotateY: 0 }}
+          animate={{ rotateY: flipped ? 180 : 0 }}
           transition={{ duration: 1 }}
         >
           {sideA.image && <img src={sideA.image} width={150} height={150} />}
@@ -69,7 +70,8 @@ export const GameCard: React.FC<GameCardPops> = ({ sideA, sideB, flipped, onClic
           style={{
             backfaceVisibility: "hidden",
           }}
-          animate={{ rotateY: flipped ? [180, 0] : [0, 180] }}
+          initial={{ rotateY: 180 }}
+          animate={{ rotateY: flipped ? 0 : 180 }}
           transition={{ duration: 1 }}
         >
           {sideB.image && <img src={sideB.image} width={150} height={150} />}

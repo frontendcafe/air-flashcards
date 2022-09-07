@@ -140,7 +140,9 @@ const PlayStudySession: React.FC = () => {
                   sideA={sideA}
                   sideB={sideB}
                   onClick={() => {
-                    setCardFlipped(!cardFlipped);
+                    if (!cardFlipped) {
+                      setCardFlipped(!cardFlipped);
+                    }
                   }}
                   flipped={cardFlipped}
                 />
