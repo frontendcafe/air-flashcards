@@ -1,4 +1,4 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, deleteDoc as firebaseDeleteDoc, doc } from "firebase/firestore";
 
 import db from "@/modules/Firestore";
 
@@ -12,4 +12,9 @@ export async function createDoc<DocData>(collectionPath: string, docData: DocDat
   const newDocRef = await addDoc(collRef, docData);
   const newDoc = { ...docData, id: newDocRef.id };
   return newDoc;
+}
+
+export async function deleteDoc(collectionPath: string) {
+  const docRef = doc(db, collectionPath);
+  await firebaseDeleteDoc(docRef);
 }
