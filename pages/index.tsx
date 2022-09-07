@@ -3,8 +3,12 @@ import Head from "next/head";
 import nookies from "nookies";
 
 import { verifyIdToken } from "@/firebaseAdminConfig";
+
 import LogoutButton from "@/modules/Auth/components/LogoutButton";
 import Menu from "@/modules/shared/components/Menu/Menu";
+=======
+import MyCollectionsPage from "@/modules/Collections/MyCollectionsPage";
+
 
 const Home: NextPage & { requiresAuthentication: boolean } = () => {
   return (
@@ -20,6 +24,9 @@ const Home: NextPage & { requiresAuthentication: boolean } = () => {
         <h1>Welcome to Flashcards!</h1>
       </div>
       <LogoutButton />
+=======
+      <MyCollectionsPage />
+
     </div>
   );
 };

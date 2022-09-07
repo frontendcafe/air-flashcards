@@ -1,9 +1,11 @@
 import { NextApiHandler } from "next";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { ValidationError } from "yup";
 
 import { ClientError, MethodHandler, ResContent } from "@/modules/Api/models";
 import { allowedMethods } from "@/modules/Api/utils";
+import getCollectionCards from "@/modules/Cards/getCollectionCards";
+import getCollectionStudySessions from "@/modules/Collections/getCollectionStudySessions";
 import { Collection } from "@/modules/Collections/models";
 import db from "@/modules/Firestore";
 
@@ -18,25 +20,11 @@ const getCollectionById: NextApiHandler = async (request, response) => {
   collectionData!.id = collectionSnap.id;
 
   if (query.cards) {
-    const cardsRef = collection(db, `collections/${query.id}/cards`);
-    const cardsDocs = await getDocs(cardsRef);
-    const cardsData = cardsDocs.docs.map((cradDoc) => {
-      const result = cradDoc.data();
-      result.id = cradDoc.id;
-      return result;
-    });
-    collectionData!.cards = cardsData;
+    collectionData!.cards = await getCollectionCards(query.id as string);
   }
 
   if (query.studySessions) {
-    const studySessionsRef = collection(db, `collections/${query.id}/studySessions`);
-    const studySessionsDocs = await getDocs(studySessionsRef);
-    const studySessionsData = studySessionsDocs.docs.map((studySessionDoc) => {
-      const result = studySessionDoc.data();
-      result.id = studySessionDoc.id;
-      return result;
-    });
-    collectionData!.studySessions = studySessionsData;
+    collectionData!.studySessions = await getCollectionStudySessions(query.id as string);
   }
 
   return response.json(collectionData);
