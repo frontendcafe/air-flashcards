@@ -48,9 +48,13 @@ const components: Theme["components"] = {
         fontSize: "1.5rem",
         marginTop: "45px",
       },
+      label: {
+        color: "label.50",
+        fontWeight: 600,
+        fontSize: "18px",
+      },
     },
   },
-
   Button: {
     baseStyle: {
       height: "auto",
@@ -95,16 +99,6 @@ const components: Theme["components"] = {
     defaultProps: {
       variant: "primary",
       size: "md",
-    },
-  },
-
-  Text: {
-    variants: {
-      label: {
-        color: "label.50",
-        fontWeight: 600,
-        fontSize: "18px",
-      },
     },
   },
 
