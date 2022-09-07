@@ -11,6 +11,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
+import useFilterUserCollection from "../hooks/useFilterUserCollections";
 import useUserCollections from "../hooks/useUserCollections";
 
 import CollectionsList from "./colletionList/CollectionsList";
@@ -21,6 +22,8 @@ const inputColor = "#CBD5E0";
 const MyCollectionsPage = () => {
   const { userCollections, isLoading } = useUserCollections();
   const router = useRouter();
+
+  const { query, setQuery, filteredCollections } = useFilterUserCollection(userCollections);
 
   function handleClick() {
     router.push("/collections/create");
@@ -40,10 +43,16 @@ const MyCollectionsPage = () => {
           placeholder="Buscar"
           borderColor={inputColor}
           _placeholder={{ color: inputColor }}
+          value={query}
+          onChange={(e) => {
+            return setQuery(e.target.value);
+          }}
         />
       </InputGroup>
       {(!userCollections || userCollections.length === 0) && !isLoading && <NoCollections />}
-      {userCollections && !isLoading && <CollectionsList collections={userCollections} />}
+      {userCollections && !isLoading && (
+        <CollectionsList collections={filteredCollections || userCollections} />
+      )}
       {isLoading && <Spinner color="#A7B0C0" size="xl" />}
 
       <Button
