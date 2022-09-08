@@ -39,18 +39,6 @@ const colors: CustomColors = {
 };
 
 const components: Theme["components"] = {
-  Text: {
-    variants: {
-      menu: {
-        textAlign: "center",
-        color: "white",
-        fontWeight: 500,
-        fontSize: "1.5rem",
-        marginTop: "45px",
-      },
-    },
-  },
-
   Button: {
     baseStyle: {
       height: "auto",
@@ -104,6 +92,13 @@ const components: Theme["components"] = {
         color: "label.50",
         fontWeight: 600,
         fontSize: "18px",
+      },
+      menu: {
+        textAlign: "center",
+        color: "white",
+        fontWeight: 500,
+        fontSize: "1.5rem",
+        marginTop: "45px",
       },
     },
   },
