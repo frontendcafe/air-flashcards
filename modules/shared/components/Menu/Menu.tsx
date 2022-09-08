@@ -1,18 +1,20 @@
 import React from "react";
+import Link from "next/link";
+
 import {
+  Box,
   Drawer,
   DrawerBody,
-  DrawerOverlay,
-  DrawerContent,
   DrawerCloseButton,
-  useDisclosure,
-  Text,
+  DrawerContent,
+  DrawerOverlay,
   Flex,
-  Box,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
-import MenuLogo from "../Icons/MenuLogo";
+
 import Hamburguer from "../Icons/Hamburguer";
-import Link from "next/link";
+import MenuLogo from "../Icons/MenuLogo";
 
 const Links = [
   { title: "Colecciones", href: "/collections" },
@@ -21,7 +23,7 @@ const Links = [
   { title: "Perfil", href: "/Perfil" },
 ];
 
-export default function Menu() {
+const Menu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -43,7 +45,6 @@ export default function Menu() {
           ))}
         </Box>
       </Flex>
-
       <Drawer onClose={onClose} isOpen={isOpen} size={{ base: "full", md: "sm" }}>
         <DrawerOverlay />
         <DrawerContent bg="primary.100">
@@ -68,4 +69,6 @@ export default function Menu() {
       </Drawer>
     </>
   );
-}
+};
+
+export default Menu;

@@ -17,10 +17,9 @@ const Home: NextPage & { requiresAuthentication: boolean } = () => {
       </Head>
       <div>
         <Menu />
-        <h1>Welcome to Flashcards!</h1>
+        <MyCollectionsPage />
       </div>
       <LogoutButton />
-      =======
       <MyCollectionsPage />
     </div>
   );
