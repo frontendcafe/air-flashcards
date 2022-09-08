@@ -15,8 +15,8 @@ import Hamburguer from "../Icons/Hamburguer";
 import Link from "next/link";
 
 const Links = [
-  { title: "Colecciones", href: "/Collection" },
-  { title: "Sesión de estudio", href: "/SesiónEstudio" },
+  { title: "Colecciones", href: "/collections" },
+  { title: "Sesión de estudio", href: "/study-sessions" },
   { title: "Tienda", href: "/Tienda" },
   { title: "Perfil", href: "/Perfil" },
 ];
@@ -30,8 +30,17 @@ export default function Menu() {
         <Box>
           <MenuLogo fill="white" width={18} height={23} borderColor="primary.100" borderWidth={7} />
         </Box>
-        <Box onClick={onOpen} cursor="pointer">
+        <Box onClick={onOpen} cursor="pointer" display={{ lg: "none" }}>
           <Hamburguer />
+        </Box>
+        <Box display={{ base: "none", lg: "flex" }}>
+          {Links.map((link) => (
+            <Text variant="navbar">
+              <Link href={link.href}>
+                <a>{link.title}</a>
+              </Link>
+            </Text>
+          ))}
         </Box>
       </Flex>
 
@@ -48,7 +57,7 @@ export default function Menu() {
               borderWidth={2}
             />
             {Links.map((link) => (
-              <Text variant="menu">
+              <Text variant="drawer">
                 <Link href={link.href}>
                   <a>{link.title}</a>
                 </Link>

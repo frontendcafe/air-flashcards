@@ -93,12 +93,24 @@ const components: Theme["components"] = {
         fontWeight: 600,
         fontSize: "18px",
       },
-      menu: {
+      drawer: {
         textAlign: "center",
         color: "white",
         fontWeight: 500,
-        fontSize: "1.5rem",
+        fontSize: "20px",
         marginTop: "45px",
+      },
+      navbar: {
+        textAlign: "center",
+        color: "gray.300",
+        fontWeight: 400,
+        fontSize: "19px",
+        borderBottom: "3px solid white",
+        ml: "60px",
+        _hover: {
+          color: "primary.100",
+          borderBottom: "3px solid",
+        },
       },
     },
   },
