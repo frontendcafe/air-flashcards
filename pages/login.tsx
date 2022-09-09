@@ -76,12 +76,12 @@ const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
 
         <Link href="/forget-password">
           <Button variant="link" colorScheme="blue" size="sm">
-            ¿Olvidastes tu contraseña?
+            ¿Olvidaste tu contraseña?
           </Button>
         </Link>
         <Link href="/register">
           <Button variant="link" colorScheme="blue" size="sm">
-            ¿Eres Nuevo, Crea tu Cuenta?
+            Crea tu cuenta
           </Button>
         </Link>
       </Form>

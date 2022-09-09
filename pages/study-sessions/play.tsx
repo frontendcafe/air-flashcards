@@ -8,6 +8,7 @@ import GameStatus from "@/modules/StudySession/components/GameStatus";
 import ResumeGame from "@/modules/StudySession/components/ResumeGame";
 import { StudySessionMode } from "@/modules/StudySession/models";
 import { Box, Container, Stack } from "@chakra-ui/react";
+import { GetServerSideProps } from "next";
 
 const parseToGameCardSide = (side: Card["sideA"] | undefined) => {
   if (!side) {
@@ -44,7 +45,7 @@ const randomizeMode = (): StudySessionMode.NORMAL | StudySessionMode.JEOPARDY =>
   return Math.random() > 0.5 ? StudySessionMode.NORMAL : StudySessionMode.JEOPARDY;
 };
 
-const PlayStudySession: React.FC = () => {
+const PlayStudySession: React.FC<any> = ({ cards }) => {
   const router = useRouter();
 
   const { collectionId, cardsAmount, mode: modeQuery } = router.query;
@@ -58,7 +59,7 @@ const PlayStudySession: React.FC = () => {
     initialMode as StudySessionMode.JEOPARDY | StudySessionMode.NORMAL
   );
 
-  const [cards, setCards] = useState<Card[]>([]);
+  const [random, setCards] = useState<Card[]>([]);
 
   const [cardFlipped, setCardFlipped] = useState(false);
 
@@ -112,7 +113,8 @@ const PlayStudySession: React.FC = () => {
 
       fetchData();
     }
-  }, [collectionId, cardsAmount, cards]);
+  }, []);
+
 
   const sideA = parseToGameCardSide(
     mode === StudySessionMode.JEOPARDY ? currentCard?.sideB : currentCard?.sideA
@@ -124,9 +126,8 @@ const PlayStudySession: React.FC = () => {
   return (
     <Box minH="100vh">
       <Container maxW="container.xl" m="auto">
-        {isLoading && <Box>Loading...</Box>}
         {areError && <Box>Error</Box>}
-        {!isLoading && !areError && (
+        {!areError && (
           <Stack spacing={4} maxW={330} mx="auto">
             <GameStatus
               correct={answers.correct.length}
@@ -182,5 +183,18 @@ const PlayStudySession: React.FC = () => {
     </Box>
   );
 };
+
+export const getServerSideProps: GetServerSideProps<any> = async ({ query }) => {
+  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/collections/${query!.collectionId!}/cards`);
+  const data = await result.json();
+
+  const parsedCards = shuffleAndSlice(data, Number(query!.cardsAmount));
+
+  return {
+    props: {
+      cards: parsedCards
+    }
+  }
+}
 
 export default PlayStudySession;
