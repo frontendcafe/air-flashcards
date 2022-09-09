@@ -4,6 +4,8 @@ import nookies from "nookies";
 
 import { verifyIdToken } from "@/firebaseAdminConfig";
 import LogoutButton from "@/modules/Auth/components/LogoutButton";
+import MyCollectionsPage from "@/modules/Collections/MyCollectionsPage";
+import Menu from "@/modules/shared/components/Menu/Menu";
 
 const Home: NextPage & { requiresAuthentication: boolean } = () => {
   return (
@@ -14,9 +16,11 @@ const Home: NextPage & { requiresAuthentication: boolean } = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <h1>Welcome to Flashcards!</h1>
+        <Menu />
+        <MyCollectionsPage />
       </div>
       <LogoutButton />
+      <MyCollectionsPage />
     </div>
   );
 };
