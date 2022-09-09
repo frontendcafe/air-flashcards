@@ -39,22 +39,7 @@ const colors: CustomColors = {
 };
 
 const components: Theme["components"] = {
-  Text: {
-    variants: {
-      menu: {
-        textAlign: "center",
-        color: "white",
-        fontWeight: 500,
-        fontSize: "1.5rem",
-        marginTop: "45px",
-      },
-      label: {
-        color: "label.50",
-        fontWeight: 600,
-        fontSize: "18px",
-      },
-    },
-  },
+
   Button: {
     baseStyle: {
       height: "auto",
@@ -99,6 +84,35 @@ const components: Theme["components"] = {
     defaultProps: {
       variant: "primary",
       size: "md",
+    },
+  },
+  
+  Text: {
+    variants: {
+      label: {
+        color: "label.50",
+        fontWeight: 600,
+        fontSize: "18px",
+      },
+      drawer: {
+        textAlign: "center",
+        color: "white",
+        fontWeight: 500,
+        fontSize: "20px",
+        marginTop: "45px",
+      },
+      navbar: {
+        textAlign: "center",
+        color: "gray.300",
+        fontWeight: 400,
+        fontSize: "19px",
+        borderBottom: "3px solid white",
+        ml: "60px",
+        _hover: {
+          color: "primary.100",
+          borderBottom: "3px solid",
+        },
+      },
     },
   },
 

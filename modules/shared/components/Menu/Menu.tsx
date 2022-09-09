@@ -17,8 +17,8 @@ import Hamburguer from "../Icons/Hamburguer";
 import MenuLogo from "../Icons/MenuLogo";
 
 const Links = [
-  { title: "Colecciones", href: "/" },
-  { title: "Sesión de estudio", href: "/SesiónEstudio" },
+  { title: "Colecciones", href: "/collections" },
+  { title: "Sesión de estudio", href: "/study-sessions" },
   { title: "Tienda", href: "/Tienda" },
   { title: "Perfil", href: "/Perfil" },
 ];
@@ -32,11 +32,19 @@ const Menu = () => {
         <Box>
           <MenuLogo fill="white" width={18} height={23} borderColor="primary.100" borderWidth={7} />
         </Box>
-        <Box onClick={onOpen} cursor="pointer">
+        <Box onClick={onOpen} cursor="pointer" display={{ lg: "none" }}>
           <Hamburguer />
         </Box>
+        <Box display={{ base: "none", lg: "flex" }}>
+          {Links.map((link) => (
+            <Text variant="navbar">
+              <Link href={link.href}>
+                <a>{link.title}</a>
+              </Link>
+            </Text>
+          ))}
+        </Box>
       </Flex>
-
       <Drawer onClose={onClose} isOpen={isOpen} size={{ base: "full", md: "sm" }}>
         <DrawerOverlay />
         <DrawerContent bg="primary.100">
@@ -49,13 +57,13 @@ const Menu = () => {
               borderColor="primary.100"
               borderWidth={2}
             />
-            {Links.map((link) => {
-              return (
-                <Text variant="menu" key={link.href}>
-                  <Link href={link.href}>{link.title}</Link>
-                </Text>
-              );
-            })}
+            {Links.map((link) => (
+              <Text variant="drawer">
+                <Link href={link.href}>
+                  <a>{link.title}</a>
+                </Link>
+              </Text>
+            ))}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
