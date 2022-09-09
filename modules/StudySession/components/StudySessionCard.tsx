@@ -41,6 +41,7 @@ const StudySessionCard = ({
       <Box
         bg="white"
         boxSize="xs"
+        w={{ base: "100%", desktop: "320px" }}
         h="153px"
         boxShadow="lg"
         borderColor="gray.50"
