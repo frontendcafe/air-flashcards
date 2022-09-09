@@ -1,13 +1,20 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
+import Menu from "@/modules/shared/components/Menu/Menu";
 import StudySessionCard from "@/modules/StudySession/components/StudySessionCard";
-import { Center, Container, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Center, Container, Grid, GridItem, Select, Text } from "@chakra-ui/react";
 
 const StudySessions: NextPage = () => {
   const deleteFunction = (id: string) => {
     console.log(id);
   };
+
+  // TODO: Obtener studysessions del usuario
+  // useEffect(() => {
+  // getUserStudySessions
+  // setStudySessions()
+  // }, [])
 
   return (
     <>
@@ -17,11 +24,14 @@ const StudySessions: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container variant="main">
-        {/* Agregar Menu o TODO: Layout Component */}
-        <Text color="#151F33" fontWeight={600} fontSize="20px">
+        {/* TODO: Layout Component */}
+        <Menu />
+        <Text color="#151F33" fontWeight={600} fontSize="20px" mt="50px">
           Mis rondas de estudio
         </Text>
-        <Text>recientes</Text>
+        <Select placeholder="Recientes" w="142px" borderColor="gray.50" m="26px 0px 45px 0px">
+          <option value="option1">Option 1</option>
+        </Select>
         <Grid
           templateColumns={{
             base: "repeat(1, 1fr)",
