@@ -17,7 +17,7 @@ import Hamburguer from "../Icons/Hamburguer";
 import MenuLogo from "../Icons/MenuLogo";
 
 const Links = [
-  { title: "Colecciones", href: "/collections" },
+  { title: "Colecciones", href: "/" },
   { title: "Sesión de estudio", href: "/study-sessions" },
   { title: "Tienda", href: "/Tienda" },
   { title: "Perfil", href: "/Perfil" },
