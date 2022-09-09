@@ -1,11 +1,14 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
+import AddIcon from "@/modules/shared/components/Icons/Add";
 import Menu from "@/modules/shared/components/Menu/Menu";
 import StudySessionCard from "@/modules/StudySession/components/StudySessionCard";
-import { Center, Container, Grid, GridItem, Select, Text } from "@chakra-ui/react";
+import { Center, Container, Flex, Grid, GridItem, Select, Text } from "@chakra-ui/react";
 
 const StudySessions: NextPage = () => {
+  const router = useRouter();
   const deleteFunction = (id: string) => {
     console.log(id);
   };
@@ -15,6 +18,10 @@ const StudySessions: NextPage = () => {
   // getUserStudySessions
   // setStudySessions()
   // }, [])
+
+  const handleCreate = () => {
+    router.push("/study-sessions/create");
+  };
 
   return (
     <>
@@ -40,8 +47,20 @@ const StudySessions: NextPage = () => {
           gap={{ base: "25", lg: "10" }}
           justifyContent="center"
         >
-          <GridItem w="100%">
-            <Center>boton de crear</Center>
+          <GridItem
+            w="100%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            cursor="pointer"
+            onClick={handleCreate}
+          >
+            <Flex flexDirection="column">
+              <Center flexDirection="column">
+                <AddIcon width={25} height={25} />
+                <Text>Crear nueva sesión</Text>
+              </Center>
+            </Flex>
           </GridItem>
           <GridItem w="100%">
             <StudySessionCard
