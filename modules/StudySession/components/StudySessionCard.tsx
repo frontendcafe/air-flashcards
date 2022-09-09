@@ -41,6 +41,7 @@ const StudySessionCard = ({
       <Box
         bg="white"
         boxSize="xs"
+        w={{ base: "100%", desktop: "320px" }}
         h="153px"
         boxShadow="lg"
         borderColor="gray.50"
@@ -63,7 +64,14 @@ const StudySessionCard = ({
             <Box>
               <Text fontWeight="400">{name}</Text>
               <Box color="primary.50" display="flex" alignItems="center" justifyContent="start">
-                <Text fontSize="sm" bg="primary.100" borderRadius="lg" p="1" color="white">
+                <Text
+                  fontSize="sm"
+                  bg="primary.100"
+                  mt="14px"
+                  borderRadius="lg"
+                  p="5px 12px"
+                  color="white"
+                >
                   {collection}
                 </Text>
               </Box>

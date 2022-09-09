@@ -203,6 +203,19 @@ const components: Theme["components"] = {
       variant: "primary",
     },
   },
+
+  Container: {
+    variants: {
+      main: {
+        maxWidth: "auto",
+        padding: {
+          sm: "0px 21px",
+          md: "0px 48px",
+          lg: "30px 160px",
+        },
+      },
+    },
+  },
 };
 
 const fonts: Theme["fonts"] = {
