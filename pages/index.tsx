@@ -17,10 +17,9 @@ const Home: NextPage & { requiresAuthentication: boolean } = () => {
       </Head>
       <div>
         <Menu />
+        <LogoutButton />
         <MyCollectionsPage />
       </div>
-      <LogoutButton />
-      <MyCollectionsPage />
     </div>
   );
 };
