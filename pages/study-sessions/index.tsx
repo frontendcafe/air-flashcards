@@ -5,11 +5,12 @@ import { useRouter } from "next/router";
 import AddIcon from "@/modules/shared/components/Icons/Add";
 import Menu from "@/modules/shared/components/Menu/Menu";
 import StudySessionCard from "@/modules/StudySession/components/StudySessionCard";
-import { Center, Container, Flex, Grid, GridItem, Select, Text } from "@chakra-ui/react";
+import { Center, Container, Grid, GridItem, Select, Text } from "@chakra-ui/react";
 
 const StudySessions: NextPage = () => {
   const router = useRouter();
-  const deleteFunction = (id: string) => {
+  const handleDelete = (id: string) => {
+    // Delete Funciont Id
     console.log(id);
   };
 
@@ -45,23 +46,29 @@ const StudySessions: NextPage = () => {
             desktop: "repeat(3, 1fr)",
           }}
           gap={{ base: "25", lg: "10" }}
-          justifyContent="center"
+          justifyContent="space-between"
         >
           <GridItem
-            w="100%"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
+            w={{ desktop: "340px" }}
             cursor="pointer"
             onClick={handleCreate}
+            display="flex"
+            justifyContent="center"
           >
-            <Flex flexDirection="column">
-              <Center flexDirection="column">
-                <AddIcon width={25} height={25} />
-                <Text>Crear nueva sesión</Text>
-              </Center>
-            </Flex>
+            <Center
+              flexDirection={{ mobile: "row", desktop: "column" }}
+              border={{ base: "", desktop: "2px" }}
+              borderColor="black"
+              width={{ base: "auto", desktop: "320px" }}
+              borderRadius="lg"
+            >
+              <AddIcon width={25} height={25} />
+              <Text color="primary.200" fontWeight="400" fontSize="19px" m="10px 6px">
+                Crear nueva sesión
+              </Text>
+            </Center>
           </GridItem>
+          {/* ------------MAP con las respectivas props-----------------*/}
           <GridItem w="100%">
             <StudySessionCard
               id="asd123"
@@ -69,7 +76,19 @@ const StudySessions: NextPage = () => {
               cardsAmount={30}
               collection="Medicina"
               percentage={50}
-              deleteFunction={deleteFunction}
+              deleteFunction={handleDelete}
+            />
+          </GridItem>
+          {/* -----------------MAP-------------------- */}
+          {/* ------------DELETE -------------  */}
+          <GridItem w="100%">
+            <StudySessionCard
+              id="asd123"
+              name="hola"
+              cardsAmount={30}
+              collection="Medicina"
+              percentage={50}
+              deleteFunction={handleDelete}
             />
           </GridItem>
           <GridItem w="100%">
@@ -79,7 +98,7 @@ const StudySessions: NextPage = () => {
               cardsAmount={30}
               collection="Medicina"
               percentage={50}
-              deleteFunction={deleteFunction}
+              deleteFunction={handleDelete}
             />
           </GridItem>
           <GridItem w="100%">
@@ -89,19 +108,10 @@ const StudySessions: NextPage = () => {
               cardsAmount={30}
               collection="Medicina"
               percentage={50}
-              deleteFunction={deleteFunction}
+              deleteFunction={handleDelete}
             />
           </GridItem>
-          <GridItem w="100%">
-            <StudySessionCard
-              id="asd123"
-              name="hola"
-              cardsAmount={30}
-              collection="Medicina"
-              percentage={50}
-              deleteFunction={deleteFunction}
-            />
-          </GridItem>
+          {/* ------------DELETE ------------- */}
         </Grid>
       </Container>
     </>
