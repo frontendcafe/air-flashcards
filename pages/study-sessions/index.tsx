@@ -57,8 +57,8 @@ const StudySessions: NextPage = () => {
           >
             <Center
               flexDirection={{ mobile: "row", desktop: "column" }}
-              border={{ base: "", desktop: "2px" }}
-              borderColor="black"
+              border={{ base: "0", desktop: "2px" }}
+              borderColor={{ base: "white", desktop: "gray.50" }}
               width={{ base: "auto", desktop: "320px" }}
               borderRadius="lg"
             >
