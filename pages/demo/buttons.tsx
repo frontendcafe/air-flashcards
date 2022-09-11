@@ -14,7 +14,7 @@ const ButtonsDemo: NextPage = () => {
         <h1 style={{ fontWeight: 600, fontSize: 20, textAlign: "center" }}>Buttons Demo</h1>
 
         <Stack gap={2}>
-          <p style={{ borderBottom: "1px solid #eee" }}>Normal</p>
+          <p style={{ borderBottom: "1px solid #eee" }}>Primary</p>
           <Stack gap={2} direction="row">
             <Button onClick={clickHandler} size="sm">
               Button

@@ -37,18 +37,23 @@ const colors: CustomColors = {
 const components: Theme["components"] = {
   Button: {
     baseStyle: {
-      height: "auto",
       width: "auto",
     },
     sizes: {
       sm: {
         padding: "6px 12px",
+        gap: "8px",
+        height: "40px",
       },
       md: {
         padding: "8px 16px",
+        gap: "8px",
+        height: "44px",
       },
       lg: {
         padding: "10px 24px",
+        gap: "8px",
+        height: "48px",
       },
     },
     variants: {
@@ -63,6 +68,38 @@ const components: Theme["components"] = {
         },
         _disabled: {
           backgroundColor: "disabled.primary !important",
+        },
+      },
+      outlined: {
+        border: "1px solid #E2E8F0",
+        boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
+        _hover: {
+          background: "#EDF2F7",
+          border: "1px solid #CFD3DC",
+        },
+        _focus: {
+          background: "#E2E8F0",
+          border: "1px solid #CFD3DC",
+        },
+        _disabled: {
+          opacity: 0.5,
+          border: "1px solid #CFD3DC",
+        },
+      },
+      light: {
+        backgroundColor: "#FFFFFF",
+        color: "primary.300",
+        fontWeight: 600,
+        borderRadius: "6px",
+        boxSizing: "border-box",
+        _hover: {
+          background: "#EDF2F7",
+        },
+        _focus: {
+          background: "#E2E8F0",
+        },
+        _disabled: {
+          opacity: 0.5,
         },
       },
     },
