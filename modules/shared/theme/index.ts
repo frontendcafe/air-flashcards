@@ -39,7 +39,6 @@ const colors: CustomColors = {
 };
 
 const components: Theme["components"] = {
-
   Button: {
     baseStyle: {
       height: "auto",
@@ -86,7 +85,7 @@ const components: Theme["components"] = {
       size: "md",
     },
   },
-  
+
   Text: {
     variants: {
       label: {
