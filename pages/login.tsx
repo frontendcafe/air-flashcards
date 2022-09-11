@@ -79,7 +79,8 @@ const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
             marginTop={0}
             variant="link"
             colorScheme="blue"
-            size="sm">
+            size="sm"
+          >
             ¿Olvidastes tu contraseña?
           </Button>
         </Link>

@@ -41,15 +41,15 @@ const Menu = () => {
         <Box display={{ base: "none", lg: "flex" }}>
           {Links.map((link) => {
             if (link.onClick) {
-              return <Button onClick={link.onClick} variant="link"><Text variant="navbar">
-                {link.title}
-              </Text></Button>;
+              return (
+                <Button onClick={link.onClick} variant="link">
+                  <Text variant="navbar">{link.title}</Text>
+                </Button>
+              );
             }
             return (
               <Text key={link.href} variant="navbar">
-                <Link href={link.href}>
-                  {link.title}
-                </Link>
+                <Link href={link.href}>{link.title}</Link>
               </Text>
             );
           })}
@@ -75,18 +75,15 @@ const Menu = () => {
                     bottom="5vh"
                     left="2vh"
                     onClick={link.onClick}
-                    variant="link">
-                    <Text variant="drawer">
-                      {link.title}
-                    </Text>
+                    variant="link"
+                  >
+                    <Text variant="drawer">{link.title}</Text>
                   </Button>
                 );
               }
               return (
                 <Text key={link.href} variant="drawer">
-                  <Link href={link.href || ''}>
-                    {link.title}
-                  </Link>
+                  <Link href={link.href || ""}>{link.title}</Link>
                 </Text>
               );
             })}
