@@ -6,8 +6,8 @@ interface CardSide {
 }
 
 export interface CardData {
-  name: string;
-  createdAt: string;
+  name?: string;
+  createdAt?: string;
   sideA: CardSide;
   sideB: CardSide;
 }

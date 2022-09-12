@@ -9,15 +9,25 @@ interface TextFiedProps {
   variant?: string;
   textarea?: boolean;
   iconName?: string;
+  value: string;
+  onChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 interface InputFieldProps {
   placeholder: string;
   variant?: string;
   iconName?: string;
+  value: string;
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ placeholder, variant, iconName }) => {
+const InputField: React.FC<InputFieldProps> = ({
+  placeholder,
+  variant,
+  iconName,
+  onChange,
+  value,
+}) => {
   // chakra-icons package not type export * correctly
   // @ts-ignore
   const Icon = iconName && icons[iconName];
@@ -31,10 +41,10 @@ const InputField: React.FC<InputFieldProps> = ({ placeholder, variant, iconName 
               <Icon fill="none" w={7} h={7} stroke="gray.200" strokeLinecap="square" />
             </InputLeftElement>
           )}
-          <Input placeholder={placeholder} variant={variant} />
+          <Input placeholder={placeholder} variant={variant} value={value} onChange={onChange} />
         </InputGroup>
       ) : (
-        <Input placeholder={placeholder} variant={variant} />
+        <Input placeholder={placeholder} variant={variant} value={value} onChange={onChange} />
       )}
     </Box>
   );
@@ -46,6 +56,8 @@ const TextField: React.FC<TextFiedProps> = ({
   textarea,
   variant,
   iconName,
+  value,
+  onChange,
 }) => {
   return (
     <Stack py={3}>
@@ -54,9 +66,21 @@ const TextField: React.FC<TextFiedProps> = ({
       </Text>
 
       {textarea === true ? (
-        <Textarea placeholder={placeholder} variant={variant} resize="none" />
+        <Textarea
+          placeholder={placeholder}
+          variant={variant}
+          resize="none"
+          value={value}
+          onChange={onChange}
+        />
       ) : (
-        <InputField placeholder={placeholder} variant={variant} iconName={iconName} />
+        <InputField
+          placeholder={placeholder}
+          variant={variant}
+          iconName={iconName}
+          value={value}
+          onChange={onChange}
+        />
       )}
     </Stack>
   );

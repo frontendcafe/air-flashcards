@@ -23,7 +23,9 @@ export default function useFilterUserCollection(userCollections: UserCollections
       const regExp = new RegExp(query, "gi");
 
       const result = userCollections.filter((collection) => {
-        return regExp.test(collection.title) || getTagMatch(collection.tags!, regExp);
+        return (
+          regExp.test(collection.title) || (collection.tags && getTagMatch(collection.tags, regExp))
+        );
       });
 
       setFilteredCollections(result);

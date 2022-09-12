@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Select, SelectProps } from "@chakra-ui/react";
+import { Select, SelectProps, Text } from "@chakra-ui/react";
 
 interface Props extends SelectProps {
   option: string[];
@@ -10,7 +10,11 @@ interface Props extends SelectProps {
 const ComponentSelect = ({ label, option, ...props }: Props) => {
   return (
     <>
-      <label htmlFor={label}>{label}</label>
+      <label htmlFor={label}>
+        <Text variant="label" as="label">
+          {label}
+        </Text>
+      </label>
       <Select {...props} placeholder="Select option">
         {option.map((item) => {
           return (
