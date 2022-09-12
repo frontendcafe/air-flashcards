@@ -21,7 +21,13 @@ interface InputFieldProps {
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ placeholder, variant, iconName, onChange, value }) => {
+const InputField: React.FC<InputFieldProps> = ({
+  placeholder,
+  variant,
+  iconName,
+  onChange,
+  value,
+}) => {
   // chakra-icons package not type export * correctly
   // @ts-ignore
   const Icon = iconName && icons[iconName];
@@ -40,7 +46,7 @@ const InputField: React.FC<InputFieldProps> = ({ placeholder, variant, iconName,
       ) : (
         <Input placeholder={placeholder} variant={variant} value={value} onChange={onChange} />
       )}
-    </Box >
+    </Box>
   );
 };
 

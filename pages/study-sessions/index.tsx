@@ -54,7 +54,6 @@ const StudySessions: NextPage = () => {
             display="flex"
             justifyContent="center"
           >
-          
             <Center
               flexDirection={{ mobile: "row", desktop: "column" }}
               border={{ base: "0", desktop: "2px" }}
@@ -67,7 +66,6 @@ const StudySessions: NextPage = () => {
                 Crear nueva sesión
               </Text>
             </Center>
-            
           </GridItem>
           {/* ------------MAP con las respectivas props-----------------*/}
           <GridItem w="100%">
