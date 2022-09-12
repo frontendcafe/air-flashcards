@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { MouseEventHandler } from "react";
 import { motion } from "framer-motion";
 
 import { Box, Text } from "@chakra-ui/react";
@@ -11,27 +11,25 @@ interface CardSide {
 interface GameCardPops {
   sideA: CardSide;
   sideB: CardSide;
+  onClick: MouseEventHandler<HTMLDivElement>;
+  flipped: boolean;
 }
 
-export const GameCard: React.FC<GameCardPops> = ({ sideA, sideB }) => {
-  const [flip, setFlip] = useState(false);
+export const GameCard: React.FC<GameCardPops> = ({ sideA, sideB, flipped, onClick }) => {
   const MotionBox = motion(Box);
 
   return (
     <Box>
       <MotionBox
-        onClick={() => {
-          return setFlip(!flip);
-        }}
+        onClick={onClick}
         borderRadius="10px"
-        width={{ base: "250px", md: "500px" }}
+        w="full"
         height="300px"
         position="relative"
         cursor="pointer"
       >
         <MotionBox
           bg="white"
-          //
           border="2px"
           borderColor="gray.50"
           position="absolute"
@@ -42,18 +40,19 @@ export const GameCard: React.FC<GameCardPops> = ({ sideA, sideB }) => {
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
-          //
           style={{
             backfaceVisibility: "hidden",
           }}
-          animate={{ rotateY: flip ? [0, 360] : [360, 0] }}
+          initial={{ rotateY: 0 }}
+          animate={{ rotateY: flipped ? 180 : 0 }}
           transition={{ duration: 1 }}
         >
-          {sideA.image && <img src={sideA.image} width={150} height={150} alt="card side A" />}
+          {sideA.image && <img src={sideA.image} width={150} height={150} />}
           <Text mt={10} fontWeight={600}>
             {sideA.text}
           </Text>
         </MotionBox>
+
         <MotionBox
           bg="white"
           //
@@ -71,10 +70,11 @@ export const GameCard: React.FC<GameCardPops> = ({ sideA, sideB }) => {
           style={{
             backfaceVisibility: "hidden",
           }}
-          animate={{ rotateY: flip ? [180, 0] : [0, 180] }}
+          initial={{ rotateY: 180 }}
+          animate={{ rotateY: flipped ? 0 : 180 }}
           transition={{ duration: 1 }}
         >
-          {sideB.image && <img src={sideB.image} width={150} height={150} alt="card side B" />}
+          {sideB.image && <img src={sideB.image} width={150} height={150} />}
           <Text mt={10} fontWeight={600}>
             {sideB.text}
           </Text>

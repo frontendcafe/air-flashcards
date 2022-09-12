@@ -38,7 +38,7 @@ const colors: CustomColors = {
   },
 };
 
-const components: Theme["components"] = {
+const components: any = {
   Button: {
     baseStyle: {
       height: "auto",

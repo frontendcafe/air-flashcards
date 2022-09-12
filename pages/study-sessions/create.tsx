@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import { Collection } from "@/modules/Collections/models";
 import { SliderInput } from "@/modules/shared/components/SliderInput";
@@ -37,6 +38,8 @@ const CreateStudySession: React.FC = () => {
     watch,
   } = useFormWithYup<FormStudySessionData>(formSchema);
 
+  const router = useRouter();
+
   // const onSubmit = async (data: CreateStudySessionData) => {
   //   try {
   //     let result = await fetch("/api/study-sessions", {
@@ -54,7 +57,7 @@ const CreateStudySession: React.FC = () => {
   // };
 
   const [collections, setCollections] = useState<Collection[]>([]);
-  const [selectedCollectionCardAmount, setSelectedCollectionCardAmount] = useState<number>(1);
+  const [selectedCollectionCardAmount, setSelectedCollectionCardAmount] = useState<number>(0);
   const selectedCollectionId = watch("collectionId");
 
   useEffect(() => {
@@ -82,8 +85,13 @@ const CreateStudySession: React.FC = () => {
   }, [selectedCollectionId]);
 
   const onSubmit = (data: FormStudySessionData) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+    const redirectUrl = `/study-sessions/play?${new URLSearchParams({
+      collectionId: data.collectionId,
+      mode: data.mode,
+      cardsAmount: data.cardsAmount.toString(),
+    })}`;
+
+    router.push(redirectUrl);
   };
 
   return (
@@ -102,12 +110,14 @@ const CreateStudySession: React.FC = () => {
               })}
             </Select>
           </FormField>
-          <SliderInput
-            label="Cantidad de tarjetas"
-            {...register("cardsAmount")}
-            max={selectedCollectionCardAmount}
-            min={1}
-          />
+          {selectedCollectionCardAmount && (
+            <SliderInput
+              label="Cantidad de tarjetas"
+              {...register("cardsAmount")}
+              max={selectedCollectionCardAmount}
+              min={1}
+            />
+          )}
 
           <FormField label="Modo" error={errors.mode?.message || ""}>
             <Select placeholder="Ingresa el modo" {...register("mode")}>
@@ -118,8 +128,10 @@ const CreateStudySession: React.FC = () => {
           </FormField>
         </Stack>
 
-        {/** TODO: should be disabled if some field is not completed */}
-        <Button type="submit">Comenzar sesión</Button>
+        {/** TODO (NTH): should be disabled if some field is not completed */}
+        <Button type="submit" disabled={!selectedCollectionCardAmount}>
+          Comenzar sesión
+        </Button>
       </Stack>
     </Container>
   );

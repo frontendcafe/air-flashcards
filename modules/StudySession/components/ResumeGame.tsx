@@ -33,15 +33,26 @@ const ResumeGame: React.FC<ResumeGameProps> = ({
 }) => {
   const title = correct >= incorrect ? "¡Muy bien!" : "¡No te desanimes!";
   const resultMsg =
-    correct >= incorrect ? `Aprendiste ${total} definiciones` : "¿Lo volves a intentar?";
+    correct >= incorrect ? `Aprendiste ${correct}/${total} conceptos` : "¿Lo volves a intentar?";
   return (
-    <Stack justifyContent="space-between" alignItems="center" {...props}>
+    <Stack
+      justifyContent="space-between"
+      alignItems="center"
+      border="2px solid"
+      borderColor="gray.50"
+      minH={314}
+      p={6}
+      borderRadius="xl"
+      {...props}
+    >
       <Text fontWeight={600} fontSize="18px">
         {title}
       </Text>
       <Text fontSize="16px">{resultMsg}</Text>
-      <OptionBtn type="main" onClick={onNavigate} />
-      <OptionBtn type="secondary" onClick={onRestart} />
+      <Stack spacing={3}>
+        <OptionBtn type="main" onClick={onNavigate} />
+        <OptionBtn type="secondary" onClick={onRestart} />
+      </Stack>
     </Stack>
   );
 };
