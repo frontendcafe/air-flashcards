@@ -10,6 +10,7 @@ import { Center, Container, Grid, GridItem, Select, Text } from "@chakra-ui/reac
 const StudySessions: NextPage = () => {
   const router = useRouter();
   const handleDelete = (id: string) => {
+    // eslint-disable-next-line no-console
     console.log(id);
   };
 
@@ -54,7 +55,6 @@ const StudySessions: NextPage = () => {
             display="flex"
             justifyContent="center"
           >
-          
             <Center
               flexDirection={{ mobile: "row", desktop: "column" }}
               border={{ base: "0", desktop: "2px" }}
@@ -67,7 +67,6 @@ const StudySessions: NextPage = () => {
                 Crear nueva sesión
               </Text>
             </Center>
-            
           </GridItem>
           {/* ------------MAP con las respectivas props-----------------*/}
           <GridItem w="100%">

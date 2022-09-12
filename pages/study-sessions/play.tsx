@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 import { Card } from "@/modules/Cards/models";
@@ -8,7 +10,6 @@ import GameStatus from "@/modules/StudySession/components/GameStatus";
 import ResumeGame from "@/modules/StudySession/components/ResumeGame";
 import { StudySessionMode } from "@/modules/StudySession/models";
 import { Box, Container, Stack } from "@chakra-ui/react";
-import { GetServerSideProps } from "next";
 
 const parseToGameCardSide = (side: Card["sideA"] | undefined) => {
   if (!side) {
@@ -115,7 +116,6 @@ const PlayStudySession: React.FC<any> = ({ cards }) => {
     }
   }, []);
 
-
   const sideA = parseToGameCardSide(
     mode === StudySessionMode.JEOPARDY ? currentCard?.sideB : currentCard?.sideA
   );
@@ -185,16 +185,18 @@ const PlayStudySession: React.FC<any> = ({ cards }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<any> = async ({ query }) => {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/collections/${query!.collectionId!}/cards`);
+  const result = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/collections/${query!.collectionId!}/cards`
+  );
   const data = await result.json();
 
   const parsedCards = shuffleAndSlice(data, Number(query!.cardsAmount));
 
   return {
     props: {
-      cards: parsedCards
-    }
-  }
-}
+      cards: parsedCards,
+    },
+  };
+};
 
 export default PlayStudySession;
