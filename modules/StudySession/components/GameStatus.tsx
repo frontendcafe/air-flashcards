@@ -25,14 +25,14 @@ const ResultBox: React.FC<ResultBoxProps> = ({ amount, type }) => {
 const GameStatus: React.FC<GameStatusProps> = ({ correct, incorrect, total, ...props }) => {
   const progressText = `${correct + incorrect}/${total}`;
   return (
-    <Stack direction="row" justifyContent="space-between" {...props}>
-      <ResultBox amount={correct} type="incorrect" />
+    <Stack direction="row" justifyContent="space-between" alignItems="center" {...props}>
+      <ResultBox amount={incorrect} type="incorrect" />
 
       <Box>
         <Text>{progressText}</Text>
       </Box>
 
-      <ResultBox amount={incorrect} type="correct" />
+      <ResultBox amount={correct} type="correct" />
     </Stack>
   );
 };
