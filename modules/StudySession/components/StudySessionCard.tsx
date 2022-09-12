@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 
 import Trash from "../../shared/components/Icons/Trash";
+import InfoIcon from "@/modules/shared/components/Icons/Info";
 
 interface StudySessionCardProps {
   id: string;
@@ -84,7 +85,12 @@ const StudySessionCard = ({
             <Box onClick={onOpen}>
               <Trash color="#0D378D" height={24} width={24} />
             </Box>
-            <Box fontWeight="600">{percentage}%</Box>
+            <Box display="flex" alignItems="center">
+              <Text fontWeight="500" fontSize="16px" m="0px 3px">
+                {percentage}%
+              </Text>
+              <InfoIcon width={14} height={14} />
+            </Box>
           </Flex>
         </Flex>
       </Box>
