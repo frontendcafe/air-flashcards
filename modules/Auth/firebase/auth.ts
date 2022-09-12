@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 import { auth } from "@/firebaseConfig";
@@ -18,7 +19,6 @@ export const logIn = async (email: string, password: string) => {
     const user = await signInWithEmailAndPassword(auth, email, password);
     return user;
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error);
     return null;
   }
@@ -27,7 +27,7 @@ export const logIn = async (email: string, password: string) => {
 export const logOut = async () => {
   try {
     await signOut(auth);
-    return window.alert("User Logged Out");
+    console.log(">>>");
   } catch (error) {
     console.error(error);
   }

@@ -1,8 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
+import { logOut } from "@/modules/Auth/firebase/auth";
 import {
   Box,
+  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -18,9 +20,10 @@ import MenuLogo from "../Icons/MenuLogo";
 
 const Links = [
   { title: "Colecciones", href: "/" },
-  { title: "Sesión de estudio", href: "/SesiónEstudio" },
+  { title: "Sesión de estudio", href: "/study-sessions" },
   { title: "Tienda", href: "/Tienda" },
   { title: "Perfil", href: "/Perfil" },
+  { title: "Cerrar sesión", onClick: logOut },
 ];
 
 const Menu = () => {
@@ -32,11 +35,26 @@ const Menu = () => {
         <Box>
           <MenuLogo fill="white" width={18} height={23} borderColor="primary.100" borderWidth={7} />
         </Box>
-        <Box onClick={onOpen} cursor="pointer">
+        <Box onClick={onOpen} cursor="pointer" display={{ lg: "none" }}>
           <Hamburguer />
         </Box>
+        <Box display={{ base: "none", lg: "flex" }}>
+          {Links.map((link) => {
+            if (link.onClick) {
+              return (
+                <Button onClick={link.onClick} variant="link">
+                  <Text variant="navbar">{link.title}</Text>
+                </Button>
+              );
+            }
+            return (
+              <Text key={link.href} variant="navbar">
+                <Link href={link.href}>{link.title}</Link>
+              </Text>
+            );
+          })}
+        </Box>
       </Flex>
-
       <Drawer onClose={onClose} isOpen={isOpen} size={{ base: "full", md: "sm" }}>
         <DrawerOverlay />
         <DrawerContent bg="primary.100">
@@ -50,9 +68,22 @@ const Menu = () => {
               borderWidth={2}
             />
             {Links.map((link) => {
+              if (link.onClick) {
+                return (
+                  <Button
+                    position="fixed"
+                    bottom="5vh"
+                    left="2vh"
+                    onClick={link.onClick}
+                    variant="link"
+                  >
+                    <Text variant="drawer">{link.title}</Text>
+                  </Button>
+                );
+              }
               return (
-                <Text variant="menu" key={link.href}>
-                  <Link href={link.href}>{link.title}</Link>
+                <Text key={link.href} variant="drawer">
+                  <Link href={link.href || ""}>{link.title}</Link>
                 </Text>
               );
             })}

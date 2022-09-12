@@ -73,18 +73,23 @@ const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
           onChange={handleChange}
           errorMsg={errorMsg}
         />
-
         <Link href="/forget-password">
-          <Button variant="link" colorScheme="blue" size="sm">
+          <Button
+            justifyContent="flex-start"
+            marginTop={0}
+            variant="link"
+            colorScheme="blue"
+            size="sm"
+          >
             ¿Olvidastes tu contraseña?
           </Button>
         </Link>
-        <Link href="/register">
-          <Button variant="link" colorScheme="blue" size="sm">
-            ¿Eres Nuevo, Crea tu Cuenta?
-          </Button>
-        </Link>
       </Form>
+      <Link href="/register">
+        <Button variant="link" colorScheme="blue" size="sm">
+          Crea tu Cuenta
+        </Button>
+      </Link>
     </AuthFormLayout>
   );
 };

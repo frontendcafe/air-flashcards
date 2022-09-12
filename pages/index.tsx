@@ -14,7 +14,6 @@ const Home: NextPage & { requiresAuthentication: boolean } = () => {
         <meta name="description" content="Flashcards study app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <div>
         <Menu />
         <MyCollectionsPage />
