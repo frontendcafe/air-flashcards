@@ -2,7 +2,7 @@ export interface CollectionFirebaseData {
   title: string;
   category: string;
   description: string;
-  // tags?: string[];
+  tags?: string[];
   userId: string;
   createdAt: string;
 }
