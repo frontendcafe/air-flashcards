@@ -30,7 +30,7 @@ const Menu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <>
+    <Box w="100%">
       <Flex justify="space-between" p={5}>
         <Box>
           <MenuLogo fill="white" width={18} height={23} borderColor="primary.100" borderWidth={7} />
@@ -90,7 +90,7 @@ const Menu = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-    </>
+    </Box>
   );
 };
 

@@ -153,15 +153,17 @@ const PlayStudySession: React.FC<any> = ({ cards }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<any> = async ({ query }) => {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/collections/${query!.collectionId!}/cards`);
+  const result = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/collections/${query!.collectionId!}/cards`
+  );
   const data = await result.json();
 
   const parsedCards = shuffleAndSlice(data, Number(query!.cardsAmount));
 
   return {
     props: {
-      cards: parsedCards
-    }
+      cards: parsedCards,
+    },
   };
 };
 
