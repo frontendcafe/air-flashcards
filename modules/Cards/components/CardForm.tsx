@@ -1,8 +1,9 @@
-import { Container, Divider, Stack, Text } from "@chakra-ui/react";
+import { Button, Container, Divider, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import { CardData } from "../models";
 import { useForm, Controller } from "react-hook-form";
 import TextField from "@/modules/shared/components/TextField";
+import Trash from "@/modules/shared/components/Icons/Trash";
 
 const CardForm = ({ update, index, value, remove, control }: any) => {
   const { handleSubmit } = useForm<CardData>({
@@ -14,6 +15,7 @@ const CardForm = ({ update, index, value, remove, control }: any) => {
     console.log(data);
   };
 
+  console.log(value);
   return (
     <Container maxW="container.xl">
       <Divider />
@@ -31,7 +33,7 @@ const CardForm = ({ update, index, value, remove, control }: any) => {
               <TextField
                 label="Lado A"
                 placeholder="Ingrese una pregunta"
-                onChange={onChange}
+                onChange={() => console.log(value)}
                 value={value}
               />
             )}
@@ -44,7 +46,7 @@ const CardForm = ({ update, index, value, remove, control }: any) => {
               <TextField
                 label="Lado B"
                 placeholder="Ingrese una pregunta"
-                onChange={onChange}
+                onChange={() => console.log(value)}
                 value={value}
               />
             )}
@@ -58,9 +60,16 @@ const CardForm = ({ update, index, value, remove, control }: any) => {
           >
             guardar tarjeta
           </button>
-          <button className="remove" type="button" onClick={() => remove(index)}>
+          <Button
+            variant="outline"
+            colorScheme="red"
+            leftIcon={<Trash color="red" height={20} width={20} />}
+            size="sm"
+            type="button"
+            onClick={() => remove(index)}
+          >
             Borrar
-          </button>
+          </Button>
         </Stack>
       </Stack>
     </Container>
