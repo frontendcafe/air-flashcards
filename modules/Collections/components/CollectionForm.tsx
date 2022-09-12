@@ -18,8 +18,9 @@ interface CollectionForm {
 
 const fieldArrayName = "cards";
 
+//{ sideA: { type: "text", value: "" }, sideB: { type: "text", value: "" } }
 const CollectionForm = () => {
-  const { control, handleSubmit, watch } = useForm<CollectionForm>({
+  const { control, handleSubmit } = useForm<CollectionForm>({
     defaultValues: {
       title: "",
       description: "",
@@ -33,35 +34,29 @@ const CollectionForm = () => {
     name: fieldArrayName,
   });
 
-  // const { handleSubmit } = useFormWithYup<CollectionFirebaseData>(createCollectionSchema);
-
-  // const onSubmit = async (data: CreateStudySessionData) => {
-  //   try {
-  //     let result = await fetch("/api/study-sessions", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(data),
-  //     });
-  //     result = await result.json();
-  //     window.alert("Study Session Created :D");
-  //     return result;
-  //   } catch (error) {
-  //     window.alert("ERROR :(");
-  //     return null;
-  //   }
-  // };
-
-  const watchFieldArray = watch(fieldArrayName);
-  const controlledFields = fields.map((field, index) => {
-    return {
-      ...field,
-      ...watchFieldArray[index],
-    };
-  });
-
-  const onSubmit = (data: any) => {
-    console.log("collection submit", data);
+  const onSubmit = async (data: CollectionForm) => {
+    try {
+      let result = await fetch("/api/collections", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      result = await result.json();
+      window.alert("Collection created");
+      return result;
+    } catch (error) {
+      window.alert("ERROR :(");
+      return null;
+    }
   };
+
+  // const watchFieldArray = watch(fieldArrayName);
+  // const controlledFields = fields.map((field, index) => {
+  //   return {
+  //     ...field,
+  //     ...watchFieldArray[index],
+  //   };
+  // });
 
   return (
     <Container maxW="container.xl">
@@ -102,9 +97,9 @@ const CollectionForm = () => {
               )}
             />
 
-            {controlledFields.length ? <Text variant="label">Crear Tarjetas</Text> : null}
+            {fields.length ? <Text variant="label">Crear Tarjetas</Text> : null}
 
-            {controlledFields.map((field, index) => (
+            {fields.map((field, index) => (
               <fieldset key={field.id}>
                 <CardForm
                   control={control}
