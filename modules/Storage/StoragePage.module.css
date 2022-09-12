@@ -37,7 +37,7 @@
   width: 350px;
   height: 100%;
 }
-img {
+.img {
   object-fit: cover;
   width: 100%;
 }
