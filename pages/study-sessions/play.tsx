@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 import { Card } from "@/modules/Cards/models";
@@ -8,7 +9,6 @@ import GameStatus from "@/modules/StudySession/components/GameStatus";
 import ResumeGame from "@/modules/StudySession/components/ResumeGame";
 import { StudySessionMode } from "@/modules/StudySession/models";
 import { Box, Container, Stack } from "@chakra-ui/react";
-import { GetServerSideProps } from "next";
 
 const parseToGameCardSide = (side: Card["sideA"] | undefined) => {
   if (!side) {
@@ -48,7 +48,7 @@ const randomizeMode = (): StudySessionMode.NORMAL | StudySessionMode.JEOPARDY =>
 const PlayStudySession: React.FC<any> = ({ cards }) => {
   const router = useRouter();
 
-  const { collectionId, cardsAmount, mode: modeQuery } = router.query;
+  const { mode: modeQuery } = router.query;
 
   const initialMode =
     (modeQuery as StudySessionMode) === StudySessionMode.COMBINED
@@ -59,16 +59,11 @@ const PlayStudySession: React.FC<any> = ({ cards }) => {
     initialMode as StudySessionMode.JEOPARDY | StudySessionMode.NORMAL
   );
 
-  const [random, setCards] = useState<Card[]>([]);
-
   const [cardFlipped, setCardFlipped] = useState(false);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const currentCard = cards[currentIndex];
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [areError, setAreError] = useState(false);
 
   const [answers, setAnswers] = useState<{
     correct: string[];
@@ -92,30 +87,6 @@ const PlayStudySession: React.FC<any> = ({ cards }) => {
     setCardFlipped(false);
   };
 
-  useEffect(() => {
-    if (!cards.length) {
-      const fetchData = async () => {
-        setIsLoading(true);
-
-        try {
-          const result = await fetch(`/api/collections/${collectionId}/cards`);
-          const data = await result.json();
-
-          const parsedCards = shuffleAndSlice(data, Number(cardsAmount));
-
-          setCards(parsedCards);
-        } catch (_) {
-          setAreError(true);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      fetchData();
-    }
-  }, []);
-
-
   const sideA = parseToGameCardSide(
     mode === StudySessionMode.JEOPARDY ? currentCard?.sideB : currentCard?.sideA
   );
@@ -126,59 +97,56 @@ const PlayStudySession: React.FC<any> = ({ cards }) => {
   return (
     <Box minH="100vh">
       <Container maxW="container.xl" m="auto">
-        {areError && <Box>Error</Box>}
-        {!areError && (
-          <Stack spacing={4} maxW={330} mx="auto">
-            <GameStatus
+        <Stack spacing={4} maxW={330} mx="auto">
+          <GameStatus
+            correct={answers.correct.length}
+            incorrect={answers.incorrect.length}
+            total={cards.length}
+          />
+
+          {currentIndex < cards.length && sideA && sideB ? (
+            <>
+              <GameCard
+                sideA={sideA}
+                sideB={sideB}
+                onClick={() => {
+                  if (!cardFlipped) {
+                    setCardFlipped(!cardFlipped);
+                  }
+                }}
+                flipped={cardFlipped}
+              />
+
+              <GameAnswer
+                disabled={!cardFlipped}
+                onClick={{
+                  correct: () => {
+                    return handleAnswers("correct");
+                  },
+                  incorrect: () => {
+                    return handleAnswers("incorrect");
+                  },
+                }}
+              />
+            </>
+          ) : (
+            <ResumeGame
               correct={answers.correct.length}
               incorrect={answers.incorrect.length}
               total={cards.length}
+              onNavigate={() => {
+                router.push("/");
+              }}
+              onRestart={() => {
+                setCurrentIndex(0);
+                setAnswers({
+                  correct: [],
+                  incorrect: [],
+                });
+              }}
             />
-
-            {currentIndex < cards.length && sideA && sideB ? (
-              <>
-                <GameCard
-                  sideA={sideA}
-                  sideB={sideB}
-                  onClick={() => {
-                    if (!cardFlipped) {
-                      setCardFlipped(!cardFlipped);
-                    }
-                  }}
-                  flipped={cardFlipped}
-                />
-
-                <GameAnswer
-                  disabled={!cardFlipped}
-                  onClick={{
-                    correct: () => {
-                      return handleAnswers("correct");
-                    },
-                    incorrect: () => {
-                      return handleAnswers("incorrect");
-                    },
-                  }}
-                />
-              </>
-            ) : (
-              <ResumeGame
-                correct={answers.correct.length}
-                incorrect={answers.incorrect.length}
-                total={cards.length}
-                onNavigate={() => {
-                  router.push("/");
-                }}
-                onRestart={() => {
-                  setCurrentIndex(0);
-                  setAnswers({
-                    correct: [],
-                    incorrect: [],
-                  });
-                }}
-              />
-            )}
-          </Stack>
-        )}
+          )}
+        </Stack>
       </Container>
     </Box>
   );
@@ -194,7 +162,7 @@ export const getServerSideProps: GetServerSideProps<any> = async ({ query }) => 
     props: {
       cards: parsedCards
     }
-  }
-}
+  };
+};
 
 export default PlayStudySession;
