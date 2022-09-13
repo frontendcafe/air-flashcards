@@ -39,14 +39,13 @@ const CollectionForm = () => {
   });
 
   const onSubmit = async (data: CollectionForm) => {
-
     try {
       let result = await fetch("/api/collections", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
-          userId: auth.user.uid
+          userId: auth.user.uid,
         }),
       });
       result = await result.json();
