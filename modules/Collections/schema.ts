@@ -1,11 +1,13 @@
-import { object, string } from "yup";
+import { array, object, string } from "yup";
+
+import { cardDataSchema } from "../Cards/schema";
 
 export const createCollectionSchema = object({
   title: string().required(),
   category: string().required(),
-  description: string().required(),
+  description: string(),
   userId: string().required(),
-  createdAt: string().required(),
+  cards: array().of(cardDataSchema),
 })
   .noUnknown(true)
   .strict(true);

@@ -30,7 +30,8 @@ export const getCollections: NextApiHandler<Collection[]> = async (request, resp
 
 const createCollection: NextApiHandler<Collection> = async (request, response) => {
   const { body } = request;
-  const newCollection = await createCollectionSchema.validate(JSON.parse(body));
+
+  const newCollection = await createCollectionSchema.validate(body);
 
   const newCard = await createDoc<CollectionFirebaseData>(COLLECTION_PATH, newCollection);
   return response.json(newCard);

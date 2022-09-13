@@ -1,13 +1,16 @@
-import CardForm from "@/modules/Cards/components/CardForm";
-import TextField from "@/modules/shared/components/TextField";
-import Select from "@/modules/shared/components/Select";
-import { Button, Center, Container, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+
+import { useAuth } from "@/modules/Auth/context/AuthProvider";
+import CardForm from "@/modules/Cards/components/CardForm";
+import { CardData } from "@/modules/Cards/models";
+import Select from "@/modules/shared/components/Select";
+import TextField from "@/modules/shared/components/TextField";
+import { Button, Center, Container, Stack, Text } from "@chakra-ui/react";
+
 import { CollectionFirebaseData } from "../models";
 import { createCollectionSchema } from "../schema";
 import { categories } from "../utils/categories";
-import { CardData } from "@/modules/Cards/models";
 
 interface CollectionForm {
   title: string;
@@ -18,13 +21,14 @@ interface CollectionForm {
 
 const fieldArrayName = "cards";
 
-//{ sideA: { type: "text", value: "" }, sideB: { type: "text", value: "" } }
+// { sideA: { type: "text", value: "" }, sideB: { type: "text", value: "" } }
 const CollectionForm = () => {
+  const auth = useAuth() as any;
   const { control, handleSubmit } = useForm<CollectionForm>({
     defaultValues: {
       title: "",
       description: "",
-      cards: [{ sideA: { type: "text", value: "" }, sideB: { type: "text", value: "" } }],
+      cards: [{ sideA: { type: "text", value: "ladoA" }, sideB: { type: "text", value: "LADOb" } }],
       category: "",
     },
   });
@@ -35,11 +39,15 @@ const CollectionForm = () => {
   });
 
   const onSubmit = async (data: CollectionForm) => {
+
     try {
       let result = await fetch("/api/collections", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          userId: auth.user.uid
+        }),
       });
       result = await result.json();
       window.alert("Collection created");
@@ -66,50 +74,58 @@ const CollectionForm = () => {
             <Controller
               control={control}
               name="title"
-              render={({ field: { onChange, value, ref } }) => (
-                <TextField
-                  label="Título"
-                  placeholder="Ingresa un título"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
+              render={({ field: { onChange, value, ref } }) => {
+                return (
+                  <TextField
+                    label="Título"
+                    placeholder="Ingresa un título"
+                    onChange={onChange}
+                    value={value}
+                  />
+                );
+              }}
             />
 
             <Controller
               control={control}
               name="category"
-              render={({ field: { onChange, value, ref } }) => (
-                <Select label="Categoria" option={categories} onChange={onChange} value={value} />
-              )}
+              render={({ field: { onChange, value, ref } }) => {
+                return (
+                  <Select label="Categoria" option={categories} onChange={onChange} value={value} />
+                );
+              }}
             />
 
             <Controller
               control={control}
               name="description"
-              render={({ field: { onChange, value, ref } }) => (
-                <TextField
-                  label="Descripción"
-                  placeholder="Ingrese una descripción"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
+              render={({ field: { onChange, value, ref } }) => {
+                return (
+                  <TextField
+                    label="Descripción"
+                    placeholder="Ingrese una descripción"
+                    onChange={onChange}
+                    value={value}
+                  />
+                );
+              }}
             />
 
             {fields.length ? <Text variant="label">Crear Tarjetas</Text> : null}
 
-            {fields.map((field, index) => (
-              <fieldset key={field.id}>
-                <CardForm
-                  control={control}
-                  update={update}
-                  index={index}
-                  value={field}
-                  remove={remove}
-                />
-              </fieldset>
-            ))}
+            {fields.map((field, index) => {
+              return (
+                <fieldset key={field.id}>
+                  <CardForm
+                    control={control}
+                    update={update}
+                    index={index}
+                    value={field}
+                    remove={remove}
+                  />
+                </fieldset>
+              );
+            })}
 
             <Button
               type="button"
