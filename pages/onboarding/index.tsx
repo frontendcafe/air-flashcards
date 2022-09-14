@@ -3,20 +3,20 @@ import Head from "next/head";
 import nookies from "nookies";
 
 import { verifyIdToken } from "@/firebaseAdminConfig";
+import OnboardingBody from "@/modules/shared/components/Onboarding/Onboarding";
 
 const Onboarding: NextPage & { requiresAuthentication: boolean } = () => {
   return (
-    <div>
+    <>
       <Head>
         <title>Flashcards</title>
         <meta name="description" content="Flashcards study app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <div>
-        <h1>Onboarding</h1>
+        <OnboardingBody />
       </div>
-    </div>
+    </>
   );
 };
 
