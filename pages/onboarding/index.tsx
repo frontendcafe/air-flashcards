@@ -5,7 +5,7 @@ import nookies from "nookies";
 import { verifyIdToken } from "@/firebaseAdminConfig";
 import OnboardingBody from "@/modules/shared/components/Onboarding/Onboarding";
 
-const Onboarding: NextPage & { requiresAuthentication: boolean } = () => {
+const Onboarding: NextPage = () => {
   return (
     <>
       <Head>
