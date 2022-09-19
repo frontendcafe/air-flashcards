@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 
 import { useAuth } from "@/modules/Auth/context/AuthProvider";
@@ -8,8 +9,6 @@ import Select from "@/modules/shared/components/Select";
 import TextField from "@/modules/shared/components/TextField";
 import { Button, Center, Container, Stack, Text } from "@chakra-ui/react";
 
-import { CollectionFirebaseData } from "../models";
-import { createCollectionSchema } from "../schema";
 import { categories } from "../utils/categories";
 
 interface CollectionForm {
@@ -24,11 +23,12 @@ const fieldArrayName = "cards";
 // { sideA: { type: "text", value: "" }, sideB: { type: "text", value: "" } }
 const CollectionForm = () => {
   const auth = useAuth() as any;
-  const { control, handleSubmit } = useForm<CollectionForm>({
+  const navigate = useRouter();
+  const { control, register, handleSubmit } = useForm<CollectionForm>({
     defaultValues: {
       title: "",
       description: "",
-      cards: [{ sideA: { type: "text", value: "ladoA" }, sideB: { type: "text", value: "LADOb" } }],
+      cards: [{ sideA: { type: "text", value: "" }, sideB: { type: "text", value: "" } }],
       category: "",
     },
   });
@@ -40,31 +40,21 @@ const CollectionForm = () => {
 
   const onSubmit = async (data: CollectionForm) => {
     try {
-      let result = await fetch("/api/collections", {
+      await fetch("/api/collections", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
           userId: auth.user.uid,
+          tags: data.category ? [data.category] : [],
         }),
       });
-      result = await result.json();
-      window.alert("Collection created");
-      return result;
+
+      navigate.push("/");
     } catch (error) {
       window.alert("ERROR :(");
-      return null;
     }
   };
-
-  // const watchFieldArray = watch(fieldArrayName);
-  // const controlledFields = fields.map((field, index) => {
-  //   return {
-  //     ...field,
-  //     ...watchFieldArray[index],
-  //   };
-  // });
-
   return (
     <Container maxW="container.xl">
       <Center>
@@ -116,11 +106,12 @@ const CollectionForm = () => {
               return (
                 <fieldset key={field.id}>
                   <CardForm
-                    control={control}
+                    control={field}
                     update={update}
                     index={index}
                     value={field}
                     remove={remove}
+                    register={register}
                   />
                 </fieldset>
               );

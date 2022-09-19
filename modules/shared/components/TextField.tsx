@@ -11,6 +11,7 @@ interface TextFiedProps {
   iconName?: string;
   value: string;
   onChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  ref?: React.RefObject<HTMLInputElement>;
 }
 
 interface InputFieldProps {
@@ -19,6 +20,7 @@ interface InputFieldProps {
   iconName?: string;
   value: string;
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  ref?: React.RefObject<HTMLInputElement>;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -27,6 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({
   iconName,
   onChange,
   value,
+  ref,
 }) => {
   // chakra-icons package not type export * correctly
   // @ts-ignore
@@ -41,10 +44,22 @@ const InputField: React.FC<InputFieldProps> = ({
               <Icon fill="none" w={7} h={7} stroke="gray.200" strokeLinecap="square" />
             </InputLeftElement>
           )}
-          <Input placeholder={placeholder} variant={variant} value={value} onChange={onChange} />
+          <Input
+            placeholder={placeholder}
+            variant={variant}
+            value={value}
+            onChange={onChange}
+            ref={ref}
+          />
         </InputGroup>
       ) : (
-        <Input placeholder={placeholder} variant={variant} value={value} onChange={onChange} />
+        <Input
+          placeholder={placeholder}
+          variant={variant}
+          value={value}
+          onChange={onChange}
+          ref={ref}
+        />
       )}
     </Box>
   );
@@ -58,6 +73,7 @@ const TextField: React.FC<TextFiedProps> = ({
   iconName,
   value,
   onChange,
+  ref,
 }) => {
   return (
     <Stack py={3}>
@@ -80,6 +96,7 @@ const TextField: React.FC<TextFiedProps> = ({
           iconName={iconName}
           value={value}
           onChange={onChange}
+          ref={ref}
         />
       )}
     </Stack>

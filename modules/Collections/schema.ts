@@ -8,6 +8,7 @@ export const createCollectionSchema = object({
   description: string(),
   userId: string().required(),
   cards: array().of(cardDataSchema),
+  tags: array().of(string()),
 })
   .noUnknown(true)
   .strict(true);
