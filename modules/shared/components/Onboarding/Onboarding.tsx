@@ -1,17 +1,16 @@
-import React from "react";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import CheckIcon from "@/modules/shared/components/Icons/Check";
-import students from "@/public/images/Happy-student.png";
 import Link from "next/link";
+
+import CheckIcon from "@/modules/shared/components/Icons/Check";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 
 const task = ["Crea colecciones", "Estudia en comunidad", "Visualiza tus resultados"];
 
-export default function OnboardingBody() {
+const OnboardingBody = () => {
   return (
     <Flex bg="primary.200" h="100vh" color="white" direction="column" align="center" p="90px 0px">
       <Box width="250px" height="250px">
-        <Image src={students} alt="students" />
+        <Image src="/images/Happy-student.png" width={250} height={250} alt="students" />
       </Box>
       <Text textAlign="center" mt="46px" w="200px" fontSize="20px" fontWeight="600">
         ¡Les damos la bienvenida a Flash!
@@ -33,4 +32,6 @@ export default function OnboardingBody() {
       </Button>
     </Flex>
   );
-}
+};
+
+export default OnboardingBody;
