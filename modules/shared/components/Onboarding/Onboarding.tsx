@@ -10,7 +10,7 @@ const OnboardingBody = () => {
   return (
     <Flex bg="primary.200" h="100vh" color="white" direction="column" align="center" p="90px 0px">
       <Box width="250px" height="250px">
-        <Image src="/images/Happy-student.png" width={250} height={250} alt="students" />
+        <Image src="/images/Happy-student.svg" width={250} height={250} alt="students" />
       </Box>
       <Text textAlign="center" mt="46px" w="200px" fontSize="20px" fontWeight="600">
         ¡Les damos la bienvenida a Flash!
@@ -27,7 +27,7 @@ const OnboardingBody = () => {
           );
         })}
       </Flex>
-      <Button variant="secondary" w="320px" mt="40px" display={{ lg: "none" }}>
+      <Button variant="secondary" w="320px" mt="40px">
         <Link href="/">Comenzar</Link>
       </Button>
     </Flex>
