@@ -8,10 +8,8 @@ const cardSideSchema = object({
 });
 
 export const cardDataSchema = object({
-  name: string().required(),
   sideA: cardSideSchema.required(),
   sideB: cardSideSchema.required(),
-  createdAt: string().required(),
 })
   .noUnknown(true)
   .strict(true);

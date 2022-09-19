@@ -60,7 +60,7 @@ const StoragePage = () => {
               </div>
             </div>
           )}
-          {imgUrl && <img src={imgUrl} alt="uploaded file" height={200} />}
+          {imgUrl && <img className={styles.img} src={imgUrl} alt="uploaded file" height={200} />}
         </div>
         <div className={styles.previewWrapper}>
           <div className={styles.item}>

@@ -1,13 +1,18 @@
 import { NextApiHandler } from "next";
 import { collection, getDocs } from "firebase/firestore";
+import { ValidationError } from "yup";
 
+import { ClientError, MethodHandler, ResContent } from "@/modules/Api/models";
+import { createDoc } from "@/modules/Api/Services/FireStore";
+import { allowedMethods } from "@/modules/Api/utils";
 import { Collection, CollectionFirebaseData } from "@/modules/Collections/models";
+import { createCollectionSchema } from "@/modules/Collections/schema";
 import db from "@/modules/Firestore";
 
-const allowedMethods = ["GET"];
+const COLLECTION_PATH = "collections";
 
-export const getCollections = async () => {
-  const collectionsSnapshot = await getDocs(collection(db, "collections"));
+export const getCollections: NextApiHandler<Collection[]> = async (request, response) => {
+  const collectionsSnapshot = await getDocs(collection(db, COLLECTION_PATH));
   const collections: Collection[] = [];
 
   collectionsSnapshot.forEach((collectionSnapshot: any) => {
@@ -20,16 +25,31 @@ export const getCollections = async () => {
     collections.push(collectionToPush);
   });
 
-  return collections;
+  return response.json(collections);
+};
+
+const createCollection: NextApiHandler<Collection> = async (request, response) => {
+  const { body } = request;
+
+  const newCollection = await createCollectionSchema.validate(body);
+
+  const newCard = await createDoc<CollectionFirebaseData>(COLLECTION_PATH, newCollection);
+  return response.json(newCard);
 };
 
 const collectionsHandler: NextApiHandler = async (request, response) => {
-  if (!allowedMethods.includes(request.method || "")) {
-    return response.status(405).send("Method not supported");
+  try {
+    const methodHandler: MethodHandler<ResContent<Collection>> = {
+      GET: getCollections,
+      POST: createCollection,
+    };
+    await allowedMethods(methodHandler, request, response);
+  } catch (error) {
+    let code = 500;
+    if (error instanceof ValidationError) code = 400;
+    if (error instanceof ClientError) code = error.code;
+    response.status(code).send(String(error));
   }
-
-  const collections = await getCollections();
-  return response.json(collections);
 };
 
 export default collectionsHandler;

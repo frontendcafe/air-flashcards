@@ -1,12 +1,18 @@
-import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { NextPage } from "next";
+import Link from "next/link";
+import { TbLock, TbMail } from "react-icons/tb";
 
-import FormField from "@/modules/Auth/components/FormField";
+import AuthFormLayout from "@/modules/Auth/components/AuthFormLayout";
+import CustomFormControl from "@/modules/Auth/components/CustomFormControl";
 import { useAuth } from "@/modules/Auth/context/AuthProvider";
 import { signUp } from "@/modules/Auth/firebase/auth";
 import Form from "@/modules/Auth/Form";
+import { Button } from "@chakra-ui/react";
 
 const Register: NextPage & { redirectIfAuthenticated: boolean } = () => {
+  const [isError, setIsError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const { setUser } = useAuth();
   const [state, setState] = useState({
     email: "",
@@ -16,6 +22,7 @@ const Register: NextPage & { redirectIfAuthenticated: boolean } = () => {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name, value } = event.target;
+    setIsError(false);
     setState({ ...state, [name]: value });
   };
 
@@ -25,42 +32,75 @@ const Register: NextPage & { redirectIfAuthenticated: boolean } = () => {
     const { email, password, repeatPassword } = state;
 
     if (!password || !repeatPassword || !email) {
-      // eslint-disable-next-line no-alert
-      window.alert("Please fill all fields");
-      return;
+      setErrorMsg("Llena todos los campos.");
+      return setIsError(true);
     }
 
     if (password !== repeatPassword) {
-      // eslint-disable-next-line no-alert
-      window.alert("Passwords do not match");
-      return;
+      setIsError(true);
+      return setErrorMsg("Contraseña do not match.");
     }
 
     const user = await signUp(email, password);
 
     if (user) {
-      // eslint-disable-next-line no-alert
-      window.alert("User created");
-      setUser(user);
-    } else {
-      // eslint-disable-next-line no-alert
-      window.alert("User not created");
+      return setUser(user);
     }
+
+    setIsError(true);
+    setErrorMsg("Algo salio mal, user not created");
+    return setUser(null);
   };
 
   return (
-    <Form title="Registrate" onSubmit={handleSubmitRegister} submitLabel="Registrate">
-      <FormField name="email" label="Email" type="email" onChange={handleChange} />
+    <AuthFormLayout title="Hola!">
+      <Form title="" onSubmit={handleSubmitRegister} submitLabel="Crear cuenta">
+        {/* EMAIL */}
+        <CustomFormControl
+          label="Email"
+          type="email"
+          name="email"
+          LeftIcon={TbMail}
+          placeholder="Ingresa tu mail"
+          isError={isError}
+          ariaLabel="email"
+          onChange={handleChange}
+          errorMsg={errorMsg}
+        />
 
-      <FormField name="password" label="Contraseña" type="password" onChange={handleChange} />
+        {/* PASSWORD */}
+        <CustomFormControl
+          label="Contraseña"
+          type="password"
+          name="password"
+          LeftIcon={TbLock}
+          placeholder="Ingresa tu contraseña"
+          isError={isError}
+          ariaLabel="password"
+          onChange={handleChange}
+          errorMsg={errorMsg}
+        />
 
-      <FormField
-        name="repeatPassword"
-        label="Repetir Contraseña"
-        type="password"
-        onChange={handleChange}
-      />
-    </Form>
+        {/* REPEAT PASSWORD */}
+        <CustomFormControl
+          label="Contraseña"
+          type="password"
+          name="repeatPassword"
+          LeftIcon={TbLock}
+          placeholder="Repite tu contraseña"
+          isError={isError}
+          ariaLabel="repeatPassword"
+          onChange={handleChange}
+          errorMsg={errorMsg}
+        />
+
+        <Link href="/login">
+          <Button variant="link" colorScheme="blue" size="sm">
+            ¿Ya Tienes Cuenta?
+          </Button>
+        </Link>
+      </Form>
+    </AuthFormLayout>
   );
 };
 

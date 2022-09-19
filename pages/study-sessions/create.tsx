@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import { Collection } from "@/modules/Collections/models";
 import { SliderInput } from "@/modules/shared/components/SliderInput";
@@ -34,7 +35,10 @@ const CreateStudySession: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useFormWithYup<FormStudySessionData>(formSchema);
+
+  const router = useRouter();
 
   // const onSubmit = async (data: CreateStudySessionData) => {
   //   try {
@@ -53,6 +57,8 @@ const CreateStudySession: React.FC = () => {
   // };
 
   const [collections, setCollections] = useState<Collection[]>([]);
+  const [selectedCollectionCardAmount, setSelectedCollectionCardAmount] = useState<number>(0);
+  const selectedCollectionId = watch("collectionId");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,16 +70,28 @@ const CreateStudySession: React.FC = () => {
     fetchData();
   }, []);
 
-  // TODO: cada vez que cambie el collection id, pedir las cards de esa collection y actualizar un state con el maximo de cards posibles para el slider
-  // const selectedCollectionId = useWatch({..});
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/collections/${selectedCollectionId}/cards`
+      );
+      const data = await result.json();
+      setSelectedCollectionCardAmount(data.length);
+    };
 
-  // useEffect(() => {
-
-  // }, [selectedCollectionId]);
+    if (selectedCollectionId) {
+      fetchData();
+    }
+  }, [selectedCollectionId]);
 
   const onSubmit = (data: FormStudySessionData) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+    const redirectUrl = `/study-sessions/play?${new URLSearchParams({
+      collectionId: data.collectionId,
+      mode: data.mode,
+      cardsAmount: data.cardsAmount.toString(),
+    })}`;
+
+    router.push(redirectUrl);
   };
 
   return (
@@ -92,9 +110,14 @@ const CreateStudySession: React.FC = () => {
               })}
             </Select>
           </FormField>
-
-          {/** TODO: max should be cardAmounts of selected collection */}
-          <SliderInput label="Cantidad de tarjetas" {...register("cardsAmount")} max={35} min={1} />
+          {selectedCollectionCardAmount && (
+            <SliderInput
+              label="Cantidad de tarjetas"
+              {...register("cardsAmount")}
+              max={selectedCollectionCardAmount}
+              min={1}
+            />
+          )}
 
           <FormField label="Modo" error={errors.mode?.message || ""}>
             <Select placeholder="Ingresa el modo" {...register("mode")}>
@@ -105,8 +128,10 @@ const CreateStudySession: React.FC = () => {
           </FormField>
         </Stack>
 
-        {/** TODO: should be disabled if some field is not completed */}
-        <Button type="submit">Comenzar sesión</Button>
+        {/** TODO (NTH): should be disabled if some field is not completed */}
+        <Button type="submit" disabled={!selectedCollectionCardAmount}>
+          Comenzar sesión
+        </Button>
       </Stack>
     </Container>
   );

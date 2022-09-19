@@ -2,27 +2,32 @@ import React, { MouseEventHandler } from "react";
 
 /* eslint-disable import/no-extraneous-dependencies */
 import { MoodHappy, MoodSad } from "@chakra-icons/tabler-icons";
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Button, Stack } from "@chakra-ui/react";
 
-interface GameAnswerdProps {
+interface GameAnswerProps {
   disabled: boolean;
+  onClick: {
+    incorrect: MouseEventHandler<HTMLButtonElement>;
+    correct: MouseEventHandler<HTMLButtonElement>;
+  };
 }
 
 interface BoxAnswerProps {
   type: "correct" | "incorrect";
   disabled: boolean;
-  onclick?: MouseEventHandler<HTMLElement>;
+  onClick?: MouseEventHandler<HTMLElement>;
 }
 
-const BoxAnswer: React.FC<BoxAnswerProps> = ({ type, disabled, onclick }) => {
+const BoxAnswer: React.FC<BoxAnswerProps> = ({ type, disabled, onClick }) => {
   // eslint-disable-next-line no-nested-ternary
   const focusColor = disabled ? "gray.100" : type === "correct" ? "status.success" : "status.error";
 
   const label = type === "correct" ? "Lo sé" : "No la sé";
   return (
     <Box
-      as="button"
-      onClick={onclick}
+      as={Button}
+      onClick={onClick}
+      variant="unstyled"
       width="72px"
       height="56px"
       border="2px"
@@ -31,6 +36,7 @@ const BoxAnswer: React.FC<BoxAnswerProps> = ({ type, disabled, onclick }) => {
       borderColor={focusColor}
       borderRadius="md"
       py={1}
+      disabled={disabled}
     >
       <Stack align="center">
         {type === "correct" ? (
@@ -44,11 +50,11 @@ const BoxAnswer: React.FC<BoxAnswerProps> = ({ type, disabled, onclick }) => {
   );
 };
 
-const GameAnswer: React.FC<GameAnswerdProps> = ({ disabled }) => {
+const GameAnswer: React.FC<GameAnswerProps> = ({ disabled, onClick }) => {
   return (
-    <Stack direction="row" justifyContent="space-around" marginTop="10px" w="259px">
-      <BoxAnswer type="incorrect" disabled={disabled} />
-      <BoxAnswer type="correct" disabled={disabled} />
+    <Stack direction="row" justifyContent="space-between" w="full">
+      <BoxAnswer type="incorrect" disabled={disabled} onClick={onClick.incorrect} />
+      <BoxAnswer type="correct" disabled={disabled} onClick={onClick.correct} />
     </Stack>
   );
 };

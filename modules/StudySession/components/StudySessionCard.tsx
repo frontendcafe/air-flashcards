@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 
 import Trash from "../../shared/components/Icons/Trash";
+import InfoIcon from "@/modules/shared/components/Icons/Info";
 
 interface StudySessionCardProps {
   id: string;
@@ -41,6 +42,7 @@ const StudySessionCard = ({
       <Box
         bg="white"
         boxSize="xs"
+        w={{ base: "100%", desktop: "320px" }}
         h="153px"
         boxShadow="lg"
         borderColor="gray.50"
@@ -63,7 +65,14 @@ const StudySessionCard = ({
             <Box>
               <Text fontWeight="400">{name}</Text>
               <Box color="primary.50" display="flex" alignItems="center" justifyContent="start">
-                <Text fontSize="sm" bg="primary.100" borderRadius="lg" p="1" color="white">
+                <Text
+                  fontSize="sm"
+                  bg="primary.100"
+                  mt="14px"
+                  borderRadius="lg"
+                  p="5px 12px"
+                  color="white"
+                >
                   {collection}
                 </Text>
               </Box>
@@ -76,7 +85,12 @@ const StudySessionCard = ({
             <Box onClick={onOpen}>
               <Trash color="#0D378D" height={24} width={24} />
             </Box>
-            <Box fontWeight="600">{percentage}%</Box>
+            <Box display="flex" alignItems="center">
+              <Text fontWeight="500" fontSize="16px" m="0px 3px">
+                {percentage}%
+              </Text>
+              <InfoIcon width={14} height={14} />
+            </Box>
           </Flex>
         </Flex>
       </Box>

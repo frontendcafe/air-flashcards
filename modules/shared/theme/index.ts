@@ -38,7 +38,7 @@ const colors: CustomColors = {
   },
 };
 
-const components: Theme["components"] = {
+const components: any = {
   Button: {
     baseStyle: {
       height: "auto",
@@ -92,6 +92,25 @@ const components: Theme["components"] = {
         color: "label.50",
         fontWeight: 600,
         fontSize: "18px",
+      },
+      drawer: {
+        textAlign: "center",
+        color: "white",
+        fontWeight: 500,
+        fontSize: "20px",
+        marginTop: "45px",
+      },
+      navbar: {
+        textAlign: "center",
+        color: "gray.300",
+        fontWeight: 400,
+        fontSize: "19px",
+        borderBottom: "3px solid white",
+        ml: "60px",
+        _hover: {
+          color: "primary.100",
+          borderBottom: "3px solid",
+        },
       },
     },
   },
@@ -183,6 +202,19 @@ const components: Theme["components"] = {
       variant: "primary",
     },
   },
+
+  Container: {
+    variants: {
+      main: {
+        maxWidth: "auto",
+        padding: {
+          sm: "0px 21px",
+          md: "0px 48px",
+          lg: "30px 160px",
+        },
+      },
+    },
+  },
 };
 
 const fonts: Theme["fonts"] = {
@@ -197,4 +229,10 @@ const config: Theme["config"] = {
   useSystemColorMode: false,
 };
 
-export const theme = extendTheme({ colors, components, fonts, config });
+const breakpoints = {
+  mobile: "360px",
+  tablet: "834px",
+  desktop: "1440px",
+};
+
+export const theme = extendTheme({ colors, components, fonts, config, breakpoints });
