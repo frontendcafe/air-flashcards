@@ -45,7 +45,7 @@ const CollectionForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
-          userId: auth.user.uid,
+          userId: auth.user.uid || auth.user.user.uid,
           tags: data.category ? [data.category] : [],
         }),
       });
