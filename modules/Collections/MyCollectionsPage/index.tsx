@@ -36,8 +36,8 @@ const MyCollectionsPage = () => {
       flexDirection="column"
       mx={6}
       mb={20}
-      maxW="660px"
-      w={["inherit", "100%"]}
+      maxWidth="500px"
+      w={["90%"]}
     >
       <Heading
         mb={[8, 0]}
