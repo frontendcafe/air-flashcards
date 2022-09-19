@@ -32,9 +32,18 @@ const createCollection: NextApiHandler<Collection> = async (request, response) =
   const { body } = request;
 
   const newCollection = await createCollectionSchema.validate(body);
+  const { cards, ...rest } = newCollection;
 
-  const newCard = await createDoc<CollectionFirebaseData>(COLLECTION_PATH, newCollection);
-  return response.json(newCard);
+  const created = await createDoc<CollectionFirebaseData>(COLLECTION_PATH, rest);
+  if (cards) {
+    await Promise.all(
+      cards.map(async (card) => {
+        return createDoc<any>(`${COLLECTION_PATH}/${created.id}/cards`, card);
+      })
+    );
+  }
+
+  return response.json(created);
 };
 
 const collectionsHandler: NextApiHandler = async (request, response) => {
