@@ -38,9 +38,10 @@ const CollectionItem: FC<IcollectionItem> = ({ collection }) => {
             {collection.cards.length} tarjetas
           </Text>
         </Box>
-        <Box>
+        {/* TODO: ADD WHEN ITS READY */}
+        {/* <Box>
           <BsThreeDotsVertical size={20} />
-        </Box>
+        </Box> */}
       </Flex>
     </Box>
   );
