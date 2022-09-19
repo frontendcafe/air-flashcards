@@ -21,8 +21,9 @@ import MenuLogo from "../Icons/MenuLogo";
 const Links = [
   { title: "Colecciones", href: "/" },
   { title: "Sesión de estudio", href: "/study-sessions" },
-  { title: "Tienda", href: "/Tienda" },
-  { title: "Perfil", href: "/Perfil" },
+  // TODO: ADD WHEN READY
+  // { title: "Tienda", href: "/Tienda" },
+  // { title: "Perfil", href: "/Perfil" },
   { title: "Cerrar sesión", onClick: logOut },
 ];
 
