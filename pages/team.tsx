@@ -31,7 +31,7 @@ const Team = ({ team }: any) => {
           margin: "auto",
         }}
       >
-        {team?.map(({ login, avatar_url, html_url }) => {
+        {team?.map(({ login, avatar_url, html_url }: any) => {
           return (
             <li key={login}>
               <a
