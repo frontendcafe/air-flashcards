@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import Image from "next/image";
 import { AiFillGithub } from "react-icons/ai";
