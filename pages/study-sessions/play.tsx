@@ -3,12 +3,13 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 import { Card } from "@/modules/Cards/models";
+import Menu from "@/modules/shared/components/Menu/Menu";
 import GameAnswer from "@/modules/StudySession/components/GameAnswer";
 import { GameCard } from "@/modules/StudySession/components/GameCard";
 import GameStatus from "@/modules/StudySession/components/GameStatus";
 import ResumeGame from "@/modules/StudySession/components/ResumeGame";
 import { StudySessionMode } from "@/modules/StudySession/models";
-import { Box, Container, Stack } from "@chakra-ui/react";
+import { Box, Container, Flex, Stack } from "@chakra-ui/react";
 
 const parseToGameCardSide = (side: Card["sideA"] | undefined) => {
   if (!side) {
@@ -95,60 +96,65 @@ const PlayStudySession: React.FC<any> = ({ cards }) => {
   );
 
   return (
-    <Box minH="100vh">
-      <Container maxW="container.xl" m="auto">
-        <Stack spacing={4} maxW={330} mx="auto">
-          <GameStatus
-            correct={answers.correct.length}
-            incorrect={answers.incorrect.length}
-            total={cards.length}
-          />
-
-          {currentIndex < cards.length && sideA && sideB ? (
-            <>
-              <GameCard
-                sideA={sideA}
-                sideB={sideB}
-                onClick={() => {
-                  if (!cardFlipped) {
-                    setCardFlipped(!cardFlipped);
-                  }
-                }}
-                flipped={cardFlipped}
+    <div>
+      <Flex align="center" flexDir="column" maxH="100vh" overflowX="hidden">
+        <Menu />
+        <Box minH="100vh">
+          <Container maxW="container.xl" m="auto">
+            <Stack spacing={4} maxW={330} mx="auto">
+              <GameStatus
+                correct={answers.correct.length}
+                incorrect={answers.incorrect.length}
+                total={cards.length}
               />
 
-              <GameAnswer
-                disabled={!cardFlipped}
-                onClick={{
-                  correct: () => {
-                    return handleAnswers("correct");
-                  },
-                  incorrect: () => {
-                    return handleAnswers("incorrect");
-                  },
-                }}
-              />
-            </>
-          ) : (
-            <ResumeGame
-              correct={answers.correct.length}
-              incorrect={answers.incorrect.length}
-              total={cards.length}
-              onNavigate={() => {
-                router.push("/");
-              }}
-              onRestart={() => {
-                setCurrentIndex(0);
-                setAnswers({
-                  correct: [],
-                  incorrect: [],
-                });
-              }}
-            />
-          )}
-        </Stack>
-      </Container>
-    </Box>
+              {currentIndex < cards.length && sideA && sideB ? (
+                <>
+                  <GameCard
+                    sideA={sideA}
+                    sideB={sideB}
+                    onClick={() => {
+                      if (!cardFlipped) {
+                        setCardFlipped(!cardFlipped);
+                      }
+                    }}
+                    flipped={cardFlipped}
+                  />
+
+                  <GameAnswer
+                    disabled={!cardFlipped}
+                    onClick={{
+                      correct: () => {
+                        return handleAnswers("correct");
+                      },
+                      incorrect: () => {
+                        return handleAnswers("incorrect");
+                      },
+                    }}
+                  />
+                </>
+              ) : (
+                <ResumeGame
+                  correct={answers.correct.length}
+                  incorrect={answers.incorrect.length}
+                  total={cards.length}
+                  onNavigate={() => {
+                    router.push("/");
+                  }}
+                  onRestart={() => {
+                    setCurrentIndex(0);
+                    setAnswers({
+                      correct: [],
+                      incorrect: [],
+                    });
+                  }}
+                />
+              )}
+            </Stack>
+          </Container>
+        </Box>
+      </Flex>
+    </div>
   );
 };
 
