@@ -50,7 +50,7 @@ const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
       <Form title="" onSubmit={handleSubmitLogin} submitLabel="Iniciar Sesión">
         {/* EMAIL */}
         <CustomFormControl
-          label="Email"
+          label="Mail"
           type="email"
           name="email"
           LeftIcon={TbMail}
@@ -81,13 +81,13 @@ const LoginPage: NextPage & { redirectIfAuthenticated: boolean } = () => {
             colorScheme="blue"
             size="sm"
           >
-            ¿Olvidastes tu contraseña?
+            ¿Olvidaste tu contraseña?
           </Button>
         </Link>
       </Form>
       <Link href="/register">
         <Button variant="link" colorScheme="blue" size="sm">
-          Crea tu Cuenta
+          Crea tu cuenta
         </Button>
       </Link>
     </AuthFormLayout>

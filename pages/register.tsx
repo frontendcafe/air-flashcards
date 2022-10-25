@@ -57,7 +57,7 @@ const Register: NextPage & { redirectIfAuthenticated: boolean } = () => {
       <Form title="" onSubmit={handleSubmitRegister} submitLabel="Crear cuenta">
         {/* EMAIL */}
         <CustomFormControl
-          label="Email"
+          label="Mail"
           type="email"
           name="email"
           LeftIcon={TbMail}

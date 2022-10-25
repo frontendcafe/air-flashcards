@@ -74,17 +74,22 @@ const CollectionForm = () => {
                 );
               }}
             />
-
-            <Controller
-              control={control}
-              name="category"
-              render={({ field: { onChange, value, ref } }) => {
-                return (
-                  <Select label="Categoria" option={categories} onChange={onChange} value={value} />
-                );
-              }}
-            />
-
+            <div style={{ width: "320px" }}>
+              <Controller
+                control={control}
+                name="category"
+                render={({ field: { onChange, value, ref } }) => {
+                  return (
+                    <Select
+                      label="Categoria"
+                      option={categories}
+                      onChange={onChange}
+                      value={value}
+                    />
+                  );
+                }}
+              />
+            </div>
             <Controller
               control={control}
               name="description"
@@ -99,9 +104,7 @@ const CollectionForm = () => {
                 );
               }}
             />
-
             {fields.length ? <Text variant="label">Crear Tarjetas</Text> : null}
-
             {fields.map((field, index) => {
               return (
                 <fieldset key={field.id}>
@@ -116,7 +119,6 @@ const CollectionForm = () => {
                 </fieldset>
               );
             })}
-
             <Button
               type="button"
               variant="outline"

@@ -5,13 +5,13 @@ import { Button, Container, Divider, Input, Stack, Text } from "@chakra-ui/react
 
 const CardForm = ({ index, remove, control, register }: any) => {
   return (
-    <Container maxW="container.xl">
+    <Container maxW="container.xl" style={{ padding: 0 }}>
       <Divider />
 
       <Stack py={8} spacing={12}>
         <Stack spacing={6}>
           <Text variant="label" as="label">
-            Tarjeta número {index + 1}
+            Tarjeta {index + 1}
           </Text>
 
           <Text variant="label" as="label">
